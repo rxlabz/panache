@@ -778,12 +778,14 @@ class SizeSelector extends StatelessWidget {
       child: new Row(
         children: <Widget>[
           new Text("Font size"),
-          new Slider(
-            value: value,
-            onChanged: onValueChanged,
-            min: min,
-            max: max,
-          ),
+          new ConstrainedBox(
+              constraints: new BoxConstraints(maxWidth: 120.0),
+              child: new Slider(
+                value: value,
+                onChanged: onValueChanged,
+                min: min,
+                max: max,
+              )),
           new Text("${value.toStringAsFixed(1)}"),
         ],
       ),

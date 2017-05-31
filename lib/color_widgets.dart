@@ -148,10 +148,10 @@ class ColorSelector extends StatelessWidget {
                  new ConstrainedBox(
                      child: new Text(
                        label,
-                       maxLines: 2,
-                       style: Theme.of(context).textTheme.subhead,
+                       maxLines: 3,
+                       style: Theme.of(context).textTheme.body2,
                      ),
-                     constraints: new BoxConstraints.tightFor(width: 160.0)),
+                     constraints: new BoxConstraints.tightFor(width: 90.0)),
                  new InkWell(
                    onTap: () => openColorMenu(context, onSelection: onSelection),
                    child: new ColorSwatch(value),
