@@ -1,8 +1,14 @@
-# Flutterial WIP
+# Flutterial 
 
-A Flutter Theme explorer 
+A Flutter Material design Theme explorer - WIP 
+
+## Material colors
 
 ![screenshot](screenshot.png)
+
+## Text Theme
+
+![screenshot2](screenshot2.png)
 
 ## Todo
 
@@ -10,10 +16,10 @@ A Flutter Theme explorer
 - [ ] Save
 - [ ] Export / Import
 - [ ] IconTheme preview
-- [ ] materials colors shades
+- [ ] material colors shades
 - [ ] colors opacity
-- [ ] mobile
-- [ ] web
+- [ ] mobile version
+- [ ] web version
 - ...
 
 ## Getting Started
