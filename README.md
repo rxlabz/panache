@@ -1,6 +1,6 @@
-# Flutterial
+# Flutterial WIP
 
-A Flutter Theme explorer
+A Flutter Theme explorer 
 
 ![screenshot](screenshot.png)
 
