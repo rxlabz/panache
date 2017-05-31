@@ -1,0 +1,12 @@
+name: flutterial
+description: Flutter Material Theme explorer
+version: 0.0.1
+author: Erick Ghaumez <erick@rxla.bz>
+homepage: https://github.com/rxlabz/flutterial
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
