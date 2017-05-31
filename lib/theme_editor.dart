@@ -110,7 +110,7 @@ class ThemeEditorState extends State<ThemeEditor> {
                     children: [
                       _buildColorsPanel(),
                       _buildTextPanel(),
-                      _buildPrimaryTextPanel(),
+                      /*_buildPrimaryTextPanel(),*/
                     ])
               ],
             )));
