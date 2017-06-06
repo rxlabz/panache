@@ -1,6 +1,6 @@
 # Flutterial 
 
-A Flutter Material design Theme explorer - WIP 
+A Flutter Material design Theme explorer (tablet only) - WIP 
 
 ## Material colors
 

@@ -7,6 +7,11 @@ homepage: https://github.com/rxlabz/flutterial
 dependencies:
   flutter:
     sdk: flutter
+  path_provider:
+  flutterial_components:
+    path: /Users/rxlabz/dev/projects/flutterial_components
 
 flutter:
   uses-material-design: true
+  assets:
+      - assets/theme.json

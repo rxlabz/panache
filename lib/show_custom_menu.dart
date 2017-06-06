@@ -16,7 +16,7 @@ const double _kMenuScreenPadding = 12.0;
 
 /// fait pousser une route au Navigator
 /// la position est attendue
-Future<T> showCustomMenu<T>(
+Future<T> showGridMenu<T>(
     {@required BuildContext context,
     RelativeRect position,
     @required List<PopupMenuEntry<T>> items,

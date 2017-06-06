@@ -2,121 +2,97 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterial/color_widgets.dart';
+import 'package:flutterial/components/panel_header.dart';
+import 'package:flutterial_components/flutterial_components.dart';
 
 const double kPadding = 8.0;
 
 class ThemeEditor extends StatefulWidget {
-  final ThemeData currentTheme;
+  final ThemeService service;
+  ThemeData get currentTheme => service.theme;
+  //final ThemeData currentTheme;
   final ValueChanged<ThemeData> themeChangedHandler;
   final ValueChanged<bool> onTargetChanged;
   final bool androidMode;
   final ValueChanged<bool> onBaseThemeChanged;
   final bool hasDarkBase;
-
-  final ColorChanged updatePrimaryColor;
   final ValueChanged<bool> onPrimaryBrightnessChanged;
-  final ColorChanged updateAccentColor;
   final ValueChanged<bool> onAccentBrightnessChanged;
-  final ColorChanged updateScaffoldBGColor;
-  final ValueChanged<bool> onBrightnessChanged;
-  final ColorChanged updateDividerColor;
-  final ColorChanged updateButtonColor;
-  final ColorChanged updateCanvasColor;
-  final ColorChanged updateCardColor;
-  final ColorChanged updateDisabledColor;
-  final ColorChanged updateBackgroundColor;
-  final ColorChanged updateHighlightColor;
-  final ColorChanged updateSplashColor;
-  final ColorChanged updateIndicatorColor;
-  final ColorChanged updateSelectedRowColor;
-  final ColorChanged updateUnselectedWidgetColor;
-  final ColorChanged updateSecondaryHeaderColor;
-  final ColorChanged updateTextSelectionColor;
-  final ColorChanged updateDialogBackgroundColor;
-  final ColorChanged updateHintColor;
-  final ColorChanged updateErrorColor;
-  final ColorChanged updateTextSelectionHandleColor;
 
   ThemeEditor({
-    @required this.currentTheme,
+    @required this.service,
+    /*@required this.currentTheme,*/
     @required this.themeChangedHandler,
+    @required this.onBaseThemeChanged,
+    @required this.hasDarkBase,
     @required this.onTargetChanged,
     @required this.androidMode,
-    @required this.onBaseThemeChanged,
-    @required this.updatePrimaryColor,
-    @required this.updateAccentColor,
-    @required this.updateScaffoldBGColor,
-    @required this.hasDarkBase,
-    @required this.updateDividerColor,
-    @required this.updateButtonColor,
-    @required this.updateCanvasColor,
-    @required this.updateCardColor,
-    @required this.updateDisabledColor,
-    @required this.updateBackgroundColor,
-    @required this.updateHighlightColor,
-    @required this.updateSplashColor,
-    @required this.updateIndicatorColor,
     @required this.onPrimaryBrightnessChanged,
     @required this.onAccentBrightnessChanged,
-    @required this.onBrightnessChanged,
-    @required this.updateSelectedRowColor,
-    @required this.updateUnselectedWidgetColor,
-    @required this.updateSecondaryHeaderColor,
-    @required this.updateTextSelectionColor,
-    @required this.updateDialogBackgroundColor,
-    @required this.updateHintColor,
-    @required this.updateErrorColor,
-    @required this.updateTextSelectionHandleColor,
   });
 
   @override
-  State<StatefulWidget> createState() => new ThemeEditorState(currentTheme);
+  State<StatefulWidget> createState() => new ThemeEditorState(service);
 }
 
+const h3 = const TextStyle(
+    fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.blueGrey);
+
 class ThemeEditorState extends State<ThemeEditor> {
+  final ThemeService service;
+
   bool colorPanelExpanded = true;
   bool textPanelExpanded = false;
   bool primaryTextPanelExpanded = false;
   bool accentTextPanelExpanded = false;
-  ThemeData theme;
+  ThemeData _theme;
 
-  final h3 = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.blueGrey);
+  ThemeData get theme => _theme;
 
-  ThemeEditorState(this.theme);
+  void set theme(ThemeData theme) {
+    _theme = theme;
+    widget.themeChangedHandler(theme);
+  }
+
+  ThemeEditorState(this.service);
+
+  @override
+  void initState() {
+    super.initState();
+    service.themeNotifier.addListener(() => setState(() {
+          _theme = service.themeNotifier.value;
+        }));
+  }
 
   @override
   void didUpdateWidget(ThemeEditor oldWidget) {
     super.didUpdateWidget(oldWidget);
-    theme = widget.currentTheme;
+    _theme = widget.currentTheme;
   }
 
   @override
-  Widget build(BuildContext context) {
-    print(
-        'ThemeEditorState.build => widget.currentTheme.textTheme.body1.fontSize,'
-        ' ${widget.currentTheme.textTheme.body1.fontSize}');
-    return new Container(
-        color: Colors.grey.shade200,
-        child: new Padding(
-            padding: new EdgeInsets.only(top: 24.0),
-            child: new ListView(
-              children: <Widget>[
-                new Padding(
-                    padding: new EdgeInsets.all(8.0),
-                    child: _buildGlobalOptionsBar()),
-                new ExpansionPanelList(
-                    expansionCallback: onExpansionPanelUpdate,
-                    children: [
-                      _buildColorsPanel(),
-                      _buildTextPanel(),
-                      /*_buildPrimaryTextPanel(),*/
-                    ])
-              ],
-            )));
-  }
+  Widget build(BuildContext context) => theme == null
+      ? new Center(child: new Text("loading"))
+      : new Container(
+          color: Colors.grey.shade200,
+          child: new Padding(
+              padding: new EdgeInsets.only(top: 24.0),
+              child: new ListView(
+                children: <Widget>[
+                  new Padding(
+                      padding: new EdgeInsets.all(8.0),
+                      child: _buildGlobalOptionsBar()),
+                  new ExpansionPanelList(
+                      expansionCallback: onExpansionPanelUpdate,
+                      children: [
+                        _buildColorsPanel(),
+                        _buildTextPanel(),
+                        /*_buildPrimaryTextPanel(),*/
+                      ])
+                ],
+              )));
 
-  _buildGlobalOptionsBar() => new Row(children: [
+  Widget _buildGlobalOptionsBar() => new Row(children: [
         new Text('Platform Android'),
         new Switch(
             onChanged: widget.onTargetChanged, value: widget.androidMode),
@@ -126,7 +102,7 @@ class ThemeEditorState extends State<ThemeEditor> {
         new Switch(
             onChanged: widget.onBaseThemeChanged, value: widget.hasDarkBase),
         new Text('Dark'),
-        new Expanded(child: new Container()),
+        /*new Expanded(child: new Container()),*/
       ]);
 
   onExpansionPanelUpdate(int panelIndex, bool isExpanded) => setState(() {
@@ -148,45 +124,29 @@ class ThemeEditorState extends State<ThemeEditor> {
         }
       });
 
-  _buildTextPanel() => new ExpansionPanel(
+  ExpansionPanel _buildTextPanel() => new ExpansionPanel(
       isExpanded: textPanelExpanded,
-      headerBuilder: (context, isExpanded) => new Center(
-              child: new Row(children: [
-            new Icon(
-              Icons.font_download,
-              color: Colors.grey,
-            ),
-            new Text(
-              'Text Theme',
-              style: Theme.of(context).textTheme.headline,
-            ),
-          ])),
+      headerBuilder: (context, isExpanded) => new ExpanderHeader(
+          label: 'Text Theme', icon: Icons.font_download, color: Colors.grey),
       body: new Padding(
           padding: new EdgeInsets.all(8.0),
           child: new Column(
             children: getTextThemeEditorChildren(),
           )));
 
-  _buildPrimaryTextPanel() => new ExpansionPanel(
+  ExpansionPanel _buildPrimaryTextPanel() => new ExpansionPanel(
       isExpanded: primaryTextPanelExpanded,
-      headerBuilder: (context, isExpanded) => new Center(
-              child: new Row(children: [
-            new Icon(
-              Icons.font_download,
-              color: theme.primaryColor,
-            ),
-            new Text(
-              'Primary Text Theme',
-              style: Theme.of(context).textTheme.headline,
-            ),
-          ])),
+      headerBuilder: (context, isExpanded) => new ExpanderHeader(
+          label: 'Primary Text Theme',
+          icon: Icons.font_download,
+          color: Colors.grey),
       body: new Padding(
           padding: new EdgeInsets.all(8.0),
           child: new Column(
             children: getTextThemeEditorChildren(),
           )));
 
-  _getTextThemeForm(
+  Widget _getTextThemeForm(
     String label, {
     @required ColorChanged onColorChanged,
     @required ValueChanged<double> onSizeChanged,
@@ -196,147 +156,167 @@ class ThemeEditorState extends State<ThemeEditor> {
     @required double fontSize,
     @required bool isBold,
     @required bool isItalic,
-  }) {
-    return new Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        new Align(
-            alignment: FractionalOffset.centerLeft,
-            child: new Text(
-              label,
-              style: h3,
-              textAlign: TextAlign.left,
-            )),
-        getFieldRow(getColorSelector('Color', colorValue, onColorChanged),
-            getSizeSelector(fontSize, onSizeChanged, min: 8.0)),
-        getFieldRow(
-            new Row(
-              children: <Widget>[
-                new Text('FontWeight : Normal '),
-                new Switch(value: isBold, onChanged: onWeightChanged),
-                new Text(' Bold'),
-              ],
+  }) =>
+      new Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          new Align(
+              alignment: FractionalOffset.centerLeft,
+              child: new Text(
+                label,
+                style: h3,
+                textAlign: TextAlign.left,
+              )),
+          getFieldRow(getColorSelector('Color', colorValue, onColorChanged),
+              getSizeSelector(fontSize, onSizeChanged, min: 8.0)),
+          getFieldRow(
+              new Row(
+                children: <Widget>[
+                  new Text('FontWeight : Normal '),
+                  new Switch(value: isBold, onChanged: onWeightChanged),
+                  new Text(' Bold'),
+                ],
+              ),
+              new Row(
+                children: <Widget>[
+                  new Text('FontStyle: Normal '),
+                  new Switch(value: isItalic, onChanged: onFontStyleChanged),
+                  new Text(' Italic'),
+                ],
+              )),
+        ],
+      );
+
+  ExpansionPanel _buildColorsPanel() {
+    final currentTheme = widget.currentTheme;
+    return new ExpansionPanel(
+        isExpanded: colorPanelExpanded,
+        headerBuilder: (context, isExpanded) => new ExpanderHeader(
+              icon: Icons.color_lens,
+              color: currentTheme.primaryColor,
+              label: 'Colors',
             ),
-            new Row(
+        body: new Padding(
+            padding: new EdgeInsets.all(kPadding),
+            child: new Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                new Text('FontStyle: Normal '),
-                new Switch(value: isItalic, onChanged: onFontStyleChanged),
-                new Text(' Italic'),
+                getColorBrightnessSelector(
+                    label: 'Primary color',
+                    currentColor: currentTheme.primaryColor,
+                    changeHandler: (c) =>
+                        updateColor(property: "primaryColor", color: c),
+                    isDark:
+                        currentTheme.primaryColorBrightness == Brightness.dark,
+                    brightnessChangeHandler: widget.onPrimaryBrightnessChanged),
+                getColorBrightnessSelector(
+                    label: 'Accent color',
+                    currentColor: currentTheme.accentColor,
+                    changeHandler: (c) =>
+                        updateColor(property: "accentColor", color: c),
+                    isDark:
+                        currentTheme.accentColorBrightness == Brightness.dark,
+                    brightnessChangeHandler: widget.onAccentBrightnessChanged),
+                getColorBrightnessSelector(
+                    label: 'Scaffold background color',
+                    currentColor: currentTheme.scaffoldBackgroundColor,
+                    changeHandler: (c) => updateColor(
+                        property: "scaffoldBackgroundColor", color: c),
+                    isDark: currentTheme.brightness == Brightness.dark,
+                    brightnessChangeHandler: (isDark) => setState(() => theme =
+                        currentTheme.copyWith(
+                            brightness:
+                                isDark ? Brightness.dark : Brightness.light))),
+                getFieldRow(
+                  getColorSelector('Button color', currentTheme.buttonColor,
+                      (c) => updateColor(property: "buttonColor", color: c)),
+                  getColorSelector('Divider color', currentTheme.dividerColor,
+                      (c) => updateColor(property: "dividerColor", color: c)),
+                ),
+                getFieldRow(
+                  getColorSelector('Canvas color', currentTheme.canvasColor,
+                      (c) => updateColor(property: "canvasColor", color: c)),
+                  getColorSelector('Card color', currentTheme.cardColor,
+                      (c) => updateColor(property: "cardColor", color: c)),
+                ),
+                getFieldRow(
+                  getColorSelector('Disabled color', currentTheme.disabledColor,
+                      (c) => updateColor(property: "disabledColor", color: c)),
+                  getColorSelector(
+                      'Background color',
+                      currentTheme.backgroundColor,
+                      (c) =>
+                          updateColor(property: "backgroundColor", color: c)),
+                ),
+                getFieldRow(
+                    getColorSelector(
+                        'Highlight color',
+                        currentTheme.highlightColor,
+                        (c) =>
+                            updateColor(property: "highlightColor", color: c)),
+                    getColorSelector('Splash color', currentTheme.splashColor,
+                        (c) => updateColor(property: "splashColor", color: c))),
+                getFieldRow(
+                    getColorSelector(
+                        'Dialog background color',
+                        currentTheme.dialogBackgroundColor,
+                        (c) => updateColor(
+                            property: "dialogBackgroundColor", color: c)),
+                    getColorSelector('Hint color', currentTheme.hintColor,
+                        (c) => updateColor(property: "hintColor", color: c))),
+                getFieldRow(
+                    getColorSelector('Error color', currentTheme.errorColor,
+                        (c) => updateColor(property: "errorColor", color: c)),
+                    getColorSelector(
+                        'Indicator color',
+                        currentTheme.indicatorColor,
+                        (c) =>
+                            updateColor(property: "indicatorColor", color: c))),
+                getFieldRow(
+                    getColorSelector(
+                        'Selected row color',
+                        currentTheme.selectedRowColor,
+                        (c) => updateColor(
+                            property: "selectedRowColor", color: c)),
+                    getColorSelector(
+                        'Unselected widget color',
+                        currentTheme.unselectedWidgetColor,
+                        (c) => updateColor(
+                            property: "unselectedWidgetColor", color: c))),
+                getFieldRow(
+                    getColorSelector(
+                        'Secondary header widget color',
+                        currentTheme.secondaryHeaderColor,
+                        (c) => updateColor(
+                            property: "secondaryHeaderColor", color: c)),
+                    getColorSelector(
+                        'Text selection color',
+                        currentTheme.textSelectionColor,
+                        (c) => updateColor(
+                            property: "textSelectionColor", color: c))),
+                getColorSelector(
+                    'Text selection handler color',
+                    currentTheme.textSelectionHandleColor,
+                    (c) => updateColor(
+                        property: "textSelectionHandleColor", color: c)),
               ],
-            )),
-      ],
-    );
+            )));
   }
 
-  _buildColorsPanel() => new ExpansionPanel(
-      isExpanded: colorPanelExpanded,
-      headerBuilder: (context, isExpanded) => new ExpanderHeader(
-            icon: Icons.color_lens,
-            color: theme.primaryColor,
-            label: 'Colors',
-          ),
-      body: new Padding(
-          padding: new EdgeInsets.all(kPadding),
-          child: new Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              getColorBrightnessSelector(
-                  label: 'Primary color',
-                  currentColor: widget.currentTheme.primaryColor,
-                  changeHandler: widget.updatePrimaryColor,
-                  isDark: widget.currentTheme.primaryColorBrightness ==
-                      Brightness.dark,
-                  brightnessChangeHandler: widget.onPrimaryBrightnessChanged),
-              getColorBrightnessSelector(
-                  label: 'Accent color',
-                  currentColor: widget.currentTheme.accentColor,
-                  changeHandler: widget.updateAccentColor,
-                  isDark: widget.currentTheme.accentColorBrightness ==
-                      Brightness.dark,
-                  brightnessChangeHandler: widget.onAccentBrightnessChanged),
-              getColorBrightnessSelector(
-                  label: 'Scaffold background color',
-                  currentColor: widget.currentTheme.scaffoldBackgroundColor,
-                  changeHandler: widget.updateScaffoldBGColor,
-                  isDark: widget.currentTheme.brightness == Brightness.dark,
-                  brightnessChangeHandler: widget.onBrightnessChanged),
-              getFieldRow(
-                getColorSelector('Button color',
-                    widget.currentTheme.buttonColor, widget.updateButtonColor),
-                getColorSelector(
-                    'Divider color',
-                    widget.currentTheme.dividerColor,
-                    widget.updateDividerColor),
-              ),
-              getFieldRow(
-                getColorSelector('Canvas color',
-                    widget.currentTheme.canvasColor, widget.updateCanvasColor),
-                getColorSelector('Card color', widget.currentTheme.cardColor,
-                    widget.updateCardColor),
-              ),
-              getFieldRow(
-                getColorSelector(
-                    'Disabled color',
-                    widget.currentTheme.disabledColor,
-                    widget.updateDisabledColor),
-                getColorSelector(
-                    'Background color',
-                    widget.currentTheme.backgroundColor,
-                    widget.updateBackgroundColor),
-              ),
-              getFieldRow(
-                  getColorSelector(
-                      'Highlight color',
-                      widget.currentTheme.highlightColor,
-                      widget.updateHighlightColor),
-                  getColorSelector(
-                      'Splash color',
-                      widget.currentTheme.splashColor,
-                      widget.updateSplashColor)),
-              getFieldRow(
-                  getColorSelector(
-                      'Dialog background color',
-                      widget.currentTheme.dialogBackgroundColor,
-                      widget.updateDialogBackgroundColor),
-                  getColorSelector('Hint color', widget.currentTheme.hintColor,
-                      widget.updateHintColor)),
-              getFieldRow(
-                  getColorSelector('Error color',
-                      widget.currentTheme.errorColor, widget.updateErrorColor),
-                  getColorSelector(
-                      'Indicator color',
-                      widget.currentTheme.indicatorColor,
-                      widget.updateIndicatorColor)),
-              getFieldRow(
-                  getColorSelector(
-                      'Selected row color',
-                      widget.currentTheme.selectedRowColor,
-                      widget.updateSelectedRowColor),
-                  getColorSelector(
-                      'Unselected widget color',
-                      widget.currentTheme.unselectedWidgetColor,
-                      widget.updateUnselectedWidgetColor)),
-              getFieldRow(
-                  getColorSelector(
-                      'Secondary header widget color',
-                      widget.currentTheme.secondaryHeaderColor,
-                      widget.updateSecondaryHeaderColor),
-                  getColorSelector(
-                      'Text selection color',
-                      widget.currentTheme.textSelectionColor,
-                      widget.updateTextSelectionColor)),
-              getColorSelector(
-                  'Text selection handler color',
-                  widget.currentTheme.textSelectionHandleColor,
-                  widget.updateTextSelectionHandleColor),
-            ],
-          )));
+  void updateColor({String property, Color color}) {
+    final args = <Symbol, dynamic>{};
+    args[new Symbol(property)] = color;
+    setState(() {
+      theme = Function.apply(theme.copyWith, null, args);
+      /*widget.themeChangedHandler(theme);*/
+    });
+  }
 
   Widget getColorBrightnessSelector(
           {String label,
           Color currentColor,
           ColorChanged changeHandler,
-          /*String label, */ bool isDark,
+          bool isDark,
           ValueChanged<bool> brightnessChangeHandler}) =>
       new Row(
           mainAxisSize: MainAxisSize.max,
@@ -366,398 +346,330 @@ class ThemeEditorState extends State<ThemeEditor> {
       new BrightnessSelector(
           label: label, isDark: isDark, onChange: changeHandler);
 
-  List<Widget> getTextThemeEditorChildren() => <Widget>[
-        _getTextThemeForm('Body 1',
-            colorValue: widget.currentTheme.textTheme.body1.color,
-            fontSize: widget.currentTheme.textTheme.body1.fontSize,
-            isBold: widget.currentTheme.textTheme.body1.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.body1.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body1: widget.currentTheme.textTheme.body1
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body1: widget.currentTheme.textTheme.body1
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body1: widget.currentTheme.textTheme.body1.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body1: widget.currentTheme.textTheme.body1.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Body 2',
-            colorValue: widget.currentTheme.textTheme.body2.color,
-            fontSize: widget.currentTheme.textTheme.body2.fontSize,
-            isBold: widget.currentTheme.textTheme.body2.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.body2.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body2: widget.currentTheme.textTheme.body2
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body2: widget.currentTheme.textTheme.body2
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body2: widget.currentTheme.textTheme.body2.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    body2: widget.currentTheme.textTheme.body2.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Headline',
-            colorValue: widget.currentTheme.textTheme.headline.color,
-            fontSize: widget.currentTheme.textTheme.headline.fontSize,
-            isBold: widget.currentTheme.textTheme.headline.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.headline.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    headline: widget.currentTheme.textTheme.headline
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    headline: widget.currentTheme.textTheme.headline
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    headline: widget.currentTheme.textTheme.headline.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    headline: widget.currentTheme.textTheme.headline.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Subhead',
-            colorValue: widget.currentTheme.textTheme.subhead.color,
-            fontSize: widget.currentTheme.textTheme.subhead.fontSize,
-            isBold: widget.currentTheme.textTheme.subhead.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.subhead.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    subhead: widget.currentTheme.textTheme.subhead
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    subhead: widget.currentTheme.textTheme.subhead
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    subhead: widget.currentTheme.textTheme.subhead.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    subhead: widget.currentTheme.textTheme.subhead.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Title',
-            colorValue: widget.currentTheme.textTheme.title.color,
-            fontSize: widget.currentTheme.textTheme.title.fontSize,
-            isBold: widget.currentTheme.textTheme.title.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.title.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    title: widget.currentTheme.textTheme.title
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    title: widget.currentTheme.textTheme.title
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    title: widget.currentTheme.textTheme.title.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    title: widget.currentTheme.textTheme.title.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Button',
-            colorValue: widget.currentTheme.textTheme.button.color,
-            fontSize: widget.currentTheme.textTheme.button.fontSize,
-            isBold: widget.currentTheme.textTheme.button.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.button.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    button: widget.currentTheme.textTheme.button
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    button: widget.currentTheme.textTheme.button
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    button: widget.currentTheme.textTheme.button.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    button: widget.currentTheme.textTheme.button.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Display 1',
-            colorValue: widget.currentTheme.textTheme.display1.color,
-            fontSize: widget.currentTheme.textTheme.display1.fontSize,
-            isBold: widget.currentTheme.textTheme.display1.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.display1.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display1: widget.currentTheme.textTheme.display1
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display1: widget.currentTheme.textTheme.display1
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display1: widget.currentTheme.textTheme.display1.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display1: widget.currentTheme.textTheme.display1.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Display 2',
-            colorValue: widget.currentTheme.textTheme.display2.color,
-            fontSize: widget.currentTheme.textTheme.display2.fontSize,
-            isBold: widget.currentTheme.textTheme.display2.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.display2.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display2: widget.currentTheme.textTheme.display2
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display2: widget.currentTheme.textTheme.display2
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display2: widget.currentTheme.textTheme.display2.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display2: widget.currentTheme.textTheme.display2.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Display 3',
-            colorValue: widget.currentTheme.textTheme.display3.color,
-            fontSize: widget.currentTheme.textTheme.display3.fontSize,
-            isBold: widget.currentTheme.textTheme.display3.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.display3.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display3: widget.currentTheme.textTheme.display3
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display3: widget.currentTheme.textTheme.display3
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display3: widget.currentTheme.textTheme.display3.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display3: widget.currentTheme.textTheme.display3.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-        _getTextThemeForm('Display 4',
-            colorValue: widget.currentTheme.textTheme.display4.color,
-            fontSize: widget.currentTheme.textTheme.display4.fontSize,
-            isBold: widget.currentTheme.textTheme.display4.fontWeight ==
-                FontWeight.bold,
-            isItalic: widget.currentTheme.textTheme.display4.fontStyle ==
-                FontStyle.italic, onColorChanged: (c) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display4: widget.currentTheme.textTheme.display4
-                        .copyWith(color: c)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onSizeChanged: (s) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display4: widget.currentTheme.textTheme.display4
-                        .copyWith(fontSize: s)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onWeightChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display4: widget.currentTheme.textTheme.display4.copyWith(
-                        fontWeight: v ? FontWeight.bold : FontWeight.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }, onFontStyleChanged: (v) {
-          setState(() {
-            theme = theme.copyWith(
-                textTheme: widget.currentTheme.textTheme.copyWith(
-                    display4: widget.currentTheme.textTheme.display4.copyWith(
-                        fontStyle: v ? FontStyle.italic : FontStyle.normal)));
-            widget.themeChangedHandler(theme);
-          });
-        }),
-      ];
+  List<Widget> getTextThemeEditorChildren() {
+    final txtTheme = widget.currentTheme.textTheme;
+    final body1 = txtTheme.body1;
+    final body2 = txtTheme.body2;
+    final headline = txtTheme.headline;
+    final subhead = txtTheme.subhead;
+    final title = txtTheme.title;
+    final button = txtTheme.button;
+    final display1 = txtTheme.display1;
+    final display2 = txtTheme.display2;
+    final display3 = txtTheme.display3;
+    final display4 = txtTheme.display4;
+
+    return <Widget>[
+      _getTextThemeForm('Body 1',
+          colorValue: body1.color,
+          fontSize: body1.fontSize,
+          isBold: body1.fontWeight == FontWeight.bold,
+          isItalic: body1.fontStyle == FontStyle.italic, onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(body1: body1.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(body1: body1.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  body1: body1.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  body1: body1.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Body 2',
+          colorValue: body2.color,
+          fontSize: body2.fontSize,
+          isBold: body2.fontWeight == FontWeight.bold,
+          isItalic: body2.fontStyle == FontStyle.italic, onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(body2: body2.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(body2: body2.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  body2: body2.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  body2: body2.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Headline',
+          colorValue: headline.color,
+          fontSize: headline.fontSize,
+          isBold: headline.fontWeight == FontWeight.bold,
+          isItalic: headline.fontStyle == FontStyle.italic,
+          onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(headline: headline.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(headline: headline.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  headline: headline.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  headline: headline.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Subhead',
+          colorValue: subhead.color,
+          fontSize: subhead.fontSize,
+          isBold: subhead.fontWeight == FontWeight.bold,
+          isItalic: subhead.fontStyle == FontStyle.italic, onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(subhead: subhead.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(subhead: subhead.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  subhead: subhead.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  subhead: subhead.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Title',
+          colorValue: title.color,
+          fontSize: title.fontSize,
+          isBold: title.fontWeight == FontWeight.bold,
+          isItalic: title.fontStyle == FontStyle.italic, onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(title: title.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(title: title.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  title: title.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  title: title.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Button',
+          colorValue: button.color,
+          fontSize: button.fontSize,
+          isBold: button.fontWeight == FontWeight.bold,
+          isItalic: button.fontStyle == FontStyle.italic, onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(button: button.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(button: button.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  button: button.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  button: button.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Display 1',
+          colorValue: display1.color,
+          fontSize: display1.fontSize,
+          isBold: display1.fontWeight == FontWeight.bold,
+          isItalic: display1.fontStyle == FontStyle.italic,
+          onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display1: display1.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display1: display1.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display1: display1.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display1: display1.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Display 2',
+          colorValue: display2.color,
+          fontSize: display2.fontSize,
+          isBold: display2.fontWeight == FontWeight.bold,
+          isItalic: display2.fontStyle == FontStyle.italic,
+          onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display2: display2.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display2: display2.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display2: display2.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display2: display2.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Display 3',
+          colorValue: display3.color,
+          fontSize: display3.fontSize,
+          isBold: display3.fontWeight == FontWeight.bold,
+          isItalic: display3.fontStyle == FontStyle.italic,
+          onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display3: display3.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display3: display3.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display3: display3.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display3: display3.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+      _getTextThemeForm('Display 4',
+          colorValue: display4.color,
+          fontSize: display4.fontSize,
+          isBold: display4.fontWeight == FontWeight.bold,
+          isItalic: display4.fontStyle == FontStyle.italic,
+          onColorChanged: (c) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display4: display4.copyWith(color: c)));
+        });
+      }, onSizeChanged: (s) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme:
+                  txtTheme.copyWith(display4: display4.copyWith(fontSize: s)));
+        });
+      }, onWeightChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display4: display4.copyWith(
+                      fontWeight: v ? FontWeight.bold : FontWeight.normal)));
+        });
+      }, onFontStyleChanged: (v) {
+        setState(() {
+          theme = theme.copyWith(
+              textTheme: txtTheme.copyWith(
+                  display4: display4.copyWith(
+                      fontStyle: v ? FontStyle.italic : FontStyle.normal)));
+        });
+      }),
+    ];
+  }
 }
 
 SizeSelector getSizeSelector(value, onValueChanged, {min: 0.0, max: 112.0}) =>
@@ -791,25 +703,4 @@ class SizeSelector extends StatelessWidget {
       ),
     );
   }
-}
-
-class ExpanderHeader extends StatelessWidget {
-  final Color color;
-  final String label;
-  final IconData icon;
-
-  ExpanderHeader(
-      {@required this.color, @required this.label, @required this.icon});
-
-  @override
-  Widget build(BuildContext context) => new Row(children: [
-        new Icon(
-          icon,
-          color: color,
-        ),
-        new Text(
-          label,
-          style: Theme.of(context).textTheme.headline,
-        ),
-      ]);
 }

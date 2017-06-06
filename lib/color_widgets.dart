@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterial/show_custom_menu.dart';
+import 'package:flutterial_components/flutterial_components.dart';
 
 typedef void ColorChanged(Color c);
 
@@ -8,29 +9,6 @@ const kSwatchSize = 48.0;
 const kDarkTextStyle = const TextStyle(color: Colors.black, fontSize: 11.0);
 const kLightTextStyle = const TextStyle(color: Colors.white, fontSize: 11.0);
 
-const materialColorsNames = const <String>[
-  "Red",
-  "Pink",
-  "purple",
-  "deepPurple",
-  "indigo",
-  "blue",
-  "lightBlue",
-  "cyan",
-  "teal",
-  "green",
-  "lightGreen",
-  "lime",
-  "yellow",
-  "amber",
-  "orange",
-  "deepOrange",
-  "brown",
-  "blueGrey",
-  "White",
-  "Black",
-  "Grey"
-];
 
 getMaterialSwatches(ColorChanged onSelection) {
   final colors = Colors.primaries.map((c) => c).toList();
@@ -87,31 +65,13 @@ List<PopupGridMenuItem<Color>> getColorMenuTileItems() {
   }).toList();
 }
 
-class NamedColor {
-  final Color color;
-  final String name;
 
-  NamedColor(this.color, this.name);
-}
-
-List<NamedColor> colors_names() {
-  final colors = Colors.primaries.map((c) => c).toList();
-  colors.addAll([Colors.white, Colors.black, Colors.grey, ]);
-
-  return colors.fold([], (cumul, current) {
-    cumul.add(new NamedColor(current, materialColorsNames[cumul.length]));
-    return cumul;
-  });
-}
-
-bool isDark(Color c) => (c.red + c.green + c.blue) / 3 >= 146;
 
 void openColorMenu(BuildContext context, {ColorChanged onSelection}) {
   final RenderBox renderBox = context.findRenderObject();
   final Offset topLeft = renderBox?.localToGlobal(Offset.zero);
 
-  //display full color display
-  showCustomMenu<Color>(
+  showGridMenu<Color>(
       context: context,
       elevation: 2.0,
       items: getColorMenuTileItems(),
