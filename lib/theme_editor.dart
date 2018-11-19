@@ -10,9 +10,9 @@ const double kPadding = 8.0;
 class ThemeEditor extends StatefulWidget {
   final ThemeService service;
   ThemeData get currentTheme => service.theme;
-  final ValueChanged<ThemeData> themeChangedHandler;
+  //final ValueChanged<ThemeData> themeChangedHandler;
   final ValueChanged<bool> onTargetChanged;
-  final bool androidMode;
+  final bool isAndroidMode;
   final ValueChanged<bool> onBaseThemeChanged;
   final bool hasDarkBase;
   final ValueChanged<bool> onPrimaryBrightnessChanged;
@@ -20,11 +20,11 @@ class ThemeEditor extends StatefulWidget {
 
   ThemeEditor({
     @required this.service,
-    @required this.themeChangedHandler,
+    //@required this.themeChangedHandler,
     @required this.onBaseThemeChanged,
     @required this.hasDarkBase,
     @required this.onTargetChanged,
-    @required this.androidMode,
+    @required this.isAndroidMode,
     @required this.onPrimaryBrightnessChanged,
     @required this.onAccentBrightnessChanged,
   });
@@ -43,14 +43,11 @@ class ThemeEditorState extends State<ThemeEditor> {
   bool textPanelExpanded = false;
   bool primaryTextPanelExpanded = false;
   bool accentTextPanelExpanded = false;
-  ThemeData _theme;
+  //ThemeData _theme;
 
-  ThemeData get theme => _theme;
-
-  set theme(ThemeData theme) {
-    _theme = theme;
-    widget.themeChangedHandler(theme);
-  }
+  //ThemeData get theme => _theme;
+  ThemeData get theme => service.theme;
+  set theme(ThemeData theme) => service.theme = theme;
 
   ThemeEditorState(this.service);
 
@@ -60,17 +57,17 @@ class ThemeEditorState extends State<ThemeEditor> {
     service.themeNotifier.addListener(
       () => setState(
             () {
-              _theme = service.themeNotifier.value;
+              //_theme = service.themeNotifier.value;
             },
           ),
     );
   }
 
-  @override
-  void didUpdateWidget(ThemeEditor oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _theme = widget.currentTheme;
-  }
+  // @override
+  // void didUpdateWidget(ThemeEditor oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   //_theme = widget.currentTheme;
+  // }
 
   @override
   Widget build(BuildContext context) => theme == null
@@ -89,7 +86,7 @@ class ThemeEditorState extends State<ThemeEditor> {
                   expansionCallback: onExpansionPanelUpdate,
                   children: [
                     _buildColorsPanel(),
-                    _buildTextPanel(),
+                    //_buildTextPanel(),
                   ],
                 )
               ],
@@ -99,11 +96,11 @@ class ThemeEditorState extends State<ThemeEditor> {
 
   Widget _buildGlobalOptionsBar() => Row(
         children: [
-          Text('Platform Android'),
-          Switch(onChanged: widget.onTargetChanged, value: widget.androidMode),
+          Text('Platform: Android'),
+          Switch(onChanged: widget.onTargetChanged, value: widget.isAndroidMode),
           Text('iOS'),
           Expanded(child: Container()),
-          Text('Base Theme : Light'),
+          Text('Base Theme: Light'),
           Switch(
               onChanged: widget.onBaseThemeChanged, value: widget.hasDarkBase),
           Text('Dark'),
@@ -130,14 +127,16 @@ class ThemeEditorState extends State<ThemeEditor> {
       );
 
   ExpansionPanel _buildTextPanel() => ExpansionPanel(
-      isExpanded: textPanelExpanded,
-      headerBuilder: (context, isExpanded) => ExpanderHeader(
-          label: 'Text Theme', icon: Icons.font_download, color: Colors.grey),
-      body: Padding(
+        isExpanded: textPanelExpanded,
+        headerBuilder: (context, isExpanded) => ExpanderHeader(
+            label: 'Text Theme', icon: Icons.font_download, color: Colors.grey),
+        body: Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(
             children: getTextThemeEditorChildren(),
-          )));
+          ),
+        ),
+      );
 
   Widget _getTextThemeForm(
     String label, {
@@ -337,7 +336,6 @@ class ThemeEditorState extends State<ThemeEditor> {
     args[Symbol(property)] = color;
     setState(() {
       theme = Function.apply(theme.copyWith, null, args);
-      /*widget.themeChangedHandler(theme);*/
     });
   }
 
@@ -721,7 +719,11 @@ class SizeSelector extends StatelessWidget {
   final double max;
   final ValueChanged<double> onValueChanged;
 
-  SizeSelector(this.value, this.onValueChanged, this.min, this.max);
+  SizeSelector(this.value, this.onValueChanged, this.min, this.max)
+      : assert(value != null),
+        assert(min != null),
+        assert(max != null),
+        assert(min <= max);
 
   @override
   Widget build(BuildContext context) {

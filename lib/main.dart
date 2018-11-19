@@ -6,7 +6,7 @@ import 'package:flutterial_components/flutterial_components.dart';
 void main() {
   runApp(
     MaterialApp(
-      theme: flutterialTheme,
+//      theme: flutterialTheme,
       home: Scaffold(
         body: FlutterialApp(service: ThemeService()),
       ),
@@ -14,5 +14,5 @@ void main() {
   );
 }
 
-final flutterialTheme =
-    ThemeData.light().copyWith(accentColor: Colors.blueGrey);
+// final flutterialTheme =
+//     ThemeData.light().copyWith(accentColor: Colors.blueGrey);

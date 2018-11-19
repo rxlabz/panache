@@ -12,62 +12,48 @@ class FlutterialApp extends StatefulWidget {
 }
 
 class ThemeExplorerAppState extends State<FlutterialApp> {
-  ThemeData theme;
-  bool targetAndroid = false;
-  bool hasDarkBase = false;
+  ThemeData get theme => widget.service.theme;
+  set theme(ThemeData theme) => widget.service.theme = theme;
 
   @override
   void initState() {
     super.initState();
-    theme =
-        ThemeData.light().copyWith(primaryColorBrightness: Brightness.light);
+    widget.service.themeNotifier.addListener(() => setState(() {}));
   }
 
   void updateColor({String propertyName, Color color}) {
     final args = <Symbol, dynamic>{};
     args[Symbol(propertyName)] = color;
-    setState(() => theme = Function.apply(theme.copyWith, null, args));
+    updateTheme(Function.apply(theme.copyWith, null, args));
   }
 
   void updateTheme(ThemeData newValue) {
-    setState(() {
-      print('ThemeExplorerAppState.updateTheme... ');
-      theme = newValue;
-      widget.service.saveTheme(theme);
-    });
+    theme = newValue;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(child: _buildConfigurator(widget.service)),
-        AppPreviewContainer(widget.service, kIPhone6),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(child: _buildConfigurator(widget.service)),
+          AppPreviewContainer(widget.service, kIPhone6),
+        ],
+      );
 
   Widget _buildConfigurator(ThemeService service) => ThemeEditor(
         service: service,
-        themeChangedHandler: (t) => updateTheme(t),
-        onTargetChanged: (value) {
-          updateTheme(value
-              ? theme.copyWith(platform: TargetPlatform.iOS)
-              : theme.copyWith(platform: TargetPlatform.android));
-          setState(() => targetAndroid = value);
-        },
-        androidMode: targetAndroid,
-        onBaseThemeChanged: (value) {
-          updateTheme(value ? ThemeData.dark() : ThemeData.light());
-          setState(() => hasDarkBase = value);
-        },
-        hasDarkBase: hasDarkBase,
+        //themeChangedHandler: (t) => updateTheme(t),
+        onTargetChanged: (isAndroidMode) => updateTheme(isAndroidMode
+            ? theme.copyWith(platform: TargetPlatform.android)
+            : theme.copyWith(platform: TargetPlatform.iOS)),
+        isAndroidMode: theme.platform == TargetPlatform.android,
+        onBaseThemeChanged: (hasDarkBase) =>
+            updateTheme(hasDarkBase ? ThemeData.dark() : ThemeData.light()),
+        hasDarkBase: theme.brightness == Brightness.dark,
         onPrimaryBrightnessChanged: (isDark) => updateTheme(theme.copyWith(
             primaryColorBrightness:
                 isDark ? Brightness.dark : Brightness.light)),
-        onAccentBrightnessChanged: (isDark) => setState(() => theme =
-            theme.copyWith(
-                accentColorBrightness:
-                    isDark ? Brightness.dark : Brightness.light)),
+        onAccentBrightnessChanged: (isDark) => updateTheme(theme.copyWith(
+            accentColorBrightness:
+                isDark ? Brightness.dark : Brightness.light)),
       );
 }

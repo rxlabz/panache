@@ -54,7 +54,7 @@ List<PopupMenuItem<Color>> getColorMenuItems() {
       .toList();
 }
 
-List<PopupGridMenuItem<Color>> getColorMenuTileItems() => colors_names()
+List<PopupGridMenuItem<Color>> getColorMenuTileItems() => namedColors()
     .map(
       (c) => PopupGridMenuItem<Color>(
             value: c.color,
@@ -135,7 +135,7 @@ class ColorSwatch extends StatelessWidget {
   final Color color;
 
   String get label {
-    final namedPeer = colors_names().where((c) => c.color.value == color.value);
+    final namedPeer = namedColors().where((c) => c.color.value == color.value);
     return namedPeer.length > 0
         ? namedPeer.first.name
         : "#${color.value.toRadixString(16)}";
