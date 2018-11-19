@@ -5,28 +5,27 @@ import 'package:flutterial_components/flutterial_components.dart';
 class FlutterialApp extends StatefulWidget {
   final ThemeService service;
 
-  FlutterialApp({this.service}) ;
+  FlutterialApp({this.service});
 
   @override
-  State<StatefulWidget> createState() => new ThemeExplorerAppState();
+  State<StatefulWidget> createState() => ThemeExplorerAppState();
 }
 
 class ThemeExplorerAppState extends State<FlutterialApp> {
   ThemeData theme;
-
   bool targetAndroid = false;
   bool hasDarkBase = false;
 
   @override
   void initState() {
     super.initState();
-    theme = new ThemeData.light()
-        .copyWith(primaryColorBrightness: Brightness.light);
+    theme =
+        ThemeData.light().copyWith(primaryColorBrightness: Brightness.light);
   }
 
   void updateColor({String propertyName, Color color}) {
     final args = <Symbol, dynamic>{};
-    args[new Symbol(propertyName)] = color;
+    args[Symbol(propertyName)] = color;
     setState(() => theme = Function.apply(theme.copyWith, null, args));
   }
 
@@ -40,17 +39,16 @@ class ThemeExplorerAppState extends State<FlutterialApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        new Expanded(child: _buildConfigurator(widget.service)),
-        new AppPreviewContainer(widget.service, kIPhone6),
+    return Row(
+      children: [
+        Expanded(child: _buildConfigurator(widget.service)),
+        AppPreviewContainer(widget.service, kIPhone6),
       ],
     );
   }
 
-  Widget _buildConfigurator(ThemeService service) => new ThemeEditor(
-        service:service,
-        /*currentTheme: theme,*/
+  Widget _buildConfigurator(ThemeService service) => ThemeEditor(
+        service: service,
         themeChangedHandler: (t) => updateTheme(t),
         onTargetChanged: (value) {
           updateTheme(value
@@ -60,7 +58,7 @@ class ThemeExplorerAppState extends State<FlutterialApp> {
         },
         androidMode: targetAndroid,
         onBaseThemeChanged: (value) {
-          updateTheme(value ? new ThemeData.dark() : new ThemeData.light());
+          updateTheme(value ? ThemeData.dark() : ThemeData.light());
           setState(() => hasDarkBase = value);
         },
         hasDarkBase: hasDarkBase,

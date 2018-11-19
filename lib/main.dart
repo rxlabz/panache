@@ -4,12 +4,15 @@ import 'package:flutterial/flutterial.dart';
 import 'package:flutterial_components/flutterial_components.dart';
 
 void main() {
-  runApp(new MaterialApp(
+  runApp(
+    MaterialApp(
       theme: flutterialTheme,
-      home: new Scaffold(
-        body: new FlutterialApp(service: new ThemeService()),
-      )));
+      home: Scaffold(
+        body: FlutterialApp(service: ThemeService()),
+      ),
+    ),
+  );
 }
 
 final flutterialTheme =
-    new ThemeData.light().copyWith(accentColor: Colors.blueGrey);
+    ThemeData.light().copyWith(accentColor: Colors.blueGrey);

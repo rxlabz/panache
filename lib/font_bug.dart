@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new ThemedApp());
+  runApp(ThemedApp());
 }
 
 class ThemedApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new ThemedAppState();
+  State<StatefulWidget> createState() => ThemedAppState();
 }
 
 class ThemedAppState extends State<ThemedApp> {
-  ThemeData theme = new ThemeData.light();
+  ThemeData theme = ThemeData.light();
 
   @override
-  Widget build(BuildContext context) {
-    print('ThemedAppState.build... ');
-    return new MaterialApp(
-      theme: theme,
-      home: new Scaffold(
-        body: new Center(
-          child: new Column( mainAxisSize: MainAxisSize.min, children: [
-            new RaisedButton(
-              onPressed: () => setState(
-                  () => theme = theme.copyWith(accentColor: Colors.green)),
-              child: new Text('Un bouton'),
+  Widget build(BuildContext context) => MaterialApp(
+        theme: theme,
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RaisedButton(
+                  onPressed: () => setState(
+                      () => theme = theme.copyWith(accentColor: Colors.green)),
+                  child: Text('Un bouton'),
+                ),
+                FloatingActionButton(
+                    child: const Icon(Icons.check),
+                    onPressed: () => print('FAB... ')),
+              ],
             ),
-            new FloatingActionButton(
-                child: const Icon(Icons.check),
-                onPressed: () => print('FAB... ')),
-          ]),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
