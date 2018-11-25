@@ -10,7 +10,6 @@ const double kPadding = 8.0;
 class ThemeEditor extends StatefulWidget {
   final ThemeService service;
   ThemeData get currentTheme => service.theme;
-  //final ValueChanged<ThemeData> themeChangedHandler;
   final ValueChanged<bool> onTargetChanged;
   final bool isAndroidMode;
   final ValueChanged<bool> onBaseThemeChanged;
@@ -20,7 +19,6 @@ class ThemeEditor extends StatefulWidget {
 
   ThemeEditor({
     @required this.service,
-    //@required this.themeChangedHandler,
     @required this.onBaseThemeChanged,
     @required this.hasDarkBase,
     @required this.onTargetChanged,
@@ -43,9 +41,7 @@ class ThemeEditorState extends State<ThemeEditor> {
   bool textPanelExpanded = false;
   bool primaryTextPanelExpanded = false;
   bool accentTextPanelExpanded = false;
-  //ThemeData _theme;
 
-  //ThemeData get theme => _theme;
   ThemeData get theme => service.theme;
   set theme(ThemeData theme) => service.theme = theme;
 
@@ -54,20 +50,7 @@ class ThemeEditorState extends State<ThemeEditor> {
   @override
   void initState() {
     super.initState();
-    service.themeNotifier.addListener(
-      () => setState(
-            () {
-              //_theme = service.themeNotifier.value;
-            },
-          ),
-    );
   }
-
-  // @override
-  // void didUpdateWidget(ThemeEditor oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   //_theme = widget.currentTheme;
-  // }
 
   @override
   Widget build(BuildContext context) => theme == null
@@ -97,7 +80,8 @@ class ThemeEditorState extends State<ThemeEditor> {
   Widget _buildGlobalOptionsBar() => Row(
         children: [
           Text('Platform: Android'),
-          Switch(onChanged: widget.onTargetChanged, value: widget.isAndroidMode),
+          Switch(
+              onChanged: widget.onTargetChanged, value: widget.isAndroidMode),
           Text('iOS'),
           Expanded(child: Container()),
           Text('Base Theme: Light'),
@@ -161,8 +145,8 @@ class ThemeEditorState extends State<ThemeEditor> {
             ),
           ),
           getFieldRow(
-            getColorSelector('Color', colorValue, onColorChanged),
-            getSizeSelector(fontSize, onSizeChanged, min: 8.0),
+            ColorSelector('Color', colorValue, onColorChanged),
+            SizeSelector(fontSize, onSizeChanged, min: 8.0),
           ),
           getFieldRow(
             Row(
@@ -224,102 +208,102 @@ class ThemeEditorState extends State<ThemeEditor> {
                   ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Button color',
                 currentTheme.buttonColor,
                 (c) => updateColor(property: "buttonColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Divider color',
                 currentTheme.dividerColor,
                 (c) => updateColor(property: "dividerColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Canvas color',
                 currentTheme.canvasColor,
                 (c) => updateColor(property: "canvasColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Card color',
                 currentTheme.cardColor,
                 (c) => updateColor(property: "cardColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Disabled color',
                 currentTheme.disabledColor,
                 (c) => updateColor(property: "disabledColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Background color',
                 currentTheme.backgroundColor,
                 (c) => updateColor(property: "backgroundColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Highlight color',
                 currentTheme.highlightColor,
                 (c) => updateColor(property: "highlightColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Splash color',
                 currentTheme.splashColor,
                 (c) => updateColor(property: "splashColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Dialog background color',
                 currentTheme.dialogBackgroundColor,
                 (c) => updateColor(property: "dialogBackgroundColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Hint color',
                 currentTheme.hintColor,
                 (c) => updateColor(property: "hintColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Error color',
                 currentTheme.errorColor,
                 (c) => updateColor(property: "errorColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Indicator color',
                 currentTheme.indicatorColor,
                 (c) => updateColor(property: "indicatorColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Selected row color',
                 currentTheme.selectedRowColor,
                 (c) => updateColor(property: "selectedRowColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Unselected widget color',
                 currentTheme.unselectedWidgetColor,
                 (c) => updateColor(property: "unselectedWidgetColor", color: c),
               ),
             ),
             getFieldRow(
-              getColorSelector(
+              ColorSelector(
                 'Secondary header widget color',
                 currentTheme.secondaryHeaderColor,
                 (c) => updateColor(property: "secondaryHeaderColor", color: c),
               ),
-              getColorSelector(
+              ColorSelector(
                 'Text selection color',
                 currentTheme.textSelectionColor,
                 (c) => updateColor(property: "textSelectionColor", color: c),
               ),
             ),
-            getColorSelector(
+            ColorSelector(
               'Text selection handler color',
               currentTheme.textSelectionHandleColor,
               (c) =>
@@ -349,12 +333,12 @@ class ThemeEditorState extends State<ThemeEditor> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: getColorSelector(label, currentColor, changeHandler)),
+          Expanded(child: ColorSelector(label, currentColor, changeHandler)),
           Expanded(
-              child: getBrightnessSelector(
+              child: BrightnessSelector(
                   label: 'Brightness',
                   isDark: isDark,
-                  changeHandler: brightnessChangeHandler))
+                  onChange: brightnessChangeHandler))
         ],
       );
 
@@ -363,14 +347,6 @@ class ThemeEditorState extends State<ThemeEditor> {
         mainAxisSize: MainAxisSize.max,
         children: [Expanded(child: w1), Expanded(child: w2)],
       );
-
-  ColorSelector getColorSelector(
-          String label, Color value, ColorChanged changeHandler) =>
-      ColorSelector(label: label, value: value, onSelection: changeHandler);
-
-  BrightnessSelector getBrightnessSelector(
-          {String label, bool isDark, ValueChanged<bool> changeHandler}) =>
-      BrightnessSelector(label: label, isDark: isDark, onChange: changeHandler);
 
   List<Widget> getTextThemeEditorChildren() {
     final txtTheme = widget.currentTheme.textTheme;
@@ -710,16 +686,14 @@ class ThemeEditorState extends State<ThemeEditor> {
   }
 }
 
-SizeSelector getSizeSelector(value, onValueChanged, {min: 0.0, max: 112.0}) =>
-    SizeSelector(value, onValueChanged, min, max);
-
 class SizeSelector extends StatelessWidget {
   final double value;
   final double min;
   final double max;
   final ValueChanged<double> onValueChanged;
 
-  SizeSelector(this.value, this.onValueChanged, this.min, this.max)
+  SizeSelector(this.value, this.onValueChanged,
+      {this.min: 0.0, this.max: 112.0})
       : assert(value != null),
         assert(min != null),
         assert(max != null),

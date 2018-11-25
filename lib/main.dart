@@ -6,13 +6,9 @@ import 'package:flutterial_components/flutterial_components.dart';
 void main() {
   runApp(
     MaterialApp(
-//      theme: flutterialTheme,
       home: Scaffold(
         body: FlutterialApp(service: ThemeService()),
       ),
     ),
   );
 }
-
-// final flutterialTheme =
-//     ThemeData.light().copyWith(accentColor: Colors.blueGrey);

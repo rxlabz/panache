@@ -101,7 +101,7 @@ class ColorSelector extends StatelessWidget {
   final Color value;
   final ColorChanged onSelection;
 
-  ColorSelector({this.label, this.value, this.onSelection});
+  ColorSelector(this.label, this.value, this.onSelection);
 
   @override
   Widget build(BuildContext context) => Padding(

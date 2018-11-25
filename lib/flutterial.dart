@@ -8,10 +8,10 @@ class FlutterialApp extends StatefulWidget {
   FlutterialApp({this.service});
 
   @override
-  State<StatefulWidget> createState() => ThemeExplorerAppState();
+  State<StatefulWidget> createState() => FlutterialAppState();
 }
 
-class ThemeExplorerAppState extends State<FlutterialApp> {
+class FlutterialAppState extends State<FlutterialApp> {
   ThemeData get theme => widget.service.theme;
   set theme(ThemeData theme) => widget.service.theme = theme;
 
@@ -24,11 +24,7 @@ class ThemeExplorerAppState extends State<FlutterialApp> {
   void updateColor({String propertyName, Color color}) {
     final args = <Symbol, dynamic>{};
     args[Symbol(propertyName)] = color;
-    updateTheme(Function.apply(theme.copyWith, null, args));
-  }
-
-  void updateTheme(ThemeData newValue) {
-    theme = newValue;
+    theme = Function.apply(theme.copyWith, null, args);
   }
 
   @override
@@ -41,19 +37,17 @@ class ThemeExplorerAppState extends State<FlutterialApp> {
 
   Widget _buildConfigurator(ThemeService service) => ThemeEditor(
         service: service,
-        //themeChangedHandler: (t) => updateTheme(t),
-        onTargetChanged: (isAndroidMode) => updateTheme(isAndroidMode
+        onTargetChanged: (isAndroidMode) => theme = isAndroidMode
             ? theme.copyWith(platform: TargetPlatform.android)
-            : theme.copyWith(platform: TargetPlatform.iOS)),
+            : theme.copyWith(platform: TargetPlatform.iOS),
         isAndroidMode: theme.platform == TargetPlatform.android,
         onBaseThemeChanged: (hasDarkBase) =>
-            updateTheme(hasDarkBase ? ThemeData.dark() : ThemeData.light()),
+            theme = hasDarkBase ? ThemeData.dark() : ThemeData.light(),
         hasDarkBase: theme.brightness == Brightness.dark,
-        onPrimaryBrightnessChanged: (isDark) => updateTheme(theme.copyWith(
+        onPrimaryBrightnessChanged: (isDark) => theme = theme.copyWith(
             primaryColorBrightness:
-                isDark ? Brightness.dark : Brightness.light)),
-        onAccentBrightnessChanged: (isDark) => updateTheme(theme.copyWith(
-            accentColorBrightness:
-                isDark ? Brightness.dark : Brightness.light)),
+                isDark ? Brightness.dark : Brightness.light),
+        onAccentBrightnessChanged: (isDark) => theme = theme.copyWith(
+            accentColorBrightness: isDark ? Brightness.dark : Brightness.light),
       );
 }
