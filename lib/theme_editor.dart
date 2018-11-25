@@ -69,7 +69,7 @@ class ThemeEditorState extends State<ThemeEditor> {
                   expansionCallback: onExpansionPanelUpdate,
                   children: [
                     _buildColorsPanel(),
-                    //_buildTextPanel(),
+                    _buildTextPanel(),
                   ],
                 )
               ],

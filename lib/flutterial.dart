@@ -3,46 +3,46 @@ import 'package:flutterial/theme_editor.dart';
 import 'package:flutterial_components/flutterial_components.dart';
 
 class FlutterialApp extends StatefulWidget {
-  final ThemeService service;
-
-  FlutterialApp({this.service});
-
   @override
   State<StatefulWidget> createState() => FlutterialAppState();
 }
 
 class FlutterialAppState extends State<FlutterialApp> {
-  ThemeData get theme => widget.service.theme;
-  set theme(ThemeData theme) => widget.service.theme = theme;
+  ThemeService _service;
 
-  @override
-  void initState() {
-    super.initState();
-    widget.service.themeNotifier.addListener(() => setState(() {}));
-  }
+  ThemeData get theme => _service.theme;
+  set theme(ThemeData theme) =>
+      _service.theme = theme; // this calls onThemeChanged, which calls setState
 
   void updateColor({String propertyName, Color color}) {
-    final args = <Symbol, dynamic>{};
-    args[Symbol(propertyName)] = color;
-    theme = Function.apply(theme.copyWith, null, args);
+    assert(_service != null);
+    assert(theme != null);
+
+    theme = Function.apply(theme.copyWith, null, {Symbol(propertyName): color});
   }
 
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(child: _buildConfigurator(widget.service)),
-          AppPreviewContainer(widget.service, kIPhone6),
-        ],
-      );
+  Widget build(BuildContext context) {
+    if (_service == null) {
+      _service = ThemeService(context, () => setState(() {}));
+    }
 
-  Widget _buildConfigurator(ThemeService service) => ThemeEditor(
-        service: service,
+    return Row(
+      children: [
+        Expanded(child: _buildConfigurator()),
+        AppPreviewContainer(_service, kIPhone6),
+      ],
+    );
+  }
+
+  Widget _buildConfigurator() => ThemeEditor(
+        service: _service,
         onTargetChanged: (isAndroidMode) => theme = isAndroidMode
             ? theme.copyWith(platform: TargetPlatform.android)
             : theme.copyWith(platform: TargetPlatform.iOS),
         isAndroidMode: theme.platform == TargetPlatform.android,
-        onBaseThemeChanged: (hasDarkBase) =>
-            theme = hasDarkBase ? ThemeData.dark() : ThemeData.light(),
+        onBaseThemeChanged: (isDark) => theme = ThemeData.localize(
+            isDark ? ThemeData.dark() : ThemeData.light(), theme.textTheme),
         hasDarkBase: theme.brightness == Brightness.dark,
         onPrimaryBrightnessChanged: (isDark) => theme = theme.copyWith(
             primaryColorBrightness:
