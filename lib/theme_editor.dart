@@ -349,6 +349,7 @@ class ThemeEditorState extends State<ThemeEditor> {
       );
 
   List<Widget> getTextThemeEditorChildren() {
+    //final txtTheme = Theme.of(context).textTheme;
     final txtTheme = widget.currentTheme.textTheme;
     final body1 = txtTheme.body1;
     final body2 = txtTheme.body2;
@@ -364,7 +365,7 @@ class ThemeEditorState extends State<ThemeEditor> {
     return [
       _getTextThemeForm('Body 1',
           colorValue: body1.color,
-          fontSize: body1.fontSize,
+          fontSize: body1.fontSize ?? 24,
           isBold: body1.fontWeight == FontWeight.bold,
           isItalic: body1.fontStyle == FontStyle.italic, onColorChanged: (c) {
         setState(() {

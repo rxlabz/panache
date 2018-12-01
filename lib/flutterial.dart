@@ -24,7 +24,7 @@ class FlutterialAppState extends State<FlutterialApp> {
   @override
   Widget build(BuildContext context) {
     if (_service == null) {
-      _service = ThemeService(context, () => setState(() {}));
+      _service = ThemeService();
     }
 
     return Row(
