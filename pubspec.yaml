@@ -7,9 +7,9 @@ homepage: https://github.com/rxlabz/flutterial
 dependencies:
   flutter:
     sdk: flutter
-  path_provider:
   flutterial_components:
-    git: https://github.com/rxlabz/flutterial_components
+    #git: https://github.com/rxlabz/flutterial_components
+    path: /Users/csells/Documents/code/flutterial/flutterial_components/
 
 flutter:
   uses-material-design: true

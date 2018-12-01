@@ -3,73 +3,51 @@ import 'package:flutterial/theme_editor.dart';
 import 'package:flutterial_components/flutterial_components.dart';
 
 class FlutterialApp extends StatefulWidget {
-  final ThemeService service;
-
-  FlutterialApp({this.service}) ;
-
   @override
-  State<StatefulWidget> createState() => new ThemeExplorerAppState();
+  State<StatefulWidget> createState() => FlutterialAppState();
 }
 
-class ThemeExplorerAppState extends State<FlutterialApp> {
-  ThemeData theme;
+class FlutterialAppState extends State<FlutterialApp> {
+  ThemeService _service;
 
-  bool targetAndroid = false;
-  bool hasDarkBase = false;
-
-  @override
-  void initState() {
-    super.initState();
-    theme = new ThemeData.light()
-        .copyWith(primaryColorBrightness: Brightness.light);
-  }
+  ThemeData get theme => _service.theme;
+  set theme(ThemeData theme) =>
+      _service.theme = theme; // this calls onThemeChanged, which calls setState
 
   void updateColor({String propertyName, Color color}) {
-    final args = <Symbol, dynamic>{};
-    args[new Symbol(propertyName)] = color;
-    setState(() => theme = Function.apply(theme.copyWith, null, args));
-  }
+    assert(_service != null);
+    assert(theme != null);
 
-  void updateTheme(ThemeData newValue) {
-    setState(() {
-      print('ThemeExplorerAppState.updateTheme... ');
-      theme = newValue;
-      widget.service.saveTheme(theme);
-    });
+    theme = Function.apply(theme.copyWith, null, {Symbol(propertyName): color});
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        new Expanded(child: _buildConfigurator(widget.service)),
-        new AppPreviewContainer(widget.service, kIPhone6),
+    if (_service == null) {
+      _service = ThemeService(context, () => setState(() {}));
+    }
+
+    return Row(
+      children: [
+        Expanded(child: _buildConfigurator()),
+        AppPreviewContainer(_service, kIPhone6),
       ],
     );
   }
 
-  Widget _buildConfigurator(ThemeService service) => new ThemeEditor(
-        service:service,
-        /*currentTheme: theme,*/
-        themeChangedHandler: (t) => updateTheme(t),
-        onTargetChanged: (value) {
-          updateTheme(value
-              ? theme.copyWith(platform: TargetPlatform.iOS)
-              : theme.copyWith(platform: TargetPlatform.android));
-          setState(() => targetAndroid = value);
-        },
-        androidMode: targetAndroid,
-        onBaseThemeChanged: (value) {
-          updateTheme(value ? new ThemeData.dark() : new ThemeData.light());
-          setState(() => hasDarkBase = value);
-        },
-        hasDarkBase: hasDarkBase,
-        onPrimaryBrightnessChanged: (isDark) => updateTheme(theme.copyWith(
+  Widget _buildConfigurator() => ThemeEditor(
+        service: _service,
+        onTargetChanged: (isAndroidMode) => theme = isAndroidMode
+            ? theme.copyWith(platform: TargetPlatform.android)
+            : theme.copyWith(platform: TargetPlatform.iOS),
+        isAndroidMode: theme.platform == TargetPlatform.android,
+        onBaseThemeChanged: (isDark) => theme = ThemeData.localize(
+            isDark ? ThemeData.dark() : ThemeData.light(), theme.textTheme),
+        hasDarkBase: theme.brightness == Brightness.dark,
+        onPrimaryBrightnessChanged: (isDark) => theme = theme.copyWith(
             primaryColorBrightness:
-                isDark ? Brightness.dark : Brightness.light)),
-        onAccentBrightnessChanged: (isDark) => setState(() => theme =
-            theme.copyWith(
-                accentColorBrightness:
-                    isDark ? Brightness.dark : Brightness.light)),
+                isDark ? Brightness.dark : Brightness.light),
+        onAccentBrightnessChanged: (isDark) => theme = theme.copyWith(
+            accentColorBrightness: isDark ? Brightness.dark : Brightness.light),
       );
 }

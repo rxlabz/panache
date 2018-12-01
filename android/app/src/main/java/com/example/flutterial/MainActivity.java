@@ -1,7 +1,6 @@
-package com.yourcompany.tour_de_flutter;
+package com.example.flutterial;
 
 import android.os.Bundle;
-
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 

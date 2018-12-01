@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new MaterialApp(
-      theme: new ThemeData.dark().copyWith(
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark().copyWith(
           primaryColorBrightness: Brightness.light,
           accentColorBrightness: Brightness.light),
-      home: new Scaffold(
-        appBar: new AppBar(title: new Text('test theme')),
-        body: new Column(children: [
-          new FloatingActionButton(
-              child: new Icon(Icons.android), onPressed: null),
-          new RaisedButton(
-              child: new Text('test'), onPressed: () => print('test'))
-        ]),
-      )));
+      home: Scaffold(
+        appBar: AppBar(title: Text('test theme')),
+        body: Column(
+          children: [
+            FloatingActionButton(child: Icon(Icons.android), onPressed: null),
+            RaisedButton(child: Text('test'), onPressed: () => print('test'))
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -10,16 +10,19 @@ class ExpanderHeader extends StatelessWidget {
       {@required this.color, @required this.label, @required this.icon});
 
   @override
-  Widget build(BuildContext context) => new Row(children: [
-        new Padding(
-            padding: new EdgeInsets.only(left: 16.0, right: 8.0),
-            child: new Icon(
+  Widget build(BuildContext context) => Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 16.0, right: 8.0),
+            child: Icon(
               icon,
               color: color,
-            )),
-        new Text(
-          label,
-          style: Theme.of(context).textTheme.headline,
-        ),
-      ]);
+            ),
+          ),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.headline,
+          ),
+        ],
+      );
 }
