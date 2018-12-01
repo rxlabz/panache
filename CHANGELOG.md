@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.0.3 WIP
+## 0.0.4
+
+- support Dart 2.1 (thanks @csells)
+
+## 0.0.3
 
 - theme saving
 - flutterial companion
