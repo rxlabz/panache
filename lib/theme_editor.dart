@@ -49,6 +49,7 @@ class ThemeEditorState extends State<ThemeEditor> {
 
   @override
   void initState() {
+    this.service.themeNotifier.addListener(() => setState(() {}));
     super.initState();
   }
 
