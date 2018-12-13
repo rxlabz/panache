@@ -48,12 +48,6 @@ class ThemeEditorState extends State<ThemeEditor> {
   ThemeEditorState(this.service);
 
   @override
-  void initState() {
-    this.service.themeNotifier.addListener(() => setState(() {}));
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) => theme == null
       ? Center(child: Text("loading"))
       : Container(
