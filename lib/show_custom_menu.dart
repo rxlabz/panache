@@ -101,8 +101,6 @@ class _PopupMenuRouteGridLayout extends SingleChildLayoutDelegate {
   // position so that it fits.
   @override
   Offset getPositionForChild(Size size, Size childSize) {
-    print(
-        '_PopupMenuRouteGridLayout.getPositionForChild  size $size / childSize $childSize');
     double x = position?.left ??
         (position?.right != null
             ? size.width - (position.right + childSize.width)
@@ -121,7 +119,6 @@ class _PopupMenuRouteGridLayout extends SingleChildLayoutDelegate {
     else if (y + childSize.height > size.height - 2 * _kMenuScreenPadding)
       y = size.height - childSize.height - _kMenuScreenPadding;
     final pos = Offset(x, y);
-    print('_PopupMenuRouteGridLayout.getPositionForChild => pos $pos');
     return pos;
   }
 
