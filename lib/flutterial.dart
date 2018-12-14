@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterial/components/app_preview.dart';
-import 'package:flutterial/theme_editor.dart';
-import 'package:flutterial/theme_model.dart';
+import 'package:flutterial_components/flutterial_components.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class FlutterialApp extends StatelessWidget {
