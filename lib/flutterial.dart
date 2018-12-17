@@ -7,13 +7,13 @@ class FlutterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _buildConfigurator(),
+        _buildThemeEditor(),
         AppPreviewContainer(kIPhone6),
       ],
     );
   }
 
-  Widget _buildConfigurator() =>
+  Widget _buildThemeEditor() =>
       ScopedModelDescendant<ThemeModel>(builder: (context, child, model) {
         return Expanded(child: ThemeEditor(model.theme));
       });

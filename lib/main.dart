@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterial/flutterial.dart';
 import 'package:flutterial_components/flutterial_components.dart';
-import 'package:flutterial_components/src/theme_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 void main() {
