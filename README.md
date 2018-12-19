@@ -1,6 +1,6 @@
 # Flutterial 
 
-A Flutter Material design Theme explorer (tablet only) - WIP 
+A Flutter Material Theme explorer (tablet only) - WIP 
 
 ## Material colors
 
@@ -12,14 +12,24 @@ A Flutter Material design Theme explorer (tablet only) - WIP
 
 ## Todo
 
-- [x] theme live preview
+- [x] Theme editor / live app preview
+- [x] Dart 2.1
+- [x] Flutter 1.0
+- [ ] new Material Theme properties
+  - [x] ButtonTheme
+  - [x] ChipTheme
+  - [ ] TabBarTheme
+  - [ ] SliderTheme
+  - [ ] IconTheme
+  - [ ] DialogTheme
+  - [ ] PageTransitionsTheme
 - [ ] Save
-- [ ] Export / Import
-- [ ] IconTheme preview
+- [ ] Examples
+- [ ] custom colorSwatch
 - [ ] material colors shades
+- [ ] Export
 - [ ] colors opacity
 - [ ] mobile version
-- [ ] web version
 - ...
 
 ## Getting Started
