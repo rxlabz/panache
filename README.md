@@ -2,11 +2,11 @@
 
 A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) explorer ( :warning: only tablet layout for now) 
 
-## Material colors
+## Chip Theme
 
 ![screenshot](screenshot.png)
 
-## Text Theme
+## Material colors
 
 ![screenshot2](screenshot2.png)
 
@@ -18,7 +18,7 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 - [ ] new Material Theme properties
   - [x] ButtonTheme
   - [x] ChipTheme
-  - [ ] TabBarTheme
+  - [x] TabBarTheme
   - [ ] SliderTheme
   - [ ] IconTheme
   - [ ] DialogTheme
