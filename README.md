@@ -1,6 +1,6 @@
-# Flutterial 
+# Flutterial - WIP 
 
-A Flutter Material Theme explorer (tablet only) - WIP 
+A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) explorer ( :warning: only tablet layout for now) 
 
 ## Material colors
 

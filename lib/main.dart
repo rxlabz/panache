@@ -8,22 +8,15 @@ const primarySwatch = Colors.blueGrey;
 
 final _flutterialTheme = ThemeData.localize(
   ThemeData(
-    primarySwatch: primarySwatch,
-    textTheme: Typography.blackCupertino.copyWith(
-      subtitle: Typography.blackCupertino.subtitle
-          .copyWith(color: primarySwatch.shade400),
-      title: Typography.blackCupertino.title
-          .copyWith(color: primarySwatch.shade300),
-      headline:
-          Typography.blackCupertino.headline.copyWith(color: primarySwatch),
-    ), /*
-    primaryTextTheme: Typography.englishLike2018.copyWith(
-        subtitle: Typography.englishLike2018.subtitle
-            .copyWith(color: primarySwatch.shade400)),
-    accentTextTheme: Typography.englishLike2018.copyWith(
-        subtitle: Typography.englishLike2018.subtitle
-            .copyWith(color: primarySwatch.shade400)),*/
-  ),
+      primarySwatch: primarySwatch,
+      textTheme: Typography.blackCupertino.copyWith(
+        subtitle: Typography.blackCupertino.subtitle
+            .copyWith(color: primarySwatch.shade400),
+        title: Typography.blackCupertino.title
+            .copyWith(color: primarySwatch.shade300),
+        headline:
+            Typography.blackCupertino.headline.copyWith(color: primarySwatch),
+      )),
   Typography.blackCupertino,
 );
 
