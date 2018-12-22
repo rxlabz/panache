@@ -19,7 +19,7 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
   - [x] ButtonTheme
   - [x] ChipTheme
   - [x] TabBarTheme
-  - [ ] SliderTheme
+  - [x] SliderTheme
   - [ ] IconTheme
   - [ ] DialogTheme
   - [ ] PageTransitionsTheme
