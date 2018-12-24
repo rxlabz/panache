@@ -15,13 +15,15 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 - [x] Theme editor / live app preview
 - [x] Dart 2.1
 - [x] Flutter 1.0
-- [x] new Material Theme properties
+- [ ] new Material Theme properties
   - [x] ButtonTheme
   - [x] ChipTheme
   - [x] TabBarTheme
   - [x] SliderTheme
   - [x] IconTheme
   - [x] DialogTheme
+  - [ ] InputDecorationTheme
+  - [ ] complete text styles
 - [ ] Code preview
 - [ ] Save
 - [ ] Examples
