@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterial_components/flutterial_components.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'flutterial.dart';
@@ -18,13 +19,14 @@ final _flutterialTheme = ThemeData.localize(
       headline:
           Typography.blackCupertino.headline.copyWith(color: primarySwatch),
     ),
-    pageTransitionsTheme: PageTransitionsTheme(),
+    primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
   ),
   Typography.blackCupertino,
 );
 
-void main() {
-  final themeModel = ThemeModel(service: ThemeService());
+void main() async {
+  final appDir = await getApplicationDocumentsDirectory();
+  final themeModel = ThemeModel(service: ThemeService(dir: appDir));
 
   runApp(
     ScopedModel<ThemeModel>(

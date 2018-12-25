@@ -22,20 +22,20 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
           title: Text('Panache'),
           actions: <Widget>[
             FlatButton.icon(
-              textColor: Colors.white,
+              textColor: Colors.blueGrey.shade50,
               icon: Icon(Icons.mobile_screen_share),
               label: Text('App preview'),
               onPressed: () => setState(() => showCode = false),
             ),
             FlatButton.icon(
-              textColor: Colors.white,
+              textColor: Colors.blueGrey.shade50,
               icon: Icon(Icons.keyboard),
               label: Text('Code preview'),
               onPressed: () => setState(() => showCode = true),
             ),
             FlatButton.icon(
                 onPressed: model.exportTheme,
-                textColor: Colors.white,
+                textColor: Colors.yellow,
                 icon: Icon(Icons.save),
                 label: Text('Export')),
           ],
@@ -44,7 +44,7 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(child: ThemeEditor(model: model)),
-            AppPreviewContainer(kIPhone6, showCode: showCode),
+            AppPreviewContainer(kIPhone5, showCode: showCode),
           ],
         ),
       );
