@@ -1,12 +1,8 @@
-# Flutterial - WIP 
+# Panache aka Flutterial 
 
 A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) explorer ( :warning: only tablet layout for now) 
 
-## Chip Theme
-
 ![screenshot](screenshot.png)
-
-## Material colors
 
 ![screenshot2](screenshot2.png)
 
@@ -27,6 +23,7 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 - [ ] Code preview
 - [ ] Save
 - [ ] Examples
+- [ ] multiple fonts
 - [ ] custom colorSwatch
 - [ ] material colors shades
 - [ ] Export

@@ -28,9 +28,11 @@ void main() {
       model: themeModel,
       child: MaterialApp(
         theme: _flutterialTheme,
-        home: Scaffold(
-          body: FlutterialApp(),
-        ),
+        home: LaunchScreen(),
+        routes: {
+          '/home': (context) => LaunchScreen(),
+          '/editor': (context) => PanacheEditorScreen(),
+        },
       ),
     ),
   );
