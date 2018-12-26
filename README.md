@@ -20,15 +20,15 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
   - [x] DialogTheme
   - [ ] InputDecorationTheme
   - [ ] complete text styles
-- [ ] Code preview
+- [x] Code preview
+- [x] Export
 - [ ] Save
-- [ ] Examples
-- [ ] multiple fonts
-- [ ] custom colorSwatch
 - [ ] material colors shades
-- [ ] Export
+- [ ] custom colorSwatch
 - [ ] colors opacity
+- [ ] Examples
 - [ ] mobile version
+- [ ] multiple fonts
 - ...
 
 ## Getting Started

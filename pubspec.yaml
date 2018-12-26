@@ -1,16 +1,16 @@
-name: flutterial
-description: Flutter Material Theme explorer
-version: 0.0.4
+name: panache
+description: Flutter Material Theme editor
+version: 0.1.0
 author: Erick Ghaumez <erick@rxla.bz>
-homepage: https://github.com/rxlabz/flutterial
+homepage: https://github.com/rxlabz/panache
 
 dependencies:
   flutter:
     sdk: flutter
-  flutterial_components:
-    git: https://github.com/rxlabz/flutterial_components
+  panache_lib:
+    git: https://github.com/rxlabz/panache_lib
+  scoped_model: ^1.0.1
+  string_scanner: any
 
 flutter:
   uses-material-design: true
-  assets:
-      - assets/theme.json
