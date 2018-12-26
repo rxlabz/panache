@@ -9,6 +9,8 @@
 .buildlog/
 .history
 .svn/
+*.scss
+*.css.map
 
 # IntelliJ related
 *.iml

@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+html, body {
+  background-color: #455A64;
+  color: #CFD8DC;
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  padding: 2rem;
+}
+
+h1 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  color: #B0BEC5;
+  font-size: 1rem;
+}
+
+/*# sourceMappingURL=styles.css.map */
