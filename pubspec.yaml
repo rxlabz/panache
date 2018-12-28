@@ -12,5 +12,10 @@ dependencies:
   scoped_model: ^1.0.1
   string_scanner: any
 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: any
+
 flutter:
   uses-material-design: true

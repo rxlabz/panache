@@ -10,8 +10,17 @@ void main() {
   final themeModel =
       ThemeModel(service: ThemeService(themeExporter: exportTheme));
 
-  runApp(
-    ScopedModel<ThemeModel>(
+  runApp(PanacheApp(themeModel: themeModel));
+}
+
+class PanacheApp extends StatelessWidget {
+  final ThemeModel themeModel;
+
+  const PanacheApp({Key key, @required this.themeModel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ScopedModel<ThemeModel>(
       model: themeModel,
       child: MaterialApp(
         theme: panacheTheme,
@@ -21,8 +30,8 @@ void main() {
           '/editor': (context) => PanacheEditorScreen(),
         },
       ),
-    ),
-  );
+    );
+  }
 }
 
 exportTheme(String code, String filename) async {
