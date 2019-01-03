@@ -6,9 +6,14 @@ import 'package:panache_lib/panache_lib.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-void main() {
-  final themeModel =
-      ThemeModel(service: ThemeService(themeExporter: exportTheme));
+void main() async {
+  var dir = await getApplicationDocumentsDirectory();
+  final themeModel = ThemeModel(
+    service: ThemeService(
+      themeExporter: exportTheme,
+      dirProvider: getApplicationDocumentsDirectory,
+    ),
+  );
 
   runApp(PanacheApp(themeModel: themeModel));
 }
@@ -24,9 +29,9 @@ class PanacheApp extends StatelessWidget {
       model: themeModel,
       child: MaterialApp(
         theme: panacheTheme,
-        home: LaunchScreen(),
+        home: LaunchScreen(model: themeModel),
         routes: {
-          '/home': (context) => LaunchScreen(),
+          '/home': (context) => LaunchScreen(model: themeModel),
           '/editor': (context) => PanacheEditorScreen(),
         },
       ),

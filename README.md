@@ -23,6 +23,7 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 - [x] Code preview
 - [x] Export
 - [ ] Save
+- [ ] platform selection
 - [ ] material colors shades
 - [ ] custom colorSwatch
 - [ ] colors opacity
