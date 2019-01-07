@@ -8,12 +8,12 @@ dependencies:
   flutter:
     sdk: flutter
   panache_lib:
-    #git: https://github.com/rxlabz/panache_lib
-    path: /Users/rxlabz/dev/projects/_open/panache_lib
+    git: https://github.com/rxlabz/panache_lib
   scoped_model: ^1.0.1
   string_scanner: any
   google_sign_in: ^3.2.4
   googleapis: ^0.52.0+1
+  shared_preferences: ^0.4.3
 
 dev_dependencies:
   flutter_test:

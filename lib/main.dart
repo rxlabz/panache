@@ -7,8 +7,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 void main() async {
-  var dir = await getApplicationDocumentsDirectory();
+  final localData = LocalData();
+  await localData.init();
+
   final themeModel = ThemeModel(
+    localData: localData,
     service: ThemeService(
       themeExporter: exportTheme,
       dirProvider: getApplicationDocumentsDirectory,
