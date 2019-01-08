@@ -27,7 +27,7 @@ void main() {
     expect(find.text('New theme'), findsOneWidget);
     expect(find.text('Customize'), findsOneWidget);
     expect(find.text('Brightness'), findsOneWidget);
-    //expect(find.text('blue'), findsOneWidget);
-    //expect(find.text('blue'), findsOneWidget);
+
+    // FIXME expect(find.text('blue'), findsOneWidget);
   });
 }
