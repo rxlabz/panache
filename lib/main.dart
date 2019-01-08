@@ -9,7 +9,6 @@ import 'package:scoped_model/scoped_model.dart';
 void main() async {
   final localData = LocalData();
   await localData.init();
-  localData.clear();
 
   final themeModel = ThemeModel(
     localData: localData,
