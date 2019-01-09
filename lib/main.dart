@@ -6,12 +6,15 @@ import 'package:panache_lib/panache_lib.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'export/drive_service.dart';
+
 void main() async {
   final localData = LocalData();
   await localData.init();
 
   final themeModel = ThemeModel(
     localData: localData,
+    cloudService: DriveService(dirProvider: getTemporaryDirectory),
     service: ThemeService(
       themeExporter: exportTheme,
       dirProvider: getApplicationDocumentsDirectory,

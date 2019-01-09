@@ -19,13 +19,15 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
   - [x] IconTheme
   - [x] DialogTheme
   - [x] InputDecorationTheme
+  - [ ] ColorScheme
 - [x] Code preview
-- [x] Export
+- [x] Export to file
 - [x] Save
+- [x] Export to Google drive
 - [ ] material colors shades
 - [ ] custom colorSwatch
 - [ ] colors opacity
-- more style options
+- more style options controls
   - [ ] BorderSide
   - [ ] BorderRadius
   - [ ] typography options text styles : letter spacing, opacity...
