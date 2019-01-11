@@ -2,9 +2,13 @@
 
 A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) explorer ( :warning: only tablet layout for now) 
 
-![screenshot](screenshot.png)
+![home](docs/home.png)
 
-![screenshot2](screenshot2.png)
+![screenshot](docs/screenshot.png)
+
+![screenshot2](docs/screenshot2.png)
+
+![screenshot3](docs/screenshot3.png)
 
 ## Todo
 
@@ -25,14 +29,14 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 - [x] Save
 - [x] Export to Google drive
 - [ ] material colors shades
-- [ ] custom colorSwatch
 - [ ] colors opacity
 - more style options controls
   - [ ] BorderSide
   - [ ] BorderRadius
-  - [ ] typography options text styles : letter spacing, opacity...
+  - [x] typography options text styles : letter spacing, opacity...
 - [ ] Examples
 - [ ] mobile version
+- [ ] custom colorSwatch
 - [ ] platform selection
 - [ ] multiple fonts
 - ...
