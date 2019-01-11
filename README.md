@@ -1,6 +1,9 @@
 # Panache aka Flutterial 
 
-A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) explorer ( :warning: only tablet layout for now) 
+A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) editor ( :warning: tablet layout for now) 
+
+Panache helps you to create beautiful theme for your Flutter applications.
+Customize components colors and shape, and export the generated .dart containing your theme to Google drive.
 
 ![home](docs/home.png)
 
@@ -9,6 +12,8 @@ A [Flutter Material Theme](https://docs.flutter.io/flutter/material/ThemeData-cl
 ![screenshot2](docs/screenshot2.png)
 
 ![screenshot3](docs/screenshot3.png)
+
+![screenshot4](docs/screenshot4.png)
 
 ## Todo
 
