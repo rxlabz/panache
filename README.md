@@ -41,6 +41,8 @@ Customize components colors and shape, and export the generated theme.dart to yo
   - [x] typography options text styles : letter spacing, opacity...
 - [ ] Examples
 - [ ] mobile version
+- [ ] user preferences :
+  - theme editor + preview last state
 - [ ] custom colorSwatch
 - [ ] platform selection
 - [ ] multiple fonts

@@ -1,41 +1,70 @@
+import 'dart:async';
 import 'dart:io' as io;
 
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as g;
 import 'package:panache_lib/panache_lib.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'https://www.googleapis.com/auth/drive.file',
-  ],
-);
-
 class DriveService implements CloudService {
   final DirectoryProvider dirProvider;
-  io.Directory dir;
 
-  GoogleSignInAccount account;
+  io.Directory _dir;
+  io.Directory get dir => _dir;
 
-  g.DriveApi api;
+  GoogleSignInAccount _account;
 
-  bool get authenticated => (account?.id != null) ?? false;
+  g.DriveApi _api;
 
-  DriveService({this.dirProvider}) {
+  final GoogleSignIn _googleSignIn;
+
+  Future<bool> get authenticated async => await _googleSignIn.isSignedIn();
+
+  StreamController<User> _userStreamer = StreamController<User>();
+
+  Stream<User> get currentUser$ => _userStreamer.stream;
+
+  DriveService({@required this.dirProvider, @required GoogleSignIn signin})
+      : _googleSignIn = signin {
     _initDir();
+    //Future.delayed(aSecond * 5, () => _recoverUser());
+  }
+
+  dispose() {
+    _userStreamer.close();
+  }
+
+  // FIXME throw a Platform exception for now
+  _recoverUser() {
+    try {
+      _googleSignIn.signInSilently().then(
+          (account) => print('DriveService login... $account'),
+          onError: (error) =>
+              print('DriveService. silentSignin error  $error'));
+    } catch (error) {
+      print('DriveService._recoverUser...eXCEPTION\n$error\n----------- ');
+    }
   }
 
   Future _initDir() async {
-    dir = await dirProvider();
+    _dir = await dirProvider();
   }
 
   Future<bool> login() async {
+    _googleSignIn.onCurrentUserChanged.listen((account) =>
+        _userStreamer.add(User(account.displayName, account.photoUrl)));
+
     try {
-      account = await _googleSignIn.signIn();
-      final client =
-          GoogleHttpClient(await _googleSignIn.currentUser.authHeaders);
-      api = g.DriveApi(client);
-      return api != null;
+      _account = await _googleSignIn
+          .signIn()
+          .catchError((error) => print('Signin error : $error'));
+      if (_account == null) return false;
+
+      final authHeaders = await _googleSignIn.currentUser.authHeaders;
+      final client = GoogleHttpClient(authHeaders);
+
+      _api = g.DriveApi(client);
+      return _api != null;
     } catch (error) {
       print('DriveScreen.login.ERROR... $error');
     }
@@ -52,7 +81,7 @@ class DriveService implements CloudService {
     await localFile.create();
     await localFile.writeAsString(content);
 
-    final createdFile = await api.files.create(gFile,
+    final createdFile = await _api.files.create(gFile,
         uploadMedia: g.Media(localFile.openRead(), localFile.lengthSync()));
 
     return createdFile;
@@ -60,7 +89,7 @@ class DriveService implements CloudService {
 
   Future logout() async {
     final result = await _googleSignIn.signOut();
-    print('DriveService.logout... $result');
+    _account = null;
     return result;
   }
 }

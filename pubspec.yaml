@@ -24,4 +24,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/google.png
+    - assets/google-drive.png
     - packages/panache_lib/logo.png
