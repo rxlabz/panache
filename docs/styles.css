@@ -24,4 +24,13 @@ h1 {
   font-size: 1rem;
 }
 
+.subversion {
+  font-size: 0.8rem;
+  color: #7c868b;
+}
+
+img {
+  margin: 1rem auto;
+}
+
 /*# sourceMappingURL=styles.css.map */
