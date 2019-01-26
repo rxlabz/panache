@@ -1,4 +1,4 @@
-package com.example.flutterial;
+package bz.rxla.panache;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
