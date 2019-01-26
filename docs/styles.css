@@ -5,32 +5,43 @@
 }
 
 html, body {
-  background-color: #455A64;
-  color: #CFD8DC;
+  background-color: #3c4e57;
+  color: #dfe9ed;
   font-family: "Roboto", sans-serif;
+  padding: 1rem;
 }
 
 header {
-  padding: 2rem;
+  padding: 1rem;
 }
 
-h1 {
+.logo-box {
+  height: 72px;
+  background: url("logo.png") no-repeat;
+  padding: 16px 0 0 64px;
+}
+.logo-box h1 {
   color: #fff;
   font-size: 1.5rem;
 }
-
-.subtitle {
-  color: #B0BEC5;
-  font-size: 1rem;
-}
-
-.subversion {
+.logo-box h1 .subversion {
   font-size: 0.8rem;
-  color: #7c868b;
+  color: #95a1a7;
+}
+.logo-box .subtitle {
+  color: #B0BEC5;
+  font-size: 0.9rem;
 }
 
-img {
-  margin: 1rem auto;
+.intro-box {
+  line-height: 1.8;
+}
+
+.screens-box {
+  margin: 2rem auto;
+}
+.screens-box img {
+  margin: 1rem 0;
 }
 
 /*# sourceMappingURL=styles.css.map */
