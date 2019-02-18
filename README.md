@@ -1,6 +1,6 @@
 # Panache aka Flutterial 
 
-A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) editor ( :warning: tablet only layout for now) 
+A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) editor. 
 
 Panache helps you to create beautiful [Material](http://material.io) themes for your Flutter applications.
 Customize components colors and shape, and export the generated theme.dart to your Google drive.
@@ -30,7 +30,7 @@ Most of the code is in [panache_lib](https://github.com/rxlabz/panache_lib)
   - [x] IconTheme
   - [x] DialogTheme
   - [x] InputDecorationTheme
-  - [ ] ColorScheme
+  - [ ] [ColorScheme](https://github.com/rxlabz/color_scheme)
 - [x] Code preview
 - [x] Export to file
 - [x] Save
@@ -42,7 +42,7 @@ Most of the code is in [panache_lib](https://github.com/rxlabz/panache_lib)
   - [ ] BorderRadius
   - [x] typography options text styles : letter spacing, decoration...
 - [ ] Examples
-- [ ] mobile version
+- [x] mobile version
 - [ ] desktop version
 - [ ] user preferences :
   - theme editor + preview last state
