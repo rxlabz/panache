@@ -19,7 +19,7 @@ to configure Google signin and Google drive :
 1. Create a [Firebase project](https://firebase.google.com)
 2. Add an iOS application
 3. Download the GoogleService-info.plist and add it to your xcode project /Runner
-4. In the info.plist, line 36, add the REVERSED_CLIENT_ID ( from GoogleService-info.plist )  
+4. In the info.plist, add the REVERSED_CLIENT_ID ( from GoogleService-info.plist )  
 5. Run 
 
 ### [x] Android
