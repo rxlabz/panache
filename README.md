@@ -7,6 +7,31 @@ Customize components colors and shape, and export the generated theme.dart to yo
 
 Most of the code is in [panache_lib](https://github.com/rxlabz/panache_lib)
 
+## Google drive
+
+to configure Google signin and Google drive :
+
+- https://pub.dartlang.org/packages/google_sign_in
+- https://pub.dartlang.org/packages/googleapis
+  
+### [x] iOS
+
+1. Create a [Firebase project](https://firebase.google.com)
+2. Add an iOS application
+3. Download the GoogleService-info.plist and add it to your xcode project /Runner
+4. In the info.plist, line 36, add the REVERSED_CLIENT_ID ( from GoogleService-info.plist )  
+5. Run 
+
+### [x] Android
+
+1. Create a [Firebase project](https://firebase.google.com)
+2. Add an Android application
+3. Enable OAuth for Drive API => https://console.developers.google.com/
+4. Run 
+
+
+## screenshots
+
 ![home](docs/home.png)
 
 ![screenshot](docs/screenshot.png)
