@@ -1,3 +1,5 @@
+# [Try panache in your browser](https://rxlabz.github.io/panache_web)
+
 # Panache aka Flutterial 
 
 A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) editor. 
