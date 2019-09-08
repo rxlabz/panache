@@ -1,0 +1,27 @@
+name: panache_web
+description: panache for the web
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2<3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  scoped_model: ^1.0.1
+
+  js: any
+
+  panache_core:
+    path: ../panache_core
+
+  panache_ui:
+    path: ../panache_ui
+
+flutter:
+  uses-material-design: true

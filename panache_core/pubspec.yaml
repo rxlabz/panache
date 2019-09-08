@@ -1,0 +1,25 @@
+name: panache_core
+description: Panache app core
+version: 0.1.0
+author: Erick Ghaumez <erick@rxla.bz>
+homepage: https://github.com/rxlabz/panache
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  scoped_model: ^1.0.1
+  path_provider: ^1.2.0
+  string_scanner: ^1.0.5
+  http: ^0.12.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - logo.png

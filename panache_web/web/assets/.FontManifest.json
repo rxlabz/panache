@@ -1,0 +1,18 @@
+[
+  {
+    "family": "Roboto",
+    "fonts": [
+      {
+        "asset": "Roboto-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "family": "RobotoMono",
+    "fonts": [
+      {
+        "asset": "RobotoMono-Regular.ttf"
+      }
+    ]
+  }
+]

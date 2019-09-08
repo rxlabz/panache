@@ -1,0 +1,22 @@
+name: panache_ui
+description: A new Flutter project.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  panache_core:
+    path: ../panache_core
+
+  #panache_services:
+    #path: ../panache_services
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

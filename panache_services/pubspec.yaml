@@ -1,0 +1,25 @@
+name: panache_services
+description: Panache mobile &amp; desktop services
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  http: ^0.12.0
+
+  shared_preferences: ^0.5.3
+  shared_preferences_fde:
+    path: /Users/rxlabz/dev/tools/flutter_desktop/flutter-desktop-embedding/plugins/flutter_plugins/shared_preferences_fde
+
+  panache_core:
+    path: ../panache_core
