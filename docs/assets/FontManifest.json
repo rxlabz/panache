@@ -1,1 +1,26 @@
-[{"fonts":[{"asset":"fonts/MaterialIcons-Regular.ttf"}],"family":"MaterialIcons"}]
+[
+  {
+    "fonts": [
+      {
+        "asset": "fonts/MaterialIcons-Regular.ttf"
+      }
+    ],
+    "family": "MaterialIcons"
+  },
+  {
+    "family": "Roboto",
+    "fonts": [
+      {
+        "asset": "Roboto-Regular.ttf"
+      }
+    ]
+  },
+  {
+    "family": "RobotoMono",
+    "fonts": [
+      {
+        "asset": "RobotoMono-Regular.ttf"
+      }
+    ]
+  }
+]
