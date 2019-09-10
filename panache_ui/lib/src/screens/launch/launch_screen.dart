@@ -26,11 +26,6 @@ class LaunchScreenState extends State<LaunchScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final mqSize = MediaQuery.of(context).size;
     print('LaunchScreenState.build... mqSize $mqSize');

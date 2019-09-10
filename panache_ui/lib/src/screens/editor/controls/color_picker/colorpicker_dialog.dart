@@ -51,28 +51,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
   Widget build(BuildContext context) {
     final mQ = MediaQuery.of(context);
 
+    final buttonStyle = Theme.of(context).textTheme.button;
     return AlertDialog(
       contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
       content: mQ.orientation == Orientation.portrait
           ? _buildPortraitPicker()
           : _buildLandscapePicker(),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.close,
-            color: Colors.grey,
+        FlatButton(
+          child: Text(
+            'CANCEL',
+            style: buttonStyle.copyWith(color: Colors.grey),
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        SizedBox(
-          width: 50,
-        ),
         FlatButton.icon(
-          label: Text('Select'),
-          icon: Icon(
-            Icons.check_circle,
-            color: currentColor /*Colors.green*/,
-          ),
+          label: Text('SELECT'),
+          icon: Icon(Icons.check_circle, color: currentColor),
           onPressed: () => Navigator.of(context).pop(currentColor),
         ),
       ],
@@ -123,15 +118,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
           labelColor: Colors.blueGrey,
           isScrollable: true,
         ),
-        Container(
-          height: 100.0,
+        ColorThumbPreview(
           color: currentColor,
-          child: Center(
-            child: Text(
-              "${colorToHex32(currentColor)}",
-              style: TextStyle(color: getContrastColor(currentColor)),
-            ),
-          ),
+          constraints: BoxConstraints.expand(height: 60),
+        ),
+        SizedBox(
+          width: 100,
+          child: ColorTextField(
+              color: currentColor, onColorChanged: _updateColorValue),
         ),
         _getPicker(currentTabIndex, Orientation.portrait),
       ],
@@ -157,15 +151,25 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 100.0,
-                width: 100.0,
-                color: currentColor,
-                child: Center(
-                    child: Text(
-                  "${colorToHex32(currentColor)}",
-                  style: TextStyle(color: getContrastColor(currentColor)),
-                )),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  ColorThumbPreview(
+                    color: currentColor,
+                    constraints: BoxConstraints.expand(width: 100, height: 60),
+                  ),
+/*
+                  SizedBox(
+                    width: 100,
+                    child: ColorTextField(
+                      color: currentColor,
+                      onColorChanged: (color) =>
+                          setState(() => currentColor = color),
+                    ),
+                  )
+*/
+                ],
               ),
             ),
             _getPicker(currentTabIndex, Orientation.landscape),
@@ -173,6 +177,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
         )
       ],
     );
+  }
+
+  void _updateColorValue(Color color) {
+    setState(() => currentColor = color);
   }
 }
 
@@ -194,15 +202,114 @@ class MaterialPicker extends StatelessWidget {
         .toList();
 
     return Flexible(
-      child: SingleChildScrollView(
-        primary: true,
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Wrap(
-          runSpacing: 4.0,
-          spacing: 4.0,
-          children: swatches,
+      child: SizedBox(
+        child: SingleChildScrollView(
+          primary: true,
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Wrap(
+            runSpacing: 4.0,
+            spacing: 4.0,
+            children: swatches,
+          ),
         ),
       ),
     );
+  }
+}
+
+class ColorThumbPreview extends StatelessWidget {
+  final Color color;
+  final BoxConstraints constraints;
+
+  const ColorThumbPreview({Key key, this.color, this.constraints})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        constraints: constraints,
+        /*
+        height: 60,
+        width: 100,*/
+        color: color,
+        child: Center(
+          child: Text(
+            colorToHex32(color),
+            style: TextStyle(color: getContrastColor(color)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ColorTextField extends StatefulWidget {
+  final Color color;
+  final ValueChanged<Color> onColorChanged;
+
+  const ColorTextField({Key key, this.color, this.onColorChanged})
+      : super(key: key);
+
+  @override
+  _ColorTextFieldState createState() => _ColorTextFieldState();
+}
+
+class _ColorTextFieldState extends State<ColorTextField> {
+  TextEditingController fieldController;
+
+  bool get valid =>
+      RegExp(r'[0-9A-Fa-f]{8}').hasMatch('${fieldController.text}');
+
+  @override
+  void initState() {
+    fieldController = TextEditingController(
+      text: colorToHex32(widget.color).replaceFirst('#', ''),
+    );
+    fieldController.addListener(_onChanged);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    fieldController.removeListener(_onChanged);
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(ColorTextField oldWidget) {
+    if (oldWidget.color != widget.color)
+      fieldController.text = colorToHex32(widget.color).replaceFirst('#', '');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        maxLength: 8,
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        controller: fieldController,
+        style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12),
+        decoration: InputDecoration(
+            prefixText: '#',
+            counterText: '',
+            filled: true,
+            contentPadding: const EdgeInsets.all(4),
+            border: OutlineInputBorder()),
+      ),
+    );
+  }
+
+  void _onChanged() {
+    print('fieldListen... ${fieldController.text} $valid');
+    if (valid) {
+      final color = Color(int.parse('${fieldController.text}', radix: 16));
+      print('_ColorPreviewState.initState... $color');
+      widget.onColorChanged(color);
+    }
   }
 }

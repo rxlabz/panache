@@ -92,26 +92,30 @@ class RGBPickerState extends State<RGBPicker> {
   }
 
   RGBPickerState(this._color) {
-    _r = this._color.red.toDouble();
-    _g = this._color.green.toDouble();
-    _b = this._color.blue.toDouble();
+    _updateColorComponents();
   }
 
-  double test;
+  void _updateColorComponents() {
+    _r = _color.red.toDouble();
+    _g = _color.green.toDouble();
+    _b = _color.blue.toDouble();
+  }
 
   void updateColor() => setState(
       () => color = Color.fromRGBO(_r.toInt(), _g.toInt(), _b.toInt(), 1.0));
 
   @override
   void didUpdateWidget(RGBPicker oldWidget) {
-    super.didUpdateWidget(oldWidget);
     if (widget.color != oldWidget.color) {
       _color = widget.color;
+      _updateColorComponents();
     }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
+    print('RGBPickerState.build... $_color');
     final hsl = HSLColor.fromColor(_color);
     final shade50 = hsl.withLightness(.95).toColor();
     final bgColor =

@@ -2,10 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:panache_core/panache_core.dart';
 
-class MobileScreenshotService extends ScreenshotService {
+class LocalScreenshotService extends ScreenshotService {
   final Directory dir;
 
-  MobileScreenshotService(this.dir);
+  LocalScreenshotService(this.dir);
 
   @override
   void capture(String filename, Uint8List pngBytes) async {

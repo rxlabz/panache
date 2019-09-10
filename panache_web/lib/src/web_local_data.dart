@@ -8,7 +8,7 @@ const _panelsKey = 'panelsState';
 const _positionKey = 'scrollPosition';
 
 /// local persistence
-class WebLocalData implements PersistenceService {
+class WebLocalData implements LocalStorage {
   /// synchronously loads local themes
   List<PanacheTheme> get themes => []
       /*_prefs

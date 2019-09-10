@@ -31,7 +31,7 @@ class ThemeModel extends Model {
 
   ScreenShooter _screenShooter;
 
-  final PersistenceService localData;
+  final LocalStorage localData;
 
   ThemeData get theme => _service.theme;
 
@@ -63,6 +63,7 @@ class ThemeModel extends Model {
         //_cloudService = cloudService,
         _themes = localData.themes {
     _service.init(onChange);
+    print('ThemeModel.ThemeModel... $_themes');
 
     /*if (_cloudService != null)
       _cloudService.currentUser$?.listen((user) {
@@ -78,10 +79,11 @@ class ThemeModel extends Model {
     assert(primarySwatch != null);
     final defaultThemeName = 'new-theme';
     _currentTheme = PanacheTheme(
-        id: uuid,
-        name: defaultThemeName,
-        primarySwatch: primarySwatch,
-        brightness: brightness);
+      id: uuid,
+      name: defaultThemeName,
+      primarySwatch: primarySwatch,
+      brightness: brightness,
+    );
 
     _service.initTheme(primarySwatch: primarySwatch, brightness: brightness);
 
@@ -117,6 +119,7 @@ class ThemeModel extends Model {
     final pngBytes = await _screenShooter();
     if (pngBytes == null || pngBytes.length == 0) return;
 
+    print('ThemeModel.saveTheme... $screenService ${screenService == null}');
     if (screenService != null) screenService.capture(filename, pngBytes);
 
     _service.saveTheme(filename);

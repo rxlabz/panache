@@ -9,7 +9,7 @@ const _panelsKey = 'panelsState';
 const _positionKey = 'scrollPosition';
 
 /// local persistence
-class LocalData implements PersistenceService {
+class LocalData implements LocalStorage {
   // persistence destination
   SharedPreferences _prefs;
 

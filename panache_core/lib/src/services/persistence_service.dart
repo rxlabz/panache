@@ -14,7 +14,7 @@ const Map<String, bool> defaultPanelStates = const {
   'inputsPanelExpanded': false,
 };
 
-abstract class PersistenceService {
+abstract class LocalStorage {
   List<PanacheTheme> get themes;
 
   Map<String, dynamic> get panelStates;

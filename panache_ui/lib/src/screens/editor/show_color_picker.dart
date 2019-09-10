@@ -13,7 +13,7 @@ const double _kMenuScreenPadding = 0.0;
 
 /// push a route to Navigator
 /// the position is expected
-Future<T> showGridMenu<T>(
+Future<T> showColorPicker<T>(
     {@required BuildContext context,
     RelativeRect position,
     @required List<PopupMenuEntry<T>> items,
@@ -24,7 +24,7 @@ Future<T> showGridMenu<T>(
   assert(items != null && items.isNotEmpty);
   return Navigator.push(
     context,
-    _PopupMenuRoute<T>(
+    _ColorPickerPopup<T>(
       position: position,
       items: items,
       colorStream: colorStream,
@@ -40,8 +40,8 @@ Future<T> showGridMenu<T>(
 /// items
 /// initialValue
 /// elevation + theme
-class _PopupMenuRoute<T> extends PopupRoute<T> {
-  _PopupMenuRoute(
+class _ColorPickerPopup<T> extends PopupRoute<T> {
+  _ColorPickerPopup(
       {this.position,
       this.items,
       this.initialValue,
@@ -137,7 +137,7 @@ class _PopupMenuRouteGridLayout extends SingleChildLayoutDelegate {
 
 class _PopupMenu<T> extends StatefulWidget {
   const _PopupMenu({Key key, this.route, this.colorStream}) : super(key: key);
-  final _PopupMenuRoute<T> route;
+  final _ColorPickerPopup<T> route;
   final ColorStream colorStream;
 
   @override

@@ -8,7 +8,7 @@ const _panelsKey = 'panelsState';
 const _positionKey = 'scrollPosition';
 
 /// local persistence
-class DesktopLocalData implements PersistenceService {
+class DesktopLocalStorage implements LocalStorage {
   // persistence destination
   SharedPreferences _prefs;
 
@@ -38,10 +38,13 @@ class DesktopLocalData implements PersistenceService {
   init() async => _prefs = await SharedPreferences.getInstance();
 
   /// save the new local themes list
-  void updateThemeList(List<PanacheTheme> themes) => _prefs.setStringList(
-        _themeKey,
-        themes.map((theme) => theme.toJson()).toList(growable: false),
-      );
+  void updateThemeList(List<PanacheTheme> themes) {
+    print('DesktopLocalStorage.updateThemeList... $themes');
+    _prefs.setStringList(
+      _themeKey,
+      themes.map((theme) => theme.toJson()).toList(growable: false),
+    );
+  }
 
   /// remove the local theme list
   void clear() => _prefs.remove(_themeKey);

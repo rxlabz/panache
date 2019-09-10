@@ -44,9 +44,13 @@ to configure Google signin and Google drive :
 
 ## Todo
 
+- [x] web preview
+- [x] web download generated theme
+- [ ] partial export
+- [ ] update to 1.9.+ theme
 - [x] Theme editor / live app preview
-- [x] Dart 2.1
-- [x] Flutter 1.0
+- [x] Flutter 1.9+
+- [x] Dart 2.5
 - [ ] new Material Theme properties
   - [x] ButtonTheme
   - [x] ChipTheme
@@ -59,7 +63,7 @@ to configure Google signin and Google drive :
 - [x] Code preview
 - [x] Export to file
 - [x] Save
-- [x] Export to Google drive
+- [x] Mobile : Export to Google drive
 - [ ] material colors shades
 - [ ] colors opacity
 - more style options controls
@@ -68,10 +72,11 @@ to configure Google signin and Google drive :
   - [x] typography options text styles : letter spacing, decoration...
 - [ ] Examples
 - [x] mobile version
-- [ ] desktop version
+- [x] desktop version
 - [ ] user preferences :
+  - [x] mobile editor scroll position
   - theme editor + preview last state
-- [ ] custom colorSwatch
+- [x] custom colorSwatch
 - [ ] platform selection
 - [ ] multiple fonts
 - ...

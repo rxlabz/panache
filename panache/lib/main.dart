@@ -26,7 +26,7 @@ void main() async {
         themeExporter: exportTheme,
         dirProvider: getApplicationDocumentsDirectory,
       ),
-      screenService: MobileScreenshotService(dir));
+      screenService: LocalScreenshotService(dir));
 
   runApp(PanacheApp(themeModel: themeModel));
 }
@@ -57,7 +57,7 @@ class PanacheApp extends StatelessWidget {
 exportTheme(String code, String filename) async {
   var dir = await getApplicationDocumentsDirectory();
   final themeFile = File('${dir.path}/themes/$filename.dart');
-  print('exportTheme... ${themeFile.path}');
+  //print('exportTheme... ${themeFile.path}');
   themeFile.createSync(recursive: true);
   themeFile.writeAsStringSync(code);
 }

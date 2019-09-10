@@ -6,23 +6,27 @@ import 'package:flutter/widgets.dart';
 import 'package:panache_core/panache_core.dart';
 import 'package:panache_services/panache_services.dart';
 import 'package:panache_ui/panache_ui.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'services/desktop_local_data.dart';
 
 void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   WidgetsFlutterBinding.ensureInitialized();
 
-  final localData = DesktopLocalData();
+  final localData = DesktopLocalStorage();
   await localData.init();
 
+  final dir = await getApplicationDocumentsDirectory();
+
   final themeModel = ThemeModel(
-    localData: localData,
-    /*cloudService: DesktopCloudService(),*/
-    service: ThemeService(
-      themeExporter: exportTheme,
-      dirProvider: null,
-    ),
-  );
+      localData: localData,
+      service: ThemeService(
+        themeExporter: exportTheme,
+        dirProvider: getApplicationDocumentsDirectory,
+      ),
+      screenService: LocalScreenshotService(dir));
 
   runApp(PanacheApp(themeModel: themeModel));
 }
@@ -50,13 +54,14 @@ class PanacheApp extends StatelessWidget {
   }
 }
 
-exportTheme(String code, String filename) async {
+exportTheme(String code, [String filename = 'theme']) async {
+  print('exportTheme... $code');
+  final dir = await getApplicationDocumentsDirectory();
   print('exportTheme... ');
-  /*var dir = await getApplicationDocumentsDirectory();
   final themeFile = File('${dir.path}/themes/$filename.dart');
   print('exportTheme... ${themeFile.path}');
   themeFile.createSync(recursive: true);
-  themeFile.writeAsStringSync(code);*/
+  themeFile.writeAsStringSync(code);
 }
 
 class DesktopCloudService implements CloudService {

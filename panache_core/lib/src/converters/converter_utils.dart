@@ -104,8 +104,8 @@ Map<String, dynamic> borderRadiusToMap(BorderRadiusGeometry radius) {
   };
 }
 
-String  borderSideToCode(BorderSide side) {
-  return 'BorderSide(color: ${side.color}, width: ${side.width}, style: ${side.style}, )';
+String borderSideToCode(BorderSide side) {
+  return 'BorderSide(color: ${colorToCode(side.color)}, width: ${side.width}, style: ${side.style}, )';
 }
 
 Map<String, dynamic> borderSideToMap(BorderSide side) {

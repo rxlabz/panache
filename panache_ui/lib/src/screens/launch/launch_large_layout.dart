@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
@@ -36,12 +37,12 @@ class LaunchLayout extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         print('LaunchLayout.build => constraints $constraints');
-        return buildDefaultLayout(context, model, constraints);
+        return _buildDefaultLayout(context, model, constraints);
       },
     );
   }
 
-  Column buildDefaultLayout(
+  Column _buildDefaultLayout(
       BuildContext context, ThemeModel model, BoxConstraints constraints) {
     final useLargeLayout = constraints.biggest.height >= 700;
 
@@ -65,10 +66,8 @@ class LaunchLayout extends StatelessWidget {
             onNewTheme: () => newTheme(model),
           ),
         ),
-        SizedBox()
-        /* FIXME model.themes?.isNotEmpty ?? false
-            ? _buildHistoryThumbs(useLargeLayout, model)
-            : SizedBox()*/
+        if ((model.themes?.isNotEmpty ?? false) && !kIsWeb)
+          _buildHistoryThumbs(useLargeLayout, model)
       ],
     );
   }
@@ -97,7 +96,7 @@ class LaunchLayout extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           semanticChildCount: model.themes?.length ?? 0,
           children: buildThemeThumbs(
-              model.themes.where(fileExists).toList() ?? [],
+              model.themes.where(_fileExists).toList() ?? [],
               basePath: '${model.dir?.path ?? ''}/themes',
               size: thumbSize),
         ),
@@ -109,7 +108,7 @@ class LaunchLayout extends StatelessWidget {
         : Stack(children: elements.reversed.toList());*/
   }
 
-  bool fileExists(PanacheTheme theme) {
-    return File(model.themeDataPath(theme)).existsSync();
+  bool _fileExists(PanacheTheme theme) {
+    return kIsWeb ? false : File(model.themeDataPath(theme)).existsSync();
   }
 }

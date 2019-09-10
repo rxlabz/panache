@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,17 +43,15 @@ class ThemeService {
       Brightness brightness: Brightness.light}) {
     //final inputTheme = InputDecoration().applyDefaults(InputDecorationTheme());
 
-    _theme = _localize(
-      ThemeData(
-        fontFamily: 'Roboto',
-        primarySwatch: primarySwatch,
-        brightness: brightness,
-        platform: TargetPlatform.android
-        /*Platform.isAndroid
+    _theme = ThemeData(
+      fontFamily: 'Roboto',
+      primarySwatch: primarySwatch,
+      brightness: brightness,
+      platform: TargetPlatform.iOS
+      /*Platform.isAndroid
              ? TargetPlatform.android
              : TargetPlatform.iOS*/
-        ,
-      ),
+      ,
     );
   }
 
