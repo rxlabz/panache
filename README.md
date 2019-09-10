@@ -7,15 +7,15 @@ A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter
 Panache helps you to create beautiful [Material](http://material.io) themes for your Flutter applications.
 Customize components colors and shape, and export the generated theme.dart to your Google drive.
 
-![home](docs/home.png)
+![home](docs/assets/home.png)
 
-![screenshot](docs/screenshot.png)
+![screenshot](docs/assets/screenshot.png)
 
-![screenshot2](docs/screenshot2.png)
+![screenshot2](docs/assets/screenshot2.png)
 
-![screenshot3](docs/screenshot3.png)
+![screenshot3](docs/assets/screenshot3.png)
 
-![screenshot4](docs/screenshot4.png)
+![screenshot4](docs/assets/screenshot4.png)
 
 ## Todo
 
