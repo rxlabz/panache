@@ -5,8 +5,6 @@ A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter
 Panache helps you to create beautiful [Material](http://material.io) themes for your Flutter applications.
 Customize components colors and shape, and export the generated theme.dart to your Google drive.
 
-Most of the code is in [panache_lib](https://github.com/rxlabz/panache_lib)
-
 ## Google drive
 
 to configure Google signin and Google drive :

@@ -1,36 +1,11 @@
 # Panache aka Flutterial 
 
+[Try Panache in your browser]()
+
 A [Flutter](https://flutter.io) [Material Theme](https://docs.flutter.io/flutter/material/ThemeData-class.html) editor. 
 
 Panache helps you to create beautiful [Material](http://material.io) themes for your Flutter applications.
 Customize components colors and shape, and export the generated theme.dart to your Google drive.
-
-Most of the code is in [panache_lib](https://github.com/rxlabz/panache_lib)
-
-## Google drive
-
-to configure Google signin and Google drive :
-
-- https://pub.dartlang.org/packages/google_sign_in
-- https://pub.dartlang.org/packages/googleapis
-  
-### [x] iOS
-
-1. Create a [Firebase project](https://firebase.google.com)
-2. Add an iOS application
-3. Download the GoogleService-info.plist and add it to your xcode project /Runner
-4. In the info.plist, add the REVERSED_CLIENT_ID ( from GoogleService-info.plist )  
-5. Run 
-
-### [x] Android
-
-1. Create a [Firebase project](https://firebase.google.com)
-2. Add an Android application
-3. Enable OAuth for Drive API => https://console.developers.google.com/
-4. Run 
-
-
-## screenshots
 
 ![home](docs/home.png)
 
@@ -83,5 +58,4 @@ to configure Google signin and Google drive :
 
 ## Getting Started
 
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+For help getting started with Flutter : [documentation](http://flutter.dev/).
