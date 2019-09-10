@@ -1,6 +1,7 @@
-*.jks
 
 # Miscellaneous
+*.jks
+GoogleService-Info.plist
 *.class
 *.lock
 *.log
@@ -14,6 +15,7 @@ _DEV.md
 .svn/
 *.scss
 *.css.map
+*.js.map
 
 # IntelliJ related
 *.iml
