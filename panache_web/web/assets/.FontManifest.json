@@ -11,7 +11,7 @@
     "family": "Roboto",
     "fonts": [
       {
-        "asset": "Roboto-Regular.ttf"
+        "asset": "fonts/Roboto-Regular.ttf"
       }
     ]
   },
@@ -19,7 +19,7 @@
     "family": "RobotoMono",
     "fonts": [
       {
-        "asset": "RobotoMono-Regular.ttf"
+        "asset": "fonts/RobotoMono-Regular.ttf"
       }
     ]
   }
