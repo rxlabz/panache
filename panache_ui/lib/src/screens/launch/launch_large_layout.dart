@@ -49,11 +49,14 @@ class LaunchLayout extends StatelessWidget {
     final orientation = MediaQuery.of(context).orientation;
     final inPortrait = orientation == Orientation.portrait;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        PanacheLogo(
-          minimized: !inPortrait && !useLargeLayout,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 80),
+          child: PanacheLogo(
+            minimized: !inPortrait && !useLargeLayout,
+          ),
         ),
         ConstrainedBox(
           constraints: BoxConstraints.tightFor(width: 520),

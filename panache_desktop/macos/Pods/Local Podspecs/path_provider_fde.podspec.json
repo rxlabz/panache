@@ -1,0 +1,25 @@
+{
+  "name": "path_provider_fde",
+  "version": "0.0.1",
+  "summary": "A Flutter plugin for getting commonly used locations on the filesystem.",
+  "description": "A temporary macOS implmentation of the path_provider plugin from flutter/plugins.",
+  "homepage": "https://github.com/google/flutter-desktop-embedding/tree/master/plugins/flutter_plugins/path_provider_fde",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Flutter Desktop Embedding Developers": "flutter-desktop-embedding-dev@googlegroups.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "FlutterMacOS": [
+
+    ]
+  },
+  "platforms": {
+    "osx": "10.11"
+  }
+}

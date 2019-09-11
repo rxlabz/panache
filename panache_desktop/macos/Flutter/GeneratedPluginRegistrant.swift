@@ -1,8 +1,9 @@
 //
 //  Generated file. Do not edit.
 //
-import Foundation
+
 import FlutterMacOS
+import Foundation
 
 import path_provider_fde
 import shared_preferences_fde
