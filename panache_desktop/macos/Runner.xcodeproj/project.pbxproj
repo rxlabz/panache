@@ -156,7 +156,6 @@
 				9C97F4AB926C84B1A264B892 /* Pods-Runner.release.xcconfig */,
 				B37D8CFD7AB4AB8BFEFFBFEA /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -412,7 +411,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.FlutterEmbedderMacExample.FlutterDesktopExample;
+				PRODUCT_BUNDLE_IDENTIFIER = bz.rxla.panache;
 				PRODUCT_NAME = "Flutter Desktop Example";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -540,7 +539,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.FlutterEmbedderMacExample.FlutterDesktopExample;
+				PRODUCT_BUNDLE_IDENTIFIER = bz.rxla.panache;
 				PRODUCT_NAME = "Flutter Desktop Example";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -563,7 +562,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.FlutterEmbedderMacExample.FlutterDesktopExample;
+				PRODUCT_BUNDLE_IDENTIFIER = bz.rxla.panache;
 				PRODUCT_NAME = "Flutter Desktop Example";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

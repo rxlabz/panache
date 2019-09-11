@@ -19,7 +19,7 @@ dev_dependencies:
 
   shared_preferences: ^0.5.3
   shared_preferences_fde:
-    path: /Users/rxlabz/dev/tools/flutter_desktop/flutter-desktop-embedding/plugins/flutter_plugins/shared_preferences_fde
+    path: ../desktop_plugins/shared_preferences_fde
 
   panache_core:
     path: ../panache_core

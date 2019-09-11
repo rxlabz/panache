@@ -14,11 +14,11 @@ dependencies:
 
   shared_preferences: ^0.5.3
   shared_preferences_fde:
-    path: /Users/rxlabz/dev/tools/flutter_desktop/flutter-desktop-embedding/plugins/flutter_plugins/shared_preferences_fde
+    path: ../desktop_plugins/shared_preferences_fde
 
   path_provider: ^1.3.0
   path_provider_fde:
-    path: /Users/rxlabz/dev/tools/flutter_desktop/flutter-desktop-embedding/plugins/flutter_plugins/path_provider_fde
+    path: ../desktop_plugins/path_provider_fde
 
   panache_core:
     path: ../panache_core

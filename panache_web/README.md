@@ -1,14 +1,7 @@
-# Panache, FLutter theme editor
+# Panache for your browser
 
-- [x] download generated theme
-- [ ] partial export
+[Building Flutter apps for the web](https://github.com/flutter/flutter/wiki/Building-a-web-application-with-Flutter)
 
-- [ ] update to 1.7.+ theme
-  - [ ] new
-    - [ ] SliderTheme
-      - [ ] .fromPrimaryColors (primaryColor, primaryColorDark; primaryColorLight, valueIndicatorTextStyle )
-      - [ ] complete constructor options
-    - [ ] CardTheme   
-    - [ ] SnackBarTheme   
-  - [ ] updates
-    - [ ] TabBarTHeme
+```bash
+flutter run -d chrome
+```
