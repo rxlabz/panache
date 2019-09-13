@@ -1,11 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:provider/provider.dart';
 
 import 'logo.dart';
 import 'new_theme_panel.dart';
+
+const _projectRepo = 'https://github.com/rxlabz/panache';
 
 class LaunchLayout extends StatelessWidget {
   final ThemeModel model;
@@ -44,6 +45,8 @@ class LaunchLayout extends StatelessWidget {
 
   Column _buildDefaultLayout(
       BuildContext context, ThemeModel model, BoxConstraints constraints) {
+    final linkManager = Provider.of<LinkService>(context);
+
     final useLargeLayout = constraints.biggest.height >= 700;
 
     final orientation = MediaQuery.of(context).orientation;
@@ -52,8 +55,20 @@ class LaunchLayout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: InkWell(
+                child: Image.asset('github.png', package: 'panache_ui'),
+                onTap: () => linkManager.open(_projectRepo),
+              ),
+            )
+          ],
+        ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 80),
+          padding: const EdgeInsets.symmetric(vertical: 60),
           child: PanacheLogo(
             minimized: !inPortrait && !useLargeLayout,
           ),
@@ -100,7 +115,7 @@ class LaunchLayout extends StatelessWidget {
           semanticChildCount: model.themes?.length ?? 0,
           children: buildThemeThumbs(
               model.themes.where(_fileExists).toList() ?? [],
-              basePath: '${model.dir?.path ?? ''}/themes',
+              basePath: '${model.dirPath ?? ''}/themes',
               size: thumbSize),
         ),
       )
@@ -112,6 +127,6 @@ class LaunchLayout extends StatelessWidget {
   }
 
   bool _fileExists(PanacheTheme theme) {
-    return kIsWeb ? false : File(model.themeDataPath(theme)).existsSync();
+    return kIsWeb ? false : model.themeExists(theme);
   }
 }

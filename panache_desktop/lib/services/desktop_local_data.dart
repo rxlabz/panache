@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const _themeKey = 'themes';
 const _panelsKey = 'panelsState';
@@ -50,7 +50,15 @@ class DesktopLocalStorage implements LocalStorage {
   void clear() => _prefs.remove(_themeKey);
 
   /// delete a local theme
-  void deleteTheme(PanacheTheme theme) {
+  void deleteTheme(PanacheTheme theme) async {
+    /*
+    FIXME
+    final screenshot = File('${dir.path}/themes/${theme.id}.png');
+    if (await screenshot.exists()) await screenshot.delete();
+
+    final dataFile = File('${dir.path}/themes/${theme.id}.json');
+    if (await dataFile.exists()) await dataFile.delete();*/
+
     updateThemeList(themes.where((t) => t.id != theme.id).toList());
   }
 

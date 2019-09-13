@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -16,6 +15,8 @@ import 'utils/uuid.dart';
 typedef Future<Uint8List> ScreenShooter();
 
 class ThemeModel extends Model {
+  get dirPath => _service.dir.path;
+
   static ThemeModel of(BuildContext context) =>
       ScopedModel.of<ThemeModel>(context);
 
@@ -36,8 +37,6 @@ class ThemeModel extends Model {
   ThemeData get theme => _service.theme;
 
   MaterialColor get primarySwatch => _currentTheme.primarySwatch;
-
-  Directory get dir => _service.dir;
 
   String get themeCode => themeToCode(theme);
 
@@ -143,17 +142,21 @@ class ThemeModel extends Model {
   deleteTheme(PanacheTheme theme) async {
     localData.deleteTheme(theme);
     _themes.remove(theme);
-    final screenshot = File('${dir.path}/themes/${theme.id}.png');
+    /*final screenshot = File('${dir.path}/themes/${theme.id}.png');
     if (await screenshot.exists()) await screenshot.delete();
 
     final dataFile = File('${dir.path}/themes/${theme.id}.json');
-    if (await dataFile.exists()) await dataFile.delete();
+    if (await dataFile.exists()) await dataFile.delete();*/
 
     notifyListeners();
   }
 
   String themeDataPath(PanacheTheme theme) =>
-      '${dir?.path ?? ''}/themes/${theme.id}.json';
+      '${_service.dir?.path ?? ''}/themes/${theme.id}.json';
+
+  bool themeExists(PanacheTheme theme) {
+    return _service.themeExists(themeDataPath(theme));
+  }
 
   void saveEditorState(Map<String, bool> panelStates, double pixels) =>
       localData.saveEditorState(panelStates, pixels);

@@ -10,5 +10,6 @@ export 'src/services/persistence_service.dart';
 export 'src/services/cloud_service.dart';
 export 'src/services/screenshot_service.dart';
 export 'src/services/user_service.dart';
+export 'src/services/link_service.dart';
 export 'src/converters/theme_converter.dart';
 export 'src/theme_model.dart';

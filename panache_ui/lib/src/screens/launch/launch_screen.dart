@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'launch_large_layout.dart';
-import 'screenshot_renderer.dart';
+
+import 'screenshot_renderer.dart'
+    if (dart.library.html) 'web_screenshot_renderer.dart';
 
 class LaunchScreen extends StatefulWidget {
   final ThemeModel model;

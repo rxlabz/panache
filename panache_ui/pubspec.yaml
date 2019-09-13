@@ -14,9 +14,15 @@ dependencies:
   panache_core:
     path: ../panache_core
 
+  provider: ^3.1.0
+
   #panache_services:
     #path: ../panache_services
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter:
+  assets:
+    - github.png

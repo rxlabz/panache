@@ -1,8 +1,6 @@
 // ignore: uri_does_not_exists
 import 'package:flutter/foundation.dart';
 
-import 'dart:io' if (dart.library.html) 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
@@ -27,7 +25,6 @@ class ScreenshotRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenshotPath = '$basePath/${theme.id}.png';
-    final imageFile = File(screenshotPath);
 
     return Stack(
       alignment: Alignment.bottomLeft,
@@ -37,17 +34,10 @@ class ScreenshotRenderer extends StatelessWidget {
           child: Container(
             child: Material(
                 elevation: 2.0,
-                child: imageFile.existsSync() && !kIsWeb
-                    ? Image.file(
-                        imageFile,
-                        width: size.width,
-                        height: size.height,
-                        fit: BoxFit.fitHeight,
-                      )
-                    : SizedBox(
-                        width: size.width,
-                        height: size.height,
-                        child: Icon(Icons.color_lens))),
+                child: SizedBox(
+                    width: size.width,
+                    height: size.height,
+                    child: Icon(Icons.color_lens))),
           ),
         ),
         removable

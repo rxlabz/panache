@@ -18,16 +18,17 @@ class PanacheLogo extends StatelessWidget {
               package: 'panache_core', width: minimized ? 16 : 48),
         ),
         Text.rich(
-            TextSpan(
-              text: 'Panache',
-              children: [
-                TextSpan(
-                  text: ' alpha',
-                  style: textTheme.body1.copyWith(color: Colors.grey),
-                )
-              ],
-            ),
-            style: minimized ? textTheme.subhead : textTheme.display1),
+          TextSpan(
+            text: 'Panache',
+            children: [
+              TextSpan(
+                text: ' alpha',
+                style: textTheme.body1.copyWith(color: Colors.grey),
+              )
+            ],
+          ),
+          style: minimized ? textTheme.subhead : textTheme.display1,
+        )
       ],
     );
   }
