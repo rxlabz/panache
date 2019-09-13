@@ -7,7 +7,6 @@
           rel="stylesheet">
     <script type="text/javascript">
       function saveTheme(content, filename, onFileSaved) {
-        console.log('saveTheme', filename);
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
         element.download = filename;
@@ -15,7 +14,6 @@
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
-        console.log('<-');
         onFileSaved(true);
       }
 
