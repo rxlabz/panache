@@ -35,7 +35,7 @@ void main() {
 
       final themeModel = ThemeModel(
         localData: localData,
-        service: ThemeService(
+        service: IOThemeService(
           themeExporter: exportTheme,
           dirProvider: () => Future.delayed(Duration.zero,
               () => Directory('/Users/rxlabz/dev/projects/_open/panache/tmp')),

@@ -22,7 +22,7 @@ void main() async {
 
   final themeModel = ThemeModel(
       localData: localData,
-      service: ThemeService(
+      service: IOThemeService(
         themeExporter: exportTheme,
         dirProvider: getApplicationDocumentsDirectory,
       ),
