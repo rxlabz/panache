@@ -55,9 +55,7 @@ class PanacheApp extends StatelessWidget {
 }
 
 exportTheme(String code, [String filename = 'theme']) async {
-  print('exportTheme... $code');
   final dir = await getApplicationDocumentsDirectory();
-  print('exportTheme... ');
   final themeFile = File('${dir.path}/themes/$filename.dart');
   print('exportTheme... ${themeFile.path}');
   themeFile.createSync(recursive: true);

@@ -1,0 +1,5 @@
+// Application-level settings for the Runner target.
+
+PRODUCT_NAME = Panache
+PRODUCT_BUNDLE_IDENTIFIER = bz.rxla.panache
+PRODUCT_COPYRIGHT = Copyright © 2019 RX Labz. All rights reserved.
