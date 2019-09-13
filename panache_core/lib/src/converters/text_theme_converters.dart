@@ -89,7 +89,7 @@ Map<String, dynamic> textStyleToMap(TextStyle style) {
 }
 
 TextTheme textThemeFromMap(Map<String, dynamic> data) {
-  assert(data != null);
+  if (data == null) return null;
 
   return TextTheme(
     display4: textStyleFromMap(data['display4']),

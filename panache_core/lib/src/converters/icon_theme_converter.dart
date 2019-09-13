@@ -21,6 +21,7 @@ Map<String, dynamic> iconThemeToMap(IconThemeData theme) {
 }
 
 IconThemeData iconThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
   return IconThemeData(
     color: Color(data['color']),
     opacity: data['opacity'] ?? 1.0,

@@ -63,8 +63,6 @@ class ThemeModel extends Model {
         //_cloudService = cloudService,
         _themes = localData.themes {
     _service.init(onChange);
-    print('ThemeModel.ThemeModel... $_themes');
-
     /*if (_cloudService != null)
       _cloudService.currentUser$?.listen((user) {
         _currentUser = user;

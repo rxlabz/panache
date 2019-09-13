@@ -63,6 +63,8 @@ Map<String, dynamic> buttonThemeToMap(ButtonThemeData buttonTheme) {
 }
 
 ButtonThemeData buttonThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
+
   return ButtonThemeData(
       textTheme: ButtonTextTheme.values[max(0, data['textTheme'])],
       minWidth: (data['minWidth'] as int).toDouble(),

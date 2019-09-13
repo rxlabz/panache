@@ -149,6 +149,8 @@ Map<String, dynamic> inputBorderToMap(InputBorder border) {
 }
 
 InputDecorationTheme inputDecorationThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
+
   return InputDecorationTheme(
       labelStyle: textStyleFromMap(data['labelStyle']),
       helperStyle: textStyleFromMap(data['helperStyle']),

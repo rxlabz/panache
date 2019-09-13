@@ -143,54 +143,90 @@ Map<String, dynamic> themeToMap(ThemeData theme) {
 }
 
 ThemeData themeFromJson(String jsonTheme) {
+  final defaultTheme = ThemeData.light();
   final Map<String, dynamic> themeMap = json.decode(jsonTheme);
+  final defaultColor = Colors.cyan;
   return ThemeData(
-    primarySwatch: swatchFor(color: Color(themeMap['primarySwatch'])),
-    brightness: Brightness.values[max(0, themeMap['brightness'])],
-    primaryColor: Color(themeMap['primaryColor']),
-    primaryColorBrightness:
-        Brightness.values[max(0, themeMap['primaryColorBrightness'])],
-    primaryColorLight: Color(themeMap['primaryColorLight']),
-    primaryColorDark: Color(themeMap['primaryColorDark']),
-    accentColor: Color(themeMap['accentColor']),
-    accentColorBrightness:
-        Brightness.values[max(0, themeMap['accentColorBrightness'])],
-    canvasColor: Color(themeMap['canvasColor']),
-    scaffoldBackgroundColor: Color(themeMap['scaffoldBackgroundColor']),
-    bottomAppBarColor: Color(themeMap['bottomAppBarColor']),
-    cardColor: Color(themeMap['cardColor']),
-    dividerColor: Color(themeMap['dividerColor']),
-    highlightColor: Color(themeMap['highlightColor']),
-    splashColor: Color(themeMap['splashColor']),
-    selectedRowColor: Color(themeMap['selectedRowColor']),
-    unselectedWidgetColor: Color(themeMap['unselectedWidgetColor']),
-    disabledColor: Color(themeMap['disabledColor']),
-    buttonColor: Color(themeMap['buttonColor']),
-    toggleableActiveColor: Color(themeMap['toggleableActiveColor']),
-    secondaryHeaderColor: Color(themeMap['secondaryHeaderColor']),
-    textSelectionColor: Color(themeMap['textSelectionColor']),
-    cursorColor: Color(themeMap['cursorColor']),
-    textSelectionHandleColor: Color(themeMap['textSelectionHandleColor']),
-    backgroundColor: Color(themeMap['backgroundColor']),
-    dialogBackgroundColor: Color(themeMap['dialogBackgroundColor']),
-    indicatorColor: Color(themeMap['indicatorColor']),
-    hintColor: Color(themeMap['hintColor']),
-    errorColor: Color(themeMap['errorColor']),
-    buttonTheme: buttonThemeFromMap(themeMap['buttonTheme']),
-    textTheme: textThemeFromMap(themeMap['textTheme']),
-    primaryTextTheme: textThemeFromMap(themeMap['primaryTextTheme']),
-    accentTextTheme: textThemeFromMap(themeMap['accentTextTheme']),
-    iconTheme: iconThemeFromMap(themeMap['iconTheme']),
-    primaryIconTheme: iconThemeFromMap(themeMap['primaryIconTheme']),
-    accentIconTheme: iconThemeFromMap(themeMap['accentIconTheme']),
-    sliderTheme: sliderThemeFromMap(themeMap['sliderTheme']),
-    tabBarTheme: tabBarThemeFromMap(themeMap['tabBarTheme']),
-    chipTheme: chipThemeFromMap(themeMap['chipTheme']),
+    primarySwatch: swatchFor(
+        color: Color(themeMap['primarySwatch'] ?? defaultColor.value)),
+    brightness:
+        Brightness.values[max(Brightness.light.index, themeMap['brightness'])],
+    primaryColor: Color(themeMap['primaryColor'] ?? defaultColor),
+    primaryColorBrightness: Brightness.values[max(
+        defaultTheme.primaryColorBrightness.index,
+        themeMap['primaryColorBrightness'])],
+    primaryColorLight: Color(
+        themeMap['primaryColorLight'] ?? defaultTheme.primaryColorLight.value),
+    primaryColorDark: Color(
+        themeMap['primaryColorDark'] ?? defaultTheme.primaryColorDark.value),
+    accentColor:
+        Color(themeMap['accentColor'] ?? defaultTheme.accentColor.value),
+    accentColorBrightness: Brightness.values[max(
+        defaultTheme.accentColorBrightness.index,
+        themeMap['accentColorBrightness'])],
+    canvasColor:
+        Color(themeMap['canvasColor'] ?? defaultTheme.canvasColor.value),
+    scaffoldBackgroundColor: Color(themeMap['scaffoldBackgroundColor'] ??
+        defaultTheme.scaffoldBackgroundColor.value),
+    bottomAppBarColor:
+        Color(themeMap['bottomAppBarColor'] ?? defaultTheme.bottomAppBarColor),
+    cardColor: Color(themeMap['cardColor'] ?? defaultTheme.cardColor),
+    dividerColor: Color(themeMap['dividerColor'] ?? defaultTheme.dividerColor),
+    highlightColor:
+        Color(themeMap['highlightColor'] ?? defaultTheme.highlightColor),
+    splashColor: Color(themeMap['splashColor'] ?? defaultTheme.splashColor),
+    selectedRowColor:
+        Color(themeMap['selectedRowColor'] ?? defaultTheme.selectedRowColor),
+    unselectedWidgetColor: Color(themeMap['unselectedWidgetColor'] ??
+        defaultTheme.unselectedWidgetColor),
+    disabledColor:
+        Color(themeMap['disabledColor'] ?? defaultTheme.disabledColor),
+    buttonColor: Color(themeMap['buttonColor'] ?? defaultTheme.buttonColor),
+    toggleableActiveColor: Color(themeMap['toggleableActiveColor'] ??
+        defaultTheme.toggleableActiveColor),
+    secondaryHeaderColor: Color(
+        themeMap['secondaryHeaderColor'] ?? defaultTheme.secondaryHeaderColor),
+    textSelectionColor: Color(
+        themeMap['textSelectionColor'] ?? defaultTheme.textSelectionColor),
+    cursorColor: Color(themeMap['cursorColor'] ?? defaultTheme.cursorColor),
+    textSelectionHandleColor: Color(themeMap['textSelectionHandleColor'] ??
+        defaultTheme.textSelectionHandleColor),
+    backgroundColor:
+        Color(themeMap['backgroundColor'] ?? defaultTheme.backgroundColor),
+    dialogBackgroundColor: Color(themeMap['dialogBackgroundColor'] ??
+        defaultTheme.dialogBackgroundColor),
+    indicatorColor:
+        Color(themeMap['indicatorColor'] ?? defaultTheme.indicatorColor),
+    hintColor: Color(themeMap['hintColor'] ?? defaultTheme.hintColor),
+    errorColor: Color(themeMap['errorColor'] ?? defaultTheme.errorColor),
+    buttonTheme: buttonThemeFromMap(themeMap['buttonTheme']) ??
+        ThemeData.light().buttonTheme,
+    textTheme:
+        textThemeFromMap(themeMap['textTheme']) ?? defaultTheme.textTheme,
+    primaryTextTheme: textThemeFromMap(themeMap['primaryTextTheme']) ??
+        defaultTheme.primaryTextTheme,
+    accentTextTheme: textThemeFromMap(themeMap['accentTextTheme']) ??
+        defaultTheme.accentTextTheme,
+    iconTheme:
+        iconThemeFromMap(themeMap['iconTheme']) ?? defaultTheme.iconTheme,
+    primaryIconTheme: iconThemeFromMap(themeMap['primaryIconTheme']) ??
+        defaultTheme.primaryIconTheme,
+    accentIconTheme: iconThemeFromMap(themeMap['accentIconTheme']) ??
+        defaultTheme.accentTextTheme,
+    sliderTheme:
+        sliderThemeFromMap(themeMap['sliderTheme']) ?? defaultTheme.sliderTheme,
+    tabBarTheme:
+        tabBarThemeFromMap(themeMap['tabBarTheme']) ?? defaultTheme.tabBarTheme,
+    chipTheme:
+        chipThemeFromMap(themeMap['chipTheme']) ?? defaultTheme.chipTheme,
     inputDecorationTheme:
-        inputDecorationThemeFromMap(themeMap['inputDecorationTheme']),
-    dialogTheme: dialogThemeFromMap(themeMap['dialogTheme']),
-    /*FIXME*/
-    platform: defaultLightTheme.platform,
+        inputDecorationThemeFromMap(themeMap['inputDecorationTheme']) ??
+            defaultTheme.inputDecorationTheme,
+    dialogTheme:
+        dialogThemeFromMap(themeMap['dialogTheme']) ?? defaultTheme.textTheme,
+    /*FIXME
+    *  */
+    platform: defaultTheme.platform,
     colorScheme: defaultLightTheme.colorScheme,
     /*
     fontFamily:
@@ -254,6 +290,8 @@ Map<String, dynamic> sliderThemeToMap(
 }
 
 SliderThemeData sliderThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
+
   return SliderThemeData(
     activeTrackColor: Color(data['activeTrackColor']),
     inactiveTrackColor: Color(data['inactiveTrackColor']),
@@ -288,7 +326,7 @@ Map<String, dynamic> dialogThemeToMap(DialogTheme iconTheme) =>
     {'shape': buttonShapeToMap(iconTheme.shape ?? RoundedRectangleBorder())};
 
 DialogTheme dialogThemeFromMap(Map<String, dynamic> data) =>
-    DialogTheme(shape: buttonShapeFromMap(data));
+    data == null ? null : DialogTheme(shape: buttonShapeFromMap(data));
 
 /// TODO indicator Decoration
 String tabBarThemeToCode(TabBarTheme tabBarTheme,
@@ -318,6 +356,8 @@ Map<String, dynamic> tabBarThemeToMap(TabBarTheme tabBarTheme,
 }
 
 TabBarTheme tabBarThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
+
   return TabBarTheme(
     indicatorSize:
         TabBarIndicatorSize.values[max(0, data['indicatorSize'] ?? 0)],
@@ -370,6 +410,7 @@ Map<String, dynamic> chipThemeToMap(ChipThemeData chipTheme,
 }
 
 ChipThemeData chipThemeFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
   return ChipThemeData(
     backgroundColor: Color(data['backgroundColor']),
     brightness: Brightness.values[max(0, data['brightness'])],
