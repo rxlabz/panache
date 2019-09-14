@@ -1,4 +1,4 @@
-import '../models.dart';
+import '../data.dart';
 
 const Map<String, bool> defaultPanelStates = const {
   'colorPanelExpanded': false,

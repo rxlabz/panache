@@ -50,8 +50,8 @@ abstract class ThemeService<D, F> {
 
   void updateTheme(ThemeData newTheme) => _theme = newTheme;
 
-  void exportTheme({String filename, String code}) =>
-      themeExporter(code, filename);
+  /*void exportTheme({String filename, String code}) =>
+      themeExporter(code, filename);*/
 
   void saveTheme(String filename);
 

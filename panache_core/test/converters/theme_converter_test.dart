@@ -11,7 +11,7 @@ const codeStart = '''
 void main() {
   test('can export theme to code', () {
     final theme = ThemeData.light();
-    final themeCode = themeToCode(theme);
+    final themeCode = themeToCode(theme, {});
     expect(themeCode.contains(codeStart), true);
     expect(themeCode.contains('primarySwatch: Colors.blue,'), true);
     expect(themeCode.contains('sliderTheme: SliderThemeData('), true);

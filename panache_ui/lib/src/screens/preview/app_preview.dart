@@ -46,7 +46,7 @@ class AppPreviewContainerState extends State<AppPreviewContainer> {
     return ScopedModelDescendant<ThemeModel>(builder: (context, child, model) {
       return Material(
         child: widget.showCode
-            ? ThemeCodePreview(model)
+            ? ThemeCodePreview(model.theme)
             : Container(
                 decoration: BoxDecoration(
                     border: Border(

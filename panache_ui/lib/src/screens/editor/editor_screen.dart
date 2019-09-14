@@ -25,8 +25,11 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
     final isLargeLayout = MediaQuery.of(context).size.shortestSide >= 600;
     final isMobileInPortrait = inPortrait && !isLargeLayout;
 
-    return ScopedModelDescendant<ThemeModel>(
-        builder: (BuildContext context, Widget child, ThemeModel model) {
+    return ScopedModelDescendant<ThemeModel>(builder: (
+      BuildContext context,
+      Widget child,
+      ThemeModel model,
+    ) {
       final topbar = kIsWeb
           ? WebPanacheEditorTopbar(
               isMobileInPortrait: isMobileInPortrait,
@@ -47,19 +50,21 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
   }
 
   Scaffold _buildLargeLayout(
-      bool isMobileInPortrait, ThemeModel model, Widget topbar) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: topbar,
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: ThemeEditor(model: model)),
-          Expanded(child: AppPreviewContainer(kIPhone6, showCode: showCode)),
-        ],
-      ),
-    );
-  }
+    bool isMobileInPortrait,
+    ThemeModel model,
+    Widget topbar,
+  ) =>
+      Scaffold(
+        backgroundColor: Colors.grey.shade300,
+        appBar: topbar,
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: ThemeEditor(model: model)),
+            Expanded(child: AppPreviewContainer(kIPhone6, showCode: showCode)),
+          ],
+        ),
+      );
 
   Scaffold _buildMobilePortraitLayout(
       bool isMobileInPortrait, ThemeModel model, Widget topbar) {

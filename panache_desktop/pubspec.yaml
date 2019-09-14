@@ -12,6 +12,7 @@ dependencies:
   scoped_model: ^1.0.1
   string_scanner: any
   provider: ^3.0.1
+  dart_style: 1.2.10
 
   shared_preferences: ^0.5.3
   shared_preferences_fde:

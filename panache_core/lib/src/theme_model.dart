@@ -5,8 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'converters/theme_converter.dart';
-import 'models.dart';
+import 'data.dart';
 import 'services/persistence_service.dart';
 import 'services/screenshot_service.dart';
 import 'services/theme_service.dart';
@@ -38,7 +37,7 @@ class ThemeModel extends Model {
 
   MaterialColor get primarySwatch => _currentTheme.primarySwatch;
 
-  String get themeCode => themeToCode(theme);
+  //String get themeCode => themeToCode(theme, _exportParams);
 
   List<PanacheTheme> get themes => _themes;
 
@@ -80,6 +79,7 @@ class ThemeModel extends Model {
       name: defaultThemeName,
       primarySwatch: primarySwatch,
       brightness: brightness,
+      config: ThemeConfiguration(),
     );
 
     _service.initTheme(primarySwatch: primarySwatch, brightness: brightness);
@@ -98,10 +98,10 @@ class ThemeModel extends Model {
     notifyListeners();
   }
 
-  void exportTheme({String name: 'theme'}) {
-    final code = themeToCode(theme);
+  /*void exportTheme({String name: 'theme'}) {
+    final code = themeToCode(theme, _exportParams);
     _service.exportTheme(filename: name, code: code);
-  }
+  }*/
 
   void updateColor({String property, Color color}) {
     final args = <Symbol, dynamic>{};

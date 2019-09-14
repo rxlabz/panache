@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:provider/provider.dart';
 
 class ThemeCodePreview extends StatelessWidget {
-  final ThemeModel model;
-  String get code => model.themeCode;
+  final ThemeData theme;
 
-  const ThemeCodePreview(this.model, {Key key}) : super(key: key);
+  const ThemeCodePreview(this.theme, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final code = Provider.of<ExportService>(context).toCode(theme);
+
     final SyntaxHighlighterStyle style =
         SyntaxHighlighterStyle.panacheThemeStyle();
 

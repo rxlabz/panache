@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:window_size/window_size.dart';
 
+import 'services/desktop_export_service.dart';
 import 'services/desktop_local_data.dart';
 import 'services/io_link_service.dart';
 
@@ -70,7 +71,9 @@ class PanacheApp extends StatelessWidget {
           },
         ),
         providers: <SingleChildCloneableWidget>[
-          Provider<LinkService>.value(value: IOLinkService())
+          Provider<LinkService>.value(value: IOLinkService()),
+          ChangeNotifierProvider<ExportService>.value(
+              value: DesktopExportService())
         ],
       ),
     );

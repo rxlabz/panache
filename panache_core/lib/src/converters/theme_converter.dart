@@ -16,65 +16,59 @@ final defaultLightTheme =
 final defaultDarkTheme =
     ThemeData.localize(ThemeData.dark(), Typography.englishLike2018);
 
-String themeToCode(ThemeData theme) {
+String themeToCode(ThemeData theme, Map<String, bool> config) {
   return '''
   import 'package:flutter/material.dart';
   final ThemeData myTheme = ThemeData(
-    primarySwatch: ${materialSwatchCodeFor(color: theme.primaryColor)},
-    brightness: ${theme.brightness},
-    primaryColor: ${colorToCode(theme.primaryColor)},
-    primaryColorBrightness: ${theme.primaryColorBrightness},
-    primaryColorLight: ${colorToCode(theme.primaryColorLight)},
-    primaryColorDark: ${colorToCode(theme.primaryColorDark)},
-    accentColor: ${colorToCode(theme.accentColor)},
-    accentColorBrightness: ${theme.accentColorBrightness},
-    canvasColor: ${colorToCode(theme.canvasColor)},
-    scaffoldBackgroundColor: ${colorToCode(theme.scaffoldBackgroundColor)},
-    bottomAppBarColor: ${colorToCode(theme.bottomAppBarColor)},
-    cardColor: ${colorToCode(theme.cardColor)},
-    dividerColor: ${colorToCode(theme.dividerColor)},
-    highlightColor: ${colorToCode(theme.highlightColor)},
-    splashColor: ${colorToCode(theme.splashColor)},
-    selectedRowColor: ${colorToCode(theme.selectedRowColor)},
-    unselectedWidgetColor: ${colorToCode(theme.unselectedWidgetColor)},
-    disabledColor: ${colorToCode(theme.disabledColor)},
-    buttonColor: ${colorToCode(theme.buttonColor)},
-    toggleableActiveColor: ${colorToCode(theme.toggleableActiveColor)},
-    secondaryHeaderColor: ${colorToCode(theme.secondaryHeaderColor)},
-    textSelectionColor: ${colorToCode(theme.textSelectionColor)},
-    cursorColor: ${colorToCode(theme.cursorColor)},
-    textSelectionHandleColor: ${colorToCode(theme.textSelectionHandleColor)},
-    backgroundColor: ${colorToCode(theme.backgroundColor)},
-    dialogBackgroundColor: ${colorToCode(theme.dialogBackgroundColor)},
-    indicatorColor: ${colorToCode(theme.indicatorColor)},
-    hintColor: ${colorToCode(theme.hintColor)},
-    errorColor: ${colorToCode(theme.errorColor)},
-    buttonTheme: ${buttonThemeToCode(theme.buttonTheme)},
-    textTheme: ${textThemeToCode(theme.textTheme)},
-    primaryTextTheme: ${textThemeToCode(theme.primaryTextTheme)},
-    accentTextTheme: ${textThemeToCode(theme.accentTextTheme)},
-    inputDecorationTheme: ${inputDecorationThemeToCode(
-    theme.inputDecorationTheme,
-    theme.hintColor,
-    theme.textTheme.body1,
-    theme.brightness,
-  )},
-    iconTheme: ${iconThemeToCode(theme.iconTheme)},
-    primaryIconTheme: ${iconThemeToCode(theme.primaryIconTheme)},
-    accentIconTheme: ${iconThemeToCode(theme.accentIconTheme)},
-    sliderTheme: ${sliderThemeToCode(
-    theme.sliderTheme,
-    theme.accentTextTheme.body2,
-  )},
-    tabBarTheme: ${tabBarThemeToCode(
-    theme.tabBarTheme,
-    defaultLabelColor: theme.primaryTextTheme.body2.color,
-  )},
-    chipTheme: ${chipThemeToCode(
-    theme.chipTheme,
-    defaultLabelStyle: theme.textTheme.body2,
-  )},
-    dialogTheme: ${dialogThemeToCode(theme.dialogTheme)},
+    ${config['mainColors'] ? 'primarySwatch: ${materialSwatchCodeFor(color: theme.primaryColor)},' : ''}
+    ${config['mainColors'] ? 'brightness: ${theme.brightness},' : ''}
+    ${config['mainColors'] ? 'primaryColor: ${colorToCode(theme.primaryColor)},' : ''}
+    ${config['mainColors'] ? 'primaryColorBrightness: ${theme.primaryColorBrightness},' : ''}
+    ${config['mainColors'] ? 'primaryColorLight: ${colorToCode(theme.primaryColorLight)},' : ''}
+    ${config['mainColors'] ? 'primaryColorDark: ${colorToCode(theme.primaryColorDark)},' : ''}
+    ${config['mainColors'] ? 'accentColor: ${colorToCode(theme.accentColor)},' : ''}
+    ${config['mainColors'] ? 'accentColorBrightness: ${theme.accentColorBrightness},' : ''}
+    ${config['mainColors'] ? 'canvasColor: ${colorToCode(theme.canvasColor)},' : ''}
+    ${config['mainColors'] ? 'scaffoldBackgroundColor: ${colorToCode(theme.scaffoldBackgroundColor)},' : ''}
+    ${config['mainColors'] ? 'bottomAppBarColor: ${colorToCode(theme.bottomAppBarColor)},' : ''}
+    ${config['mainColors'] ? 'cardColor: ${colorToCode(theme.cardColor)},' : ''}
+    ${config['mainColors'] ? 'dividerColor: ${colorToCode(theme.dividerColor)},' : ''}
+    ${config['mainColors'] ? 'highlightColor: ${colorToCode(theme.highlightColor)},' : ''}
+    ${config['mainColors'] ? 'splashColor: ${colorToCode(theme.splashColor)},' : ''}
+    ${config['mainColors'] ? 'selectedRowColor: ${colorToCode(theme.selectedRowColor)},' : ''}
+    ${config['mainColors'] ? 'unselectedWidgetColor: ${colorToCode(theme.unselectedWidgetColor)},' : ''}
+    ${config['mainColors'] ? 'disabledColor: ${colorToCode(theme.disabledColor)},' : ''}
+    ${config['mainColors'] ? 'buttonColor: ${colorToCode(theme.buttonColor)},' : ''}
+    ${config['mainColors'] ? 'toggleableActiveColor: ${colorToCode(theme.toggleableActiveColor)},' : ''}
+    ${config['mainColors'] ? 'secondaryHeaderColor: ${colorToCode(theme.secondaryHeaderColor)},' : ''}
+    ${config['mainColors'] ? 'textSelectionColor: ${colorToCode(theme.textSelectionColor)},' : ''}
+    ${config['mainColors'] ? 'cursorColor: ${colorToCode(theme.cursorColor)},' : ''}
+    ${config['mainColors'] ? 'textSelectionHandleColor: ${colorToCode(theme.textSelectionHandleColor)},' : ''}
+    ${config['mainColors'] ? 'backgroundColor: ${colorToCode(theme.backgroundColor)},' : ''}
+    ${config['mainColors'] ? 'dialogBackgroundColor: ${colorToCode(theme.dialogBackgroundColor)},' : ''}
+    ${config['mainColors'] ? 'indicatorColor: ${colorToCode(theme.indicatorColor)},' : ''}
+    ${config['mainColors'] ? 'hintColor: ${colorToCode(theme.hintColor)},' : ''}
+    ${config['mainColors'] ? 'errorColor: ${colorToCode(theme.errorColor)},' : ''}
+    ${config['buttonTheme'] ? 'buttonTheme: ${buttonThemeToCode(theme.buttonTheme)},' : ''}
+    ${config['textTheme'] ? 'textTheme: ${textThemeToCode(theme.textTheme)},' : ''}
+    ${config['primaryTextTheme'] ? 'primaryTextTheme: ${textThemeToCode(theme.primaryTextTheme)},' : ''}
+    ${config['accentTextTheme'] ? 'accentTextTheme: ${textThemeToCode(theme.accentTextTheme)},' : ''}
+    ${config['inputDecorationTheme'] ? 'inputDecorationTheme: ${inputDecorationThemeToCode(
+          theme.inputDecorationTheme,
+          theme.hintColor,
+          theme.textTheme.body1,
+          theme.brightness,
+        )},' : ''}
+    ${config['iconTheme'] ? 'iconTheme: ${iconThemeToCode(theme.iconTheme)},' : ''}
+    ${config['primaryIconTheme'] ? 'primaryIconTheme: ${iconThemeToCode(theme.primaryIconTheme)},' : ''}
+    ${config['accentIconTheme'] ? 'accentIconTheme: ${iconThemeToCode(theme.accentIconTheme)},' : ''}
+    ${config['sliderTheme'] ? 'sliderTheme: ${sliderThemeToCode(theme.sliderTheme, theme.accentTextTheme.body2)},' : ''}
+    ${config['tabBarTheme'] ? 'tabBarTheme: ${tabBarThemeToCode(theme.tabBarTheme, defaultLabelColor: theme.primaryTextTheme.body2.color)},' : ''}
+    ${config['chipTheme'] ? 'chipTheme: ${chipThemeToCode(
+          theme.chipTheme,
+          defaultLabelStyle: theme.textTheme.body2,
+        )},' : ''}
+    ${config['dialogTheme'] ? 'dialogTheme: ${dialogThemeToCode(theme.dialogTheme)},' : ''}
   );
 ''';
 }

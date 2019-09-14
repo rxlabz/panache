@@ -13,6 +13,7 @@ dependencies:
   google_sign_in: ^3.2.4
   googleapis: ^0.52.0+1
   shared_preferences: ^0.5.3
+  provider: ^3.1.0
 
   panache_core:
     path: ../panache_core

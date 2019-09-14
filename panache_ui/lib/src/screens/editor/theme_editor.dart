@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:provider/provider.dart';
 
 import 'action_bar.dart';
 import 'panel_header.dart';
@@ -68,6 +69,8 @@ class ThemeEditorState extends State<ThemeEditor> {
     final inPortrait = orientation == Orientation.portrait;
     final useLargeLayout = MediaQuery.of(context).size.shortestSide >= 600;
 
+    final exporter = Provider.of<ExportService>(context);
+
     return Container(
       /*elevation: 4.0,*/
       color: Colors.blueGrey.shade100,
@@ -79,115 +82,115 @@ class ThemeEditorState extends State<ThemeEditor> {
           ExpansionPanelList(
             expansionCallback: _onExpansionPanelUpdate,
             children: [
-              _buildPanel(
-                widget.model,
-                'Colors',
-                child: ThemeColorPanel(widget.model),
-                expanded: colorPanelExpanded,
-                icon: Icons.color_lens,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Button Theme',
-                child: ButtonThemePanel(widget.model),
-                expanded: buttonThemePanelExpanded,
-                icon: Icons.touch_app,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Inputs',
-                child: InputDecorationThemePanel(widget.model),
-                expanded: inputsPanelExpanded,
-                icon: Icons.keyboard,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'TabBar Theme',
-                child: TabBarThemePanel(widget.model),
-                expanded: tabBarThemePanelExpanded,
-                icon: Icons.tab,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Slider Theme',
-                child: SliderThemePanel(widget.model),
-                expanded: sliderThemePanelExpanded,
-                icon: Icons.tune,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Text Theme',
-                child: TypographyThemePanel(
-                  model: widget.model,
-                  txtTheme: widget.model.theme.textTheme,
-                  themeRef: 'textTheme',
-                ),
-                expanded: textPanelExpanded,
-                icon: Icons.font_download,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Primary Text Theme',
-                child: TypographyThemePanel(
+              _buildPanel(widget.model, 'Colors',
+                  child: ThemeColorPanel(widget.model),
+                  expanded: colorPanelExpanded,
+                  activated: exporter.isActivated('mainColors'),
+                  icon: Icons.color_lens,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('mainColors', value)),
+              _buildPanel(widget.model, 'Button Theme',
+                  activated: exporter.isActivated('buttonTheme'),
+                  child: ButtonThemePanel(widget.model),
+                  expanded: buttonThemePanelExpanded,
+                  icon: Icons.touch_app,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('buttonTheme', value)),
+              _buildPanel(widget.model, 'Inputs',
+                  activated: exporter.isActivated('inputDecorationTheme'),
+                  child: InputDecorationThemePanel(widget.model),
+                  expanded: inputsPanelExpanded,
+                  icon: Icons.keyboard,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('inputDecorationTheme', value)),
+              _buildPanel(widget.model, 'TabBar Theme',
+                  activated: exporter.isActivated('tabBarTheme'),
+                  child: TabBarThemePanel(widget.model),
+                  expanded: tabBarThemePanelExpanded,
+                  icon: Icons.tab,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('tabBarTheme', value)),
+              _buildPanel(widget.model, 'Slider Theme',
+                  activated: exporter.isActivated('sliderTheme'),
+                  child: SliderThemePanel(widget.model),
+                  expanded: sliderThemePanelExpanded,
+                  icon: Icons.tune,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('sliderTheme', value)),
+              _buildPanel(widget.model, 'Text Theme',
+                  activated: exporter.isActivated('textTheme'),
+                  child: TypographyThemePanel(
                     model: widget.model,
-                    themeRef: 'primaryTextTheme',
-                    txtTheme: widget.model.theme.primaryTextTheme),
-                expanded: primaryTextPanelExpanded,
-                icon: Icons.font_download,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Accent Text Theme',
-                child: TypographyThemePanel(
-                    model: widget.model,
-                    themeRef: 'accentTextTheme',
-                    txtTheme: widget.model.theme.accentTextTheme),
-                expanded: accentTextPanelExpanded,
-                icon: Icons.font_download,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Chips Theme',
-                child: ChipThemePanel(widget.model),
-                expanded: chipThemePanelExpanded,
-                icon: Icons.dns,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Icon Themes',
-                child: IconThemePanel(widget.model),
-                expanded: iconThemePanelExpanded,
-                icon: Icons.insert_emoticon,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
-              _buildPanel(
-                widget.model,
-                'Dialog Theme',
-                child: DialogThemePanel(widget.model),
-                expanded: dialogThemePanelExpanded,
-                icon: Icons.check_box_outline_blank,
-                color: primaryColor,
-                dense: !useLargeLayout,
-              ),
+                    txtTheme: widget.model.theme.textTheme,
+                    themeRef: 'textTheme',
+                  ),
+                  expanded: textPanelExpanded,
+                  icon: Icons.font_download,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('textTheme', value)),
+              _buildPanel(widget.model, 'Primary Text Theme',
+                  activated: exporter.isActivated('primaryTextTheme'),
+                  child: TypographyThemePanel(
+                      model: widget.model,
+                      themeRef: 'primaryTextTheme',
+                      txtTheme: widget.model.theme.primaryTextTheme),
+                  expanded: primaryTextPanelExpanded,
+                  icon: Icons.font_download,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('primaryTextTheme', value)),
+              _buildPanel(widget.model, 'Accent Text Theme',
+                  activated: exporter.isActivated('accentTextTheme'),
+                  child: TypographyThemePanel(
+                      model: widget.model,
+                      themeRef: 'accentTextTheme',
+                      txtTheme: widget.model.theme.accentTextTheme),
+                  expanded: accentTextPanelExpanded,
+                  icon: Icons.font_download,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('accentTextTheme', value)),
+              _buildPanel(widget.model, 'Chips Theme',
+                  activated: exporter.isActivated('chipTheme'),
+                  child: ChipThemePanel(widget.model),
+                  expanded: chipThemePanelExpanded,
+                  icon: Icons.dns,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('chipTheme', value)),
+              _buildPanel(widget.model, 'Icon Themes',
+                  activated: exporter.isActivated('iconTheme'),
+                  child: IconThemePanel(widget.model),
+                  expanded: iconThemePanelExpanded,
+                  icon: Icons.insert_emoticon,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('iconTheme', value)),
+              _buildPanel(widget.model, 'Dialog Theme',
+                  activated: exporter.isActivated('dialogTheme'),
+                  child: DialogThemePanel(widget.model),
+                  expanded: dialogThemePanelExpanded,
+                  icon: Icons.check_box_outline_blank,
+                  color: primaryColor,
+                  dense: !useLargeLayout,
+                  onChanged: (bool value) =>
+                      exporter.activate('dialogTheme', value)),
             ],
           )
         ],
@@ -250,12 +253,17 @@ class ThemeEditorState extends State<ThemeEditor> {
     setState(() {});
   }
 
-  ExpansionPanel _buildPanel(ThemeModel model, String label,
-      {bool expanded: false,
-      IconData icon,
-      Color color,
-      Widget child,
-      bool dense}) {
+  ExpansionPanel _buildPanel(
+    ThemeModel model,
+    String label, {
+    @required bool activated,
+    @required ValueChanged<bool> onChanged,
+    @required IconData icon,
+    @required Color color,
+    @required Widget child,
+    bool expanded: false,
+    bool dense,
+  }) {
     return ExpansionPanel(
       isExpanded: expanded,
       headerBuilder: (context, isExpanded) => ExpanderHeader(
@@ -263,6 +271,8 @@ class ThemeEditorState extends State<ThemeEditor> {
         color: color,
         label: label,
         dense: dense,
+        disabled: activated,
+        onChanged: onChanged,
       ),
       body: child,
     );

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:provider/provider.dart';
 
 enum DriveAction { login, logout, save, list }
 
 class DriveMenu extends StatelessWidget {
   final ThemeModel model;
-  final CloudService userService;
 
-  const DriveMenu({Key key, @required this.model, @required this.userService})
-      : super(key: key);
+  const DriveMenu({Key key, @required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userService = Provider.of<UserService>(context);
+
     return PopupMenuButton(
       child: model.user != null
           ? Padding(
@@ -24,10 +25,10 @@ class DriveMenu extends StatelessWidget {
       onSelected: (DriveAction action) {
         switch (action) {
           case DriveAction.login:
-            _onLoginRequest(context, model);
+            _onLoginRequest(context, model, userService);
             break;
           case DriveAction.save:
-            _onExportToDrive(context, model);
+            _onExportToDrive(context, model, userService);
             break;
           case DriveAction.logout:
             userService.logout();
@@ -39,16 +40,25 @@ class DriveMenu extends StatelessWidget {
     );
   }
 
-  void _onExportToDrive(BuildContext context, ThemeModel model) async {
-    final result = await userService.save(model.themeCode);
+  void _onExportToDrive(
+    BuildContext context,
+    ThemeModel model,
+    UserService service,
+  ) async {
+    final exportService = Provider.of<ExportService>(context);
+    final result = await service.exportTheme(exportService.toCode(model.theme));
     Scaffold.of(context).showSnackBar(_buildSnackBar(
         result: result != null,
         successLabel: 'Export success => $result',
         errorLabel: 'Sorry, the export failed... :('));
   }
 
-  void _onLoginRequest(BuildContext context, ThemeModel model) async {
-    final result = await userService.login();
+  void _onLoginRequest(
+    BuildContext context,
+    ThemeModel model,
+    UserService service,
+  ) async {
+    final result = await service.login();
     if (result)
       Scaffold.of(context).showSnackBar(_buildSnackBar(
           result: result,

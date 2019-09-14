@@ -1,7 +1,7 @@
 library panache_core;
 
 export 'src/app_theme.dart';
-export 'src/models.dart';
+export 'src/data.dart';
 export 'src/utils/color_utils.dart';
 export 'src/utils/constants.dart';
 export 'src/utils/syntax_highlighter.dart';
@@ -12,4 +12,5 @@ export 'src/services/screenshot_service.dart';
 export 'src/services/user_service.dart';
 export 'src/services/link_service.dart';
 export 'src/converters/theme_converter.dart';
+export 'src/controllers/export_service.dart';
 export 'src/theme_model.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:provider/provider.dart';
 
 class WebPanacheEditorTopbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -38,7 +39,9 @@ class WebPanacheEditorTopbar extends StatelessWidget
             icon: Icon(Icons.close),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
-          IconButton(icon: Icon(Icons.file_download), onPressed: saveTheme)
+          IconButton(
+              icon: Icon(Icons.file_download),
+              onPressed: () => _saveTheme(context))
         ],
       );
     }
@@ -58,7 +61,9 @@ class WebPanacheEditorTopbar extends StatelessWidget
           label: Text('Code preview'),
           onPressed: showCode ? null : () => onShowCodeChanged(true),
         ),
-        IconButton(icon: Icon(Icons.file_download), onPressed: saveTheme)
+        IconButton(
+            icon: Icon(Icons.file_download),
+            onPressed: () => _saveTheme(context))
       ],
     );
   }
@@ -67,7 +72,8 @@ class WebPanacheEditorTopbar extends StatelessWidget
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
-  void saveTheme() {
-    model.exportTheme(name: 'theme.dart');
+  void _saveTheme(BuildContext context) {
+    Provider.of<ExportService>(context)
+        .exportTheme(model.theme, filename: 'theme.dart');
   }
 }
