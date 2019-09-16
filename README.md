@@ -24,12 +24,18 @@ MaterialApp( theme: myTheme , home: Home() );
 // ...
 ```
  
-- [Using theme in Flutter](Use themes to share colors and font styles)
+- [Using theme in Flutter](https://flutter.dev/docs/cookbook/design/themes)
 
 ## Videos
 
 - [Beyond Mobile: Material Design, Adaptable UIs, and Flutter (Google I/O'19)](https://www.youtube.com/watch?v=YSULAJf6R6M)
 - [Code beautiful UI with Flutter and Material Design (Google I/O '18)](https://www.youtube.com/watch?v=hA0hrpR-o8U)
+
+## Support this project
+
+[![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png)](https://www.buymeacoffee.com/6NHRAj4P5)
+
+## Screenshots 
 
 ![screenshot](docs/assets/screenshot.png)
 
