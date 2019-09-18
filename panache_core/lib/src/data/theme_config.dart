@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'subtheme.dart';
+
 class ThemeConfiguration {
   final bool mainColors;
   final bool buttonTheme;
@@ -48,6 +50,50 @@ class ThemeConfiguration {
       chipTheme: jsonConfig['chipTheme'] == 1,
       dialogTheme: jsonConfig['dialogTheme'] == 1,
     );
+  }
+
+  bool isActivated(Subtheme subtheme) {
+    switch (subtheme) {
+      case Subtheme.mainColors:
+        return mainColors;
+        break;
+      case Subtheme.buttonTheme:
+        return buttonTheme;
+        break;
+      case Subtheme.textTheme:
+        return textTheme;
+        break;
+      case Subtheme.primaryTextTheme:
+        return primaryTextTheme;
+        break;
+      case Subtheme.accentTextTheme:
+        return accentTextTheme;
+        break;
+      case Subtheme.inputDecorationTheme:
+        return inputDecorationTheme;
+        break;
+      case Subtheme.iconTheme:
+        return iconTheme;
+        break;
+      case Subtheme.primaryIconTheme:
+        return primaryIconTheme;
+        break;
+      case Subtheme.accentIconTheme:
+        return accentIconTheme;
+        break;
+      case Subtheme.sliderTheme:
+        return sliderTheme;
+        break;
+      case Subtheme.tabBarTheme:
+        return tabBarTheme;
+        break;
+      case Subtheme.chipTheme:
+        return chipTheme;
+        break;
+      case Subtheme.dialogTheme:
+        return dialogTheme;
+        break;
+    }
   }
 
   ThemeConfiguration copyWith({
@@ -121,4 +167,6 @@ class ThemeConfiguration {
   String toString() {
     return 'ThemeConfiguration{mainColors: $mainColors, buttonTheme: $buttonTheme, textTheme: $textTheme, primaryTextTheme: $primaryTextTheme, accentTextTheme: $accentTextTheme, inputDecorationTheme: $inputDecorationTheme, iconTheme: $iconTheme, primaryIconTheme: $primaryIconTheme, accentIconTheme: $accentIconTheme, sliderTheme: $sliderTheme, tabBarTheme: $tabBarTheme, chipTheme: $chipTheme, dialogTheme: $dialogTheme}';
   }
+
+  void activate(Subtheme subtheme, bool value) {}
 }

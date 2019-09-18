@@ -1,0 +1,15 @@
+enum Subtheme {
+  mainColors,
+  buttonTheme,
+  textTheme,
+  primaryTextTheme,
+  accentTextTheme,
+  inputDecorationTheme,
+  iconTheme,
+  primaryIconTheme,
+  accentIconTheme,
+  sliderTheme,
+  tabBarTheme,
+  chipTheme,
+  dialogTheme,
+}

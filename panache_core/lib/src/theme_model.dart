@@ -28,6 +28,7 @@ class ThemeModel extends Model {
   ThemeService _service;
 
   PanacheTheme _currentTheme;
+  PanacheTheme get currentTheme => _currentTheme;
 
   ScreenShooter _screenShooter;
 

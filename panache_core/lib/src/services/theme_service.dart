@@ -31,6 +31,9 @@ abstract class ThemeService<D, F> {
   ThemeData _localize(ThemeData theme) =>
       ThemeData.localize(theme, Typography.englishLike2018);
 
+  /// initialize a [ThemeData] from primarySwatch
+  /// primaryColors are generated from the primarySwath
+  /// Needs to be a ColorSwatch
   void initTheme(
       {MaterialColor primarySwatch: Colors.blue,
       Brightness brightness: Brightness.light}) {
@@ -40,6 +43,7 @@ abstract class ThemeService<D, F> {
       fontFamily: 'Roboto',
       primarySwatch: primarySwatch,
       brightness: brightness,
+      // FIXME default to ios but should detect device type + allow platform switch
       platform: TargetPlatform.iOS
       /*Platform.isAndroid
              ? TargetPlatform.android

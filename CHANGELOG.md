@@ -1,19 +1,14 @@
 # Changelog
 
-## 0.0.4
+## [ ] V1.0
+- [ ] desktop : live device
+- [ ] ? cloud account
 
-- support Dart 2.1 (thanks @csells)
+## [ ] beta
+- [ ] partial export
+- [ ] 1.9.2 themes : cuppertino, cardTheme, tooltipTheme...
+- [ ] desktop preview
+- [ ] web : save to / load from localStorage
+- [ ] mobile : share
 
-## 0.0.3
-
-- theme saving
-- flutterial companion
-
-## 0.0.2
-
-- fixes for iOS layout
-
-## 0.0.1
-
-- basic colors and text theme preview
- 
+## alpha.1

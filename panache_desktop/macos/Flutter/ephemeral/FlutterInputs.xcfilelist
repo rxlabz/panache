@@ -2100,6 +2100,7 @@
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/panache_core.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/app_theme.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/controllers/export_service.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/controllers/theme_controller.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/button_theme_converters.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/chip_theme_converter.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/converter_utils.dart
@@ -2107,7 +2108,12 @@
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/input_theme_converter.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/text_theme_converters.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/converters/theme_converter.dart
-/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/models.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data/panache_theme.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data/subtheme.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data/theme_config.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data/themedata192_map.dart
+/Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/data/user.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/services/cloud_service.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/services/link_service.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/services/persistence_service.dart
@@ -2122,6 +2128,7 @@
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/utils/theme_defaults.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_core/lib/src/utils/uuid.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_desktop/.packages
+/Users/rxlabz/projects/Panache/dev/panache/panache_desktop/lib/generated_editor.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_desktop/lib/main.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_desktop/lib/services/desktop_export_service.dart
 /Users/rxlabz/projects/Panache/dev/panache/panache_desktop/lib/services/desktop_local_data.dart

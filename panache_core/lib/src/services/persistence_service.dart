@@ -31,3 +31,29 @@ abstract class LocalStorage {
 
   void clear();
 }
+
+abstract class PanacheStorage {
+  Stream<List<PanacheTheme>> get themeList$;
+
+  Map<String, dynamic> get panelStates;
+
+  /// last scroll position
+  double get scrollPosition;
+
+  void updateThemeList(List<PanacheTheme> themes);
+
+  void saveEditorState(Map<String, bool> panelStates, double scrollPosition);
+
+  void saveScrollPosition(double scrollPosition);
+
+  void deleteTheme(PanacheTheme theme);
+
+  void clear();
+}
+
+/*
+PlatformStorage{
+
+  load
+
+}*/

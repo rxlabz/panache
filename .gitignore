@@ -16,6 +16,7 @@ _DEV.md
 *.scss
 *.css.map
 *.js.map
+_DEV.md
 
 # IntelliJ related
 *.iml

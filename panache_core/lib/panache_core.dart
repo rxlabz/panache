@@ -13,4 +13,5 @@ export 'src/services/user_service.dart';
 export 'src/services/link_service.dart';
 export 'src/converters/theme_converter.dart';
 export 'src/controllers/export_service.dart';
+export 'src/controllers/theme_controller.dart';
 export 'src/theme_model.dart';

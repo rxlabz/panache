@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:panache_core/src/data/subtheme.dart';
 
 import '../utils/color_utils.dart';
 import 'theme_config.dart';
@@ -11,14 +12,28 @@ class PanacheTheme {
   final ColorSwatch primarySwatch;
   final Brightness brightness;
   final ThemeConfiguration config;
+  ThemeData themeData;
 
-  const PanacheTheme({
+  /// [ThemeData]
+  /// initialize a [ThemeData] from primarySwatch
+  /// primaryColors are generated from the primarySwath
+  /// Needs to be a ColorSwatch
+  PanacheTheme({
     @required this.id,
     @required this.name,
     @required this.primarySwatch,
     @required this.brightness,
     @required this.config,
-  });
+    this.themeData,
+  }) {
+    themeData ??= ThemeData(
+      fontFamily: 'Roboto',
+      primarySwatch: primarySwatch,
+      brightness: brightness,
+      // FIXME default to ios but should detect device type + allow platform switch
+      platform: TargetPlatform.iOS,
+    );
+  }
 
   factory PanacheTheme.fromJson(String data) {
     final rawTheme = json.decode(data);
@@ -30,6 +45,11 @@ class PanacheTheme {
       config: null,
     );
   }
+
+  void isActivated(Subtheme subtheme) => config.isActivated(subtheme);
+
+  void activate(Subtheme subtheme, bool value) =>
+      config.activate(subtheme, value);
 
   String toJson() {
     final data = {

@@ -16,6 +16,8 @@ dependencies:
   string_scanner: ^1.0.5
   http: ^0.12.0
 
+  rxdart: ^0.22.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

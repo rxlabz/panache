@@ -87,33 +87,3 @@ exportTheme(String code, [String filename = 'theme']) async {
   themeFile.createSync(recursive: true);
   themeFile.writeAsStringSync(code);
 }
-
-class DesktopCloudService implements CloudService {
-  @override
-  Future<bool> get authenticated => Future.value(true);
-
-  @override
-  // TODO: implement currentUser$
-  Stream<User> get currentUser$ => null;
-
-  @override
-  Future login() {
-    print('DesktopCloudService.login... ');
-    // TODO: implement login
-    return null;
-  }
-
-  @override
-  Future logout() {
-    print('DesktopCloudService.logout... ');
-    // TODO: implement logout
-    return null;
-  }
-
-  @override
-  Future save(String content) {
-    print('DesktopCloudService.save... ');
-    // TODO: implement save
-    return null;
-  }
-}

@@ -16,8 +16,14 @@ class ColorSelector extends StatelessWidget {
 
   final HelpData help;
 
-  ColorSelector(this.label, this.value, this.onSelection,
-      {this.padding: 8.0, this.maxLabelWidth: 100, this.help});
+  ColorSelector(
+    this.label,
+    this.value,
+    this.onSelection, {
+    this.padding: 8.0,
+    this.maxLabelWidth: 100,
+    this.help,
+  });
 
   String get colorLabel {
     final namedPeer =
