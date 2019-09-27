@@ -1,6 +1,0 @@
-framework module path_provider_fde {
-  umbrella header "path_provider_fde-umbrella.h"
-
-  export *
-  module * { export * }
-}

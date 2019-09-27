@@ -1,5 +1,8 @@
-// Application-level settings for the Runner target.
-
+// The application's name. By default this is also the title of the Flutter window.
 PRODUCT_NAME = Panache
+
+// The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = bz.rxla.panache
-PRODUCT_COPYRIGHT = Copyright © 2019 RX Labz. All rights reserved.
+
+// The copyright displayed in application information
+PRODUCT_COPYRIGHT = Copyright © 2019 RX Labz
