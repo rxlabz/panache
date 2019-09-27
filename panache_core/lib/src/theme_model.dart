@@ -91,7 +91,7 @@ class ThemeModel extends Model {
     notifyListeners();
   }
 
-  onChange() => notifyListeners();
+  void onChange() => notifyListeners();
 
   void updateTheme(ThemeData updatedTheme) {
     _service.updateTheme(updatedTheme);
@@ -140,7 +140,7 @@ class ThemeModel extends Model {
     // FIXME ? Future.delayed(aSecond * 2, () => saveTheme());
   }
 
-  deleteTheme(PanacheTheme theme) async {
+  void deleteTheme(PanacheTheme theme) async {
     localData.deleteTheme(theme);
     _themes.remove(theme);
     /*final screenshot = File('${dir.path}/themes/${theme.id}.png');

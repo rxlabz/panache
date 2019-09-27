@@ -54,8 +54,6 @@ class IOThemeService extends ThemeService<Directory, File> {
     );
   }
 
-  void updateTheme(ThemeData newTheme) => _theme = newTheme;
-
   void exportTheme({String filename, String code}) =>
       themeExporter(code, filename);
 

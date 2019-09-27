@@ -36,7 +36,7 @@ final List<PanelConfiguration> themeEditorConfiguration = [
     theme191ToggleButtonsTheme,
   ),
 ];
-
+  
 final themeMap192 = <String, Type>{
   /*'primarySwatch': MaterialColor ,*/
 
