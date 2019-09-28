@@ -4,6 +4,7 @@ export 'global_theme_help.dart';
 class HelpData {
   final String title;
   final String content;
+  final String link;
 
-  const HelpData(this.title, this.content);
+  const HelpData(this.title, this.content, [this.link = '']);
 }

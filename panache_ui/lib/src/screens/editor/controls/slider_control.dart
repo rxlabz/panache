@@ -12,14 +12,16 @@ class SliderPropertyControl extends StatefulWidget {
   final bool vertical;
   final ValueChanged<double> onValueChanged;
 
-  SliderPropertyControl(this.value, this.onValueChanged,
-      {this.label,
-      this.min: 0.0,
-      this.max: 112.0,
-      this.maxWidth,
-      this.showDivisions: true,
-      this.vertical: false})
-      : assert(value != null),
+  SliderPropertyControl(
+    this.value,
+    this.onValueChanged, {
+    this.label,
+    this.min: 0.0,
+    this.max: 112.0,
+    this.maxWidth,
+    this.showDivisions: true,
+    this.vertical: false,
+  })  : assert(value != null),
         assert(min != null),
         assert(max != null),
         assert(min <= max);
@@ -46,25 +48,28 @@ class SliderPropertyControlState extends State<SliderPropertyControl> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     textController.text = '$updatedValue';
-    final constraints = widget.maxWidth != null
+    /*final constraints = widget.maxWidth != null
         ? BoxConstraints(maxWidth: widget.maxWidth)
-        : BoxConstraints();
+        : BoxConstraints();*/
     return ControlContainerBorder(
         child: Flex(
+          mainAxisSize: MainAxisSize.min,
       direction: widget.vertical ? Axis.vertical : Axis.horizontal,
       children: [
-        Slider(
-          value: updatedValue,
-          min: widget.min,
-          max: widget.max,
-          divisions:
-              widget.showDivisions ? (widget.max - widget.min) ~/ 4 : null,
-          onChangeEnd: widget.onValueChanged,
-          onChanged: (value) {
-            setState(() {
-              updatedValue = value;
-            });
-          },
+        Flexible(
+          child: Slider(
+            value: updatedValue,
+            min: widget.min,
+            max: widget.max,
+            divisions:
+                widget.showDivisions ? (widget.max - widget.min) ~/ 4 : null,
+            onChangeEnd: widget.onValueChanged,
+            onChanged: (value) {
+              setState(() {
+                updatedValue = value;
+              });
+            },
+          ),
         ),
         RichText(
           text: TextSpan(
@@ -76,7 +81,7 @@ class SliderPropertyControlState extends State<SliderPropertyControl> {
                   style: textTheme.body1,
                 )
               ]),
-        )
+        ),
       ],
     ));
   }

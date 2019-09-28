@@ -13,11 +13,7 @@ void main() {
 
 class ProtoEditor extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ProtoEditorScreen(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(home: ProtoEditorScreen());
 }
 
 class ProtoEditorScreen extends StatefulWidget {
@@ -29,6 +25,10 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
   Iterable<PanelConfiguration> themePanels;
   PanacheTheme theme;
 
+  final ThemeFieldFactory _fieldFactory;
+
+  _ProtoEditorScreenState() : _fieldFactory = ThemeFieldFactory();
+
   @override
   void initState() {
     themePanels = themeEditorConfiguration;
@@ -39,7 +39,7 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
       primarySwatch: Colors.cyan,
       brightness: Brightness.light,
       config: ThemeConfiguration(),
-    );
+    )..addListener(() => setState(() {}));
 
     super.initState();
   }
@@ -52,7 +52,6 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
         child: ExpansionPanelList(
           children: themePanels.map(_buildThemePanel).toList(),
           expansionCallback: (activeIndex, state) {
-            print('ProtoEditorScreen.build... $activeIndex $state');
             setState(() {
               themePanels = enumerate(themeEditorConfiguration).map(
                 (item) => item.index == activeIndex
@@ -70,25 +69,127 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
     return ExpansionPanel(
       isExpanded: !config.closed,
       headerBuilder: (context, isExpanded) => Row(children: <Widget>[
-        Text(config.label),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(config.label),
+        ),
       ]),
-      body: Column(
-        children: config.properties.map(_themePropertyToField).values.toList(),
+      body: Container(
+        color: Colors.grey.shade200,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          children: config.properties
+              .map((key, value) {
+                final propertyValue = theme['${config.id}.$key'];
+                return _themePropertyToField(
+                    key, config.id, value, propertyValue);
+              })
+              .values
+              .toList(),
+        ),
       ),
     );
   }
 
-  MapEntry<String, Widget> _themePropertyToField(String key, Type value) =>
-      MapEntry(key, fieldForType(key, value));
+  MapEntry<String, Widget> _themePropertyToField(
+    String key,
+    String panelId,
+    Type propertyType,
+    dynamic propertyValue,
+  ) =>
+      MapEntry(
+          key,
+          _fieldFactory.build(
+            key,
+            panelId,
+            propertyType,
+            propertyValue,
+            theme.updateTheme,
+          ));
 }
 
-fieldForType(String label, Type value) {
-  switch (value) {
-    case Color:
-      return ColorSelector(label, Color(0xFFFF0000), (c) => print('COLOR $c'));
-    case Brightness:
-      return Text('Brightness');
-    default:
-      return Text('...');
+class ThemeFieldFactory {
+  Widget build(
+    String propertyName,
+    String panelId,
+    Type fieldContentType,
+    dynamic propertyValue,
+    Function(String name, String panelId, dynamic value) onChange,
+  ) {
+    switch (fieldContentType) {
+      case Color:
+        return ColorSelector(propertyName, propertyValue ?? Color(0x00000000),
+            (color) => onChange(propertyName, panelId, color));
+
+      case Brightness:
+        return BrightnessSelector(
+          label: propertyName,
+          isDark:
+              propertyValue != null ? propertyValue == Brightness.dark : false,
+        );
+
+      case ButtonTextTheme:
+        return EnumDropDownField<ButtonTextTheme>(
+          fieldValue: propertyValue,
+          fieldOptions: ButtonTextTheme.values,
+          onChange: (textTheme) => onChange(propertyName, panelId, textTheme),
+        );
+
+      case ButtonBarLayoutBehavior:
+        return EnumDropDownField<ButtonBarLayoutBehavior>(
+          fieldValue: propertyValue,
+          fieldOptions: ButtonBarLayoutBehavior.values,
+          onChange: (behavior) => onChange(propertyName, panelId, behavior),
+        );
+
+      case double:
+      /*case int:*/
+        return SliderPropertyControl(
+          propertyValue,
+          (value) => onChange(propertyName, panelId, value),
+          label: propertyName,
+        );
+
+      case EdgeInsetsGeometry:
+        return SliderPropertyControl(
+          (propertyValue as EdgeInsetsGeometry)?.horizontal ?? 4
+              /*const EdgeInsets.all(4)*/,
+          (value) => onChange(
+              propertyName, panelId, EdgeInsets.symmetric(horizontal: value)),
+          label: propertyName,
+        );
+
+      case bool:
+        return SwitcherControl(
+          label: propertyName,
+          /* FIXME checkedLabel: propertyValue,*/
+          checked: propertyValue,
+          onChange: (value) => onChange(propertyName, panelId, value),
+        );
+
+      case ShapeBorder:
+        return ShapeFormControl(
+          shape: propertyValue,
+          onShapeChanged: (value) => onChange(propertyName, panelId, value),
+        );
+
+      case TextStyle:
+        print('ThemeFieldFactory.build... $propertyName $propertyValue');
+        return TextStyleControl(
+          propertyName,
+          style: propertyValue,
+          onChange: (TextStyle textStyle) =>
+              onChange(propertyName, panelId, textStyle),
+        );
+      default:
+        return Text('...');
+    }
   }
+
+  DropdownMenuItem<ButtonTextTheme> _buildButtonTextThemeSelectorItem(
+          ButtonTextTheme buttonTextTheme) =>
+      DropdownMenuItem<ButtonTextTheme>(
+        child: Text('$buttonTextTheme'.split('.').last),
+        value: buttonTextTheme,
+      );
 }

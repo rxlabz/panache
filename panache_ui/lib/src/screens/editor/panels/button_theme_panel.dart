@@ -4,6 +4,7 @@ import 'package:panache_core/panache_core.dart';
 import '../controls/shape_form_control.dart';
 import '../controls/slider_control.dart';
 import '../controls/switcher_control.dart';
+import '../controls/button_text_theme_panel.dart';
 import '../controls/color_selector.dart';
 import '../controls/control_container.dart';
 import '../controls/help_button.dart';
@@ -88,11 +89,15 @@ class ButtonThemePanel extends StatelessWidget {
             ),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _buildButtonTextThemeSelector(
-              buttonTheme.textTheme,
-              labelStyle: labelStyle,
-              dropdownTextStyle: dropdownTextStyle,
-              context: context,
+            Expanded(
+              child: ButtonTextThemeControl(
+                textTheme: buttonTheme.textTheme,
+                labelStyle: labelStyle,
+                dropdownTextStyle: dropdownTextStyle,
+                onChange: (textTheme)=>model.updateTheme(
+                  model.theme.copyWith(buttonTheme: buttonTheme.copyWith()),
+                ),
+              ),
             ),
             ShapeFormControl(
               onShapeChanged: (shape) =>

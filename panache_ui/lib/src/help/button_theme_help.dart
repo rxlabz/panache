@@ -6,6 +6,12 @@ const textThemeHelp = HelpData("textTheme", '''
 - Accent : Button text is ThemeData.accentColor.
 ''');
 
+const layoutBehaviorHelp = HelpData("layoutBehavior", '''
+Defines whether a [ButtonBar] should size itself with a minimum size
+constraint or with padding.
+Defaults to [ButtonBarLayoutBehavior.padded].
+''');
+
 const buttonColorHelp = HelpData("buttonColor", '''
 The background fill color for RaisedButtons.
 

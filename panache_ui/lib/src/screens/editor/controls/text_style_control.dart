@@ -11,6 +11,8 @@ import 'switcher_control.dart';
 class TextStyleControl extends StatefulWidget {
   final String label;
 
+  final ValueChanged<TextStyle> onChange;
+
   final ValueChanged<Color> onColorChanged;
 
   final ValueChanged<double> onSizeChanged;
@@ -66,16 +68,17 @@ class TextStyleControl extends StatefulWidget {
     this.label, {
     Key key,
     @required this.style,
-    @required this.onColorChanged,
-    @required this.onSizeChanged,
-    @required this.onWeightChanged,
-    @required this.onFontStyleChanged,
-    @required this.onLetterSpacingChanged,
-    @required this.onWordSpacingChanged,
-    @required this.onLineHeightChanged,
-    @required this.onDecorationChanged,
-    @required this.onDecorationStyleChanged,
-    @required this.onDecorationColorChanged,
+    /*@required*/ this.onChange,
+    /*@required*/ this.onColorChanged,
+    /*@required*/ this.onSizeChanged,
+    /*@required*/ this.onWeightChanged,
+    /*@required*/ this.onFontStyleChanged,
+    /*@required*/ this.onLetterSpacingChanged,
+    /*@required*/ this.onWordSpacingChanged,
+    /*@required*/ this.onLineHeightChanged,
+    /*@required*/ this.onDecorationChanged,
+    /*@required*/ this.onDecorationStyleChanged,
+    /*@required*/ this.onDecorationColorChanged,
     this.useMobileLayout: false,
     this.expanded: false,
     this.maxFontSize: 112.0,
@@ -91,7 +94,9 @@ class TextStyleControl extends StatefulWidget {
         this.decorationColor = style?.decorationColor ?? style?.color,
         this.isBold = style?.fontWeight == FontWeight.bold,
         this.isItalic = style?.fontStyle == FontStyle.italic,
-        super(key: key);
+        super(key: key){
+    //print('TextStyleControl.TextStyleControl... ${style}');
+  }
 
   @override
   TextStyleControlState createState() {
@@ -117,16 +122,17 @@ class TextStyleControlState extends State<TextStyleControl> {
         ColorSelector(
           'Color',
           widget.color,
-          widget.onColorChanged,
+          (color) => widget.onChange(widget.style.copyWith(color: color)),
           padding: 0,
         ),
         if (!kIsWeb)
           FontSizeSelector(
             widget.fontSize,
-            widget.onSizeChanged,
+            (fontSize) =>
+                widget.onChange(widget.style.copyWith(fontSize: fontSize)),
             min: 8.0,
             max: widget.maxFontSize,
-            vertical: true,
+            /*vertical: true,*/
           )
       ]),
       getFieldsRow([
@@ -140,16 +146,16 @@ class TextStyleControlState extends State<TextStyleControl> {
             checked: widget.isItalic,
             checkedLabel: 'Italic',
             onChange: widget.onFontStyleChanged),
-      ] /*, direction: Axis.vertical*/),
-      SliderPropertyControl(
-        widget.lineHeight,
-        widget.onLineHeightChanged,
-        label: 'Line height',
-        min: 1,
-        max: 3,
-        showDivisions: false,
-        vertical: true,
-      ),
+      ] ),
+       SliderPropertyControl(
+         widget.lineHeight,
+         widget.onLineHeightChanged,
+         label: 'Line height',
+         min: 1,
+         max: 3,
+         showDivisions: false,
+         /*vertical: true,*/
+       ),
       getFieldsRow([
         SliderPropertyControl(
           widget.letterSpacing,
@@ -158,7 +164,7 @@ class TextStyleControlState extends State<TextStyleControl> {
           min: -5,
           max: 5,
           showDivisions: false,
-          vertical: true,
+          /*vertical: true,*/
         ),
         SliderPropertyControl(
           widget.wordSpacing,
@@ -167,7 +173,7 @@ class TextStyleControlState extends State<TextStyleControl> {
           min: -5,
           max: 5,
           showDivisions: false,
-          vertical: true,
+          /*vertical: true,*/
         ),
       ]),
       getFieldsRow([
@@ -199,30 +205,30 @@ class TextStyleControlState extends State<TextStyleControl> {
     ];
 
     return Container(
+      /*height: expanded ? 200 : 64,*/
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                widget.label,
-                style: textTheme.title,
-                textAlign: TextAlign.left,
-              ),
-              IconButton(
-                icon: Icon(
-                    expanded ? Icons.indeterminate_check_box : Icons.add_box),
-                onPressed: toggle,
-                color: Colors.blueGrey.shade600,
-              )
-            ],
-          ),
-        ]
-          ..addAll(expanded ? controls : [])
-          ..add(Divider()),
-      ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  widget.label,
+                  style: textTheme.title,
+                  textAlign: TextAlign.left,
+                ),
+                IconButton(
+                  icon: Icon(
+                      expanded ? Icons.indeterminate_check_box : Icons.add_box),
+                  onPressed: toggle,
+                  color: Colors.blueGrey.shade600,
+                )
+              ],
+            ),
+            if (expanded) ...controls,
+            Divider()
+          ]),
     );
   }
 

@@ -10,7 +10,7 @@ class FontSizeSelector extends StatefulWidget {
   final ValueChanged<double> onValueChanged;
 
   FontSizeSelector(this.value, this.onValueChanged,
-      {this.min: 0.0, this.max: 112.0, this.vertical})
+      {this.min: 0.0, this.max: 112.0, this.vertical: false})
       : assert(value != null),
         assert(min != null),
         assert(max != null),
@@ -38,33 +38,35 @@ class FontSizeSelectorState extends State<FontSizeSelector> {
       child: Flex(
         direction: widget.vertical ? Axis.vertical : Axis.horizontal,
         children: [
-          Slider(
-            value: visibleValue,
-            onChanged: (currentValue) =>
-                setState(() => visibleValue = currentValue),
-            onChangeEnd: (value) {
-              print(
-                'FontSizeSelectorState onChangeEnd => $value ${value == 20.0}'
-                ', ${double.parse('$value')}',
-              );
-
-              widget.onValueChanged(double.parse('$value'));
-            } /*widget.onValueChanged*/,
-            divisions: (widget.max - widget.min) ~/ 2,
-            min: widget.min,
-            max: widget.max,
-            label: '${visibleValue.toStringAsFixed(0)}',
-          ),
           RichText(
             text: TextSpan(
-                text: 'Font size ',
-                style: textTheme.subtitle,
-                children: [
-                  TextSpan(
-                    text: widget.value.toStringAsFixed(1),
-                    style: textTheme.body1,
-                  )
-                ]),
+              text: 'Font size ',
+              style: textTheme.subtitle,
+              children: [
+                TextSpan(
+                  text: widget.value.toStringAsFixed(1),
+                  style: textTheme.body1,
+                )
+              ]),
+          ),
+          Flexible(
+            child: Slider(
+              value: visibleValue,
+              onChanged: (currentValue) =>
+                  setState(() => visibleValue = currentValue),
+              onChangeEnd: (value) {
+                print(
+                  'FontSizeSelectorState onChangeEnd => $value ${value == 20.0}'
+                  ', ${double.parse('$value')}',
+                );
+
+                widget.onValueChanged(double.parse('$value'));
+              } /*widget.onValueChanged*/,
+              divisions: (widget.max - widget.min) ~/ 2,
+              min: widget.min,
+              max: widget.max,
+              label: '${visibleValue.toStringAsFixed(0)}',
+            ),
           ),
         ],
       ),

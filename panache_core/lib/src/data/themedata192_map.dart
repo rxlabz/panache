@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:panache_core/panache_core.dart';
 
 class PanelConfiguration {
   final String label;
@@ -30,13 +31,30 @@ class PanelConfiguration {
 final List<PanelConfiguration> themeEditorConfiguration = [
   PanelConfiguration('Main colors', 'mainColors', theme191MainColors),
   PanelConfiguration('Button Theme', 'buttonTheme', theme191ButtonTheme),
+  PanelConfiguration('Text Theme', 'textTheme', theme191TextTheme),
   PanelConfiguration(
+    'Primary Text Theme',
+    'primaryTextTheme',
+    theme191PrimaryTextTheme,
+  ),
+  PanelConfiguration(
+    'Accent Text Theme',
+    'accentTextTheme',
+    theme191AccentTextTheme,
+  ),
+  PanelConfiguration(
+    'Input decoration Theme',
+    'inputDecorationTheme',
+    theme191InputDecorationTheme,
+  ),
+  /*PanelConfiguration(
     'Toggle Button Theme',
     'toggleButtonsTheme',
     theme191ToggleButtonsTheme,
-  ),
+  ),*/
+  /*PanelConfiguration('Text Theme', 'textTheme', theme191TextTheme),*/
 ];
-  
+
 final themeMap192 = <String, Type>{
   /*'primarySwatch': MaterialColor ,*/
 
@@ -204,19 +222,20 @@ final theme191PrimaryTextTheme = theme191TextTheme;
 final theme191AccentTextTheme = theme191TextTheme;
 
 final theme191InputDecorationTheme = <String, Type>{
+  'errorMaxLines': int,
+  'hasFloatingPlaceholder': bool /*: true*/,
+  'isDense': bool /*: false*/,
+  'isCollapsed': bool /*: false*/,
+  'filled': bool /*: false*/,
+  'alignLabelWithHint': bool /*: false*/,
+  'contentPadding': EdgeInsetsGeometry,
   'labelStyle': TextStyle /* theme191TextStyle */,
   'helperStyle': TextStyle /* theme191TextStyle */,
   'hintStyle': TextStyle /* theme191TextStyle */,
   'errorStyle': TextStyle /* theme191TextStyle */,
-  'errorMaxLines': int,
-  'hasFloatingPlaceholder': bool /*: true*/,
-  'isDense': bool /*: false*/,
-  'contentPadding': EdgeInsetsGeometry,
-  'isCollapsed': bool /*: false*/,
   'prefixStyle': TextStyle /* theme191TextStyle */,
   'suffixStyle': TextStyle /* theme191TextStyle */,
   'counterStyle': TextStyle /* theme191TextStyle */,
-  'filled': bool /*: false*/,
   'fillColor': Color,
   'focusColor': Color,
   'hoverColor': Color,
@@ -226,7 +245,6 @@ final theme191InputDecorationTheme = <String, Type>{
   'disabledBorder': InputBorder,
   'enabledBorder': InputBorder,
   'border': InputBorder,
-  'alignLabelWithHint': bool /*: false*/
 };
 
 final theme191IconTheme = <String, Type>{
