@@ -49,8 +49,6 @@ class WebThemeService extends ThemeService<dynamic, dynamic> {
     );
   }
 
-  void updateTheme(ThemeData newTheme) => _theme = newTheme;
-
   void exportTheme({String filename, String code}) =>
       themeExporter(code, filename);
 

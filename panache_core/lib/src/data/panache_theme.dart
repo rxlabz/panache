@@ -30,27 +30,31 @@ class PanacheTheme extends ChangeNotifier {
   }) {
     final base =
         brightness == Brightness.light ? ThemeData.light() : ThemeData.dark();
-    final baseStyle =
-    base.textTheme.caption.copyWith(color: base.hintColor);
+    final baseStyle = base.textTheme.caption.copyWith(color: base.hintColor);
     themeData ??= ThemeData(
-      fontFamily: 'Roboto',
-      primarySwatch: primarySwatch,
-      brightness: brightness,
-      // FIXME default to ios but should detect device type + allow platform switch
-      platform: TargetPlatform.android,
-      textTheme: base.textTheme.merge(Typography.englishLike2018),
-      primaryTextTheme: base.primaryTextTheme.merge(Typography.englishLike2018),
-      accentTextTheme: base.accentTextTheme.merge(Typography.englishLike2018),
-      inputDecorationTheme: base.inputDecorationTheme.copyWith(
-        labelStyle: baseStyle,
-        hintStyle: baseStyle,
-        helperStyle: baseStyle,
-        counterStyle: baseStyle,
-        prefixStyle: baseStyle,
-        suffixStyle: baseStyle,
-        errorStyle: baseStyle.copyWith(color: base.errorColor),
-      )
-    );
+        fontFamily: 'Roboto',
+        primarySwatch: primarySwatch,
+        brightness: brightness,
+        // FIXME default to ios but should detect device type + allow platform switch
+        platform: TargetPlatform.android,
+        textTheme: base.textTheme
+            .merge(Typography.englishLike2018)
+            .apply(fontFamily: 'Roboto'),
+        primaryTextTheme: base.primaryTextTheme
+            .merge(Typography.englishLike2018)
+            .apply(fontFamily: 'Montserrat'),
+        accentTextTheme: base.accentTextTheme
+            .merge(Typography.englishLike2018)
+            .apply(fontFamily: 'Montserrat'),
+        inputDecorationTheme: base.inputDecorationTheme.copyWith(
+          labelStyle: baseStyle,
+          hintStyle: baseStyle,
+          helperStyle: baseStyle,
+          counterStyle: baseStyle,
+          prefixStyle: baseStyle,
+          suffixStyle: baseStyle,
+          errorStyle: baseStyle.copyWith(color: base.errorColor),
+        ));
     print(
         'PanacheTheme.PanacheTheme... ${ThemeData.light().inputDecorationTheme.labelStyle}');
   }
@@ -168,6 +172,8 @@ dynamic getUpdatedSubthemeById(
 
 dynamic getPropertyValue(ThemeData theme, String key) {
   switch (key) {
+    case 'mainColors.brightness':
+      return theme.brightness;
     case 'mainColors.primaryColor':
       return theme.primaryColor;
     case 'mainColors.primaryColorLight':
@@ -178,6 +184,8 @@ dynamic getPropertyValue(ThemeData theme, String key) {
       return theme.primaryColorBrightness;
     case 'mainColors.accentColor':
       return theme.accentColor;
+    case 'mainColors.accentColorBrightness':
+      return theme.accentColorBrightness;
     case 'mainColors.canvasColor':
       return theme.canvasColor;
     case 'mainColors.scaffoldBackgroundColor':

@@ -18,6 +18,9 @@ dependencies:
 
   rxdart: ^0.22.2
 
+  panache_ui:
+    path: ../panache_ui
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

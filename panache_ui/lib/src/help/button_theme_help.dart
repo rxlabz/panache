@@ -12,7 +12,7 @@ constraint or with padding.
 Defaults to [ButtonBarLayoutBehavior.padded].
 ''');
 
-const buttonColorHelp = HelpData("buttonColor", '''
+const buttonThemeButtonColorHelp = HelpData("buttonColor", '''
 The background fill color for RaisedButtons.
 
 If the button is in the focused, hovering, or highlighted state, then the
@@ -20,26 +20,26 @@ focusColor, hoverColor, or highlightColor will take precedence over
 the focusColor.
 ''');
 
-const disabledColorHelp = HelpData("disabledColor", '''
+const buttonThemeDisabledColorHelp = HelpData("disabledColor", '''
 The background fill color for disabled RaisedButtons.
 ''');
 
-const highlightColorHelp = HelpData("highlightColor", '''
+const buttonThemeHighlightColorHelp = HelpData("highlightColor", '''
 The color of the overlay that appears when a button is pressed.
 ''');
 
-const splashColorHelp = HelpData("splashColor", '''
+const buttonThemeSplashColorHelp = HelpData("splashColor", '''
 The color of the ink "splash" overlay that appears when a button is tapped.
 ''');
 
-const focusColorHelp = HelpData("focusColorColor", '''
+const buttonThemeFocusColorHelp = HelpData("focusColorColor", '''
 The fill color of the button when it has the input focus.
 
 If the button is in the hovering or highlighted state, then the hoverColor
 or highlightColor will take precedence over the focusColor.
 ''');
 
-const hoverColorHelp = HelpData("hoverColorColor", '''
+const buttonThemeHoverColorHelp = HelpData("hoverColorColor", '''
 The fill color of the button when a pointer is hovering over it.
 
 Returns the button's MaterialButton.hoverColor if it is non-null.

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+import 'package:panache_desktop/services/theme_preview.dart';
 import 'package:panache_ui/panache_ui.dart';
 
 import 'package:quiver/iterables.dart';
@@ -48,19 +49,29 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: ExpansionPanelList(
-          children: themePanels.map(_buildThemePanel).toList(),
-          expansionCallback: (activeIndex, state) {
-            setState(() {
-              themePanels = enumerate(themeEditorConfiguration).map(
-                (item) => item.index == activeIndex
-                    ? (item.value..closed = state)
-                    : item.value,
-              );
-            });
-          },
-        ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            child: SingleChildScrollView(
+              child: ExpansionPanelList(
+                children: themePanels.map(_buildThemePanel).toList(),
+                expansionCallback: (activeIndex, state) {
+                  setState(() {
+                    themePanels = enumerate(themeEditorConfiguration).map(
+                      (item) => item.index == activeIndex
+                          ? (item.value..closed = state)
+                          : item.value,
+                    );
+                  });
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: ThemePreview(theme:theme),
+          )
+        ],
       ),
     );
   }
@@ -94,7 +105,7 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
   MapEntry<String, Widget> _themePropertyToField(
     String key,
     String panelId,
-    Type propertyType,
+    PropertyDescription propertyDescription,
     dynamic propertyValue,
   ) =>
       MapEntry(
@@ -102,94 +113,9 @@ class _ProtoEditorScreenState extends State<ProtoEditorScreen> {
           _fieldFactory.build(
             key,
             panelId,
-            propertyType,
+            propertyDescription,
             propertyValue,
             theme.updateTheme,
           ));
 }
 
-class ThemeFieldFactory {
-  Widget build(
-    String propertyName,
-    String panelId,
-    Type fieldContentType,
-    dynamic propertyValue,
-    Function(String name, String panelId, dynamic value) onChange,
-  ) {
-    switch (fieldContentType) {
-      case Color:
-        return ColorSelector(propertyName, propertyValue ?? Color(0x00000000),
-            (color) => onChange(propertyName, panelId, color));
-
-      case Brightness:
-        return BrightnessSelector(
-          label: propertyName,
-          isDark:
-              propertyValue != null ? propertyValue == Brightness.dark : false,
-        );
-
-      case ButtonTextTheme:
-        return EnumDropDownField<ButtonTextTheme>(
-          fieldValue: propertyValue,
-          fieldOptions: ButtonTextTheme.values,
-          onChange: (textTheme) => onChange(propertyName, panelId, textTheme),
-        );
-
-      case ButtonBarLayoutBehavior:
-        return EnumDropDownField<ButtonBarLayoutBehavior>(
-          fieldValue: propertyValue,
-          fieldOptions: ButtonBarLayoutBehavior.values,
-          onChange: (behavior) => onChange(propertyName, panelId, behavior),
-        );
-
-      case double:
-      /*case int:*/
-        return SliderPropertyControl(
-          propertyValue,
-          (value) => onChange(propertyName, panelId, value),
-          label: propertyName,
-        );
-
-      case EdgeInsetsGeometry:
-        return SliderPropertyControl(
-          (propertyValue as EdgeInsetsGeometry)?.horizontal ?? 4
-              /*const EdgeInsets.all(4)*/,
-          (value) => onChange(
-              propertyName, panelId, EdgeInsets.symmetric(horizontal: value)),
-          label: propertyName,
-        );
-
-      case bool:
-        return SwitcherControl(
-          label: propertyName,
-          /* FIXME checkedLabel: propertyValue,*/
-          checked: propertyValue,
-          onChange: (value) => onChange(propertyName, panelId, value),
-        );
-
-      case ShapeBorder:
-        return ShapeFormControl(
-          shape: propertyValue,
-          onShapeChanged: (value) => onChange(propertyName, panelId, value),
-        );
-
-      case TextStyle:
-        print('ThemeFieldFactory.build... $propertyName $propertyValue');
-        return TextStyleControl(
-          propertyName,
-          style: propertyValue,
-          onChange: (TextStyle textStyle) =>
-              onChange(propertyName, panelId, textStyle),
-        );
-      default:
-        return Text('...');
-    }
-  }
-
-  DropdownMenuItem<ButtonTextTheme> _buildButtonTextThemeSelectorItem(
-          ButtonTextTheme buttonTextTheme) =>
-      DropdownMenuItem<ButtonTextTheme>(
-        child: Text('$buttonTextTheme'.split('.').last),
-        value: buttonTextTheme,
-      );
-}

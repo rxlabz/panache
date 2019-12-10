@@ -2,12 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:panache_core/panache_core.dart';
+import 'package:panache_ui/panache_ui.dart';
 
 class PanelConfiguration {
   final String label;
   final String id;
-  final Map<String, Type> properties;
+  final Map<String, PropertyDescription> properties;
   bool closed;
 
   PanelConfiguration(
@@ -30,7 +30,7 @@ class PanelConfiguration {
 ///
 final List<PanelConfiguration> themeEditorConfiguration = [
   PanelConfiguration('Main colors', 'mainColors', theme191MainColors),
-  PanelConfiguration('Button Theme', 'buttonTheme', theme191ButtonTheme),
+  /*PanelConfiguration('Button Theme', 'buttonTheme', theme191ButtonTheme),
   PanelConfiguration('Text Theme', 'textTheme', theme191TextTheme),
   PanelConfiguration(
     'Primary Text Theme',
@@ -46,7 +46,7 @@ final List<PanelConfiguration> themeEditorConfiguration = [
     'Input decoration Theme',
     'inputDecorationTheme',
     theme191InputDecorationTheme,
-  ),
+  ),*/
   /*PanelConfiguration(
     'Toggle Button Theme',
     'toggleButtonsTheme',
@@ -136,37 +136,45 @@ const theme191MainConfig = <String, Type>{
   /* TODO 'applyElevationOverlayColor': 'bool',*/
 };
 
-const theme191MainColors = <String, Type>{
-  'brightness': Brightness /* int (enum index) */,
-  'primaryColor': Color /* int */,
-  'primaryColorBrightness': Brightness,
-  'primaryColorLight': Color,
-  'primaryColorDark': Color,
-  'canvasColor': Color,
-  'accentColor': Color,
-  'accentColorBrightness': Brightness,
-  'scaffoldBackgroundColor': Color,
-  'bottomAppBarColor': Color,
-  'cardColor': Color,
-  'dividerColor': Color,
-  'focusColor': Color,
-  'hoverColor': Color,
-  'highlightColor': Color,
-  'splashColor': Color,
-  'selectedRowColor': Color,
-  'unselectedWidgetColor': Color,
-  'disabledColor': Color,
-  'buttonColor': Color,
-  'secondaryHeaderColor': Color,
-  'textSelectionColor': Color,
-  'cursorColor': Color,
-  'textSelectionHandleColor': Color,
-  'backgroundColor': Color,
-  'dialogBackgroundColor': Color,
-  'indicatorColor': Color,
-  'hintColor': Color,
-  'errorColor': Color,
-  'toggleableActiveColor': Color,
+class PropertyDescription {
+  final Type type;
+  final HelpData help;
+  final Map<String, dynamic> params;
+
+  const PropertyDescription({this.type, this.help, this.params: const {}});
+}
+
+const theme191MainColors = <String, PropertyDescription>{
+  'brightness':PropertyDescription(type: Brightness, help: brightnessHelp/* int (enum index) */),
+  'primaryColor':PropertyDescription(type: Color, help:primaryColorHelp /* int */),
+  'primaryColorBrightness':PropertyDescription(type: Brightness, help: primaryColorBrightnessHelp),
+  'primaryColorLight':PropertyDescription(type: Color, help:primaryColorLightHelp),
+  'primaryColorDark':PropertyDescription(type: Color, help:primaryColorDarkHelp),
+  'accentColor':PropertyDescription(type: Color, help: accentColorHelp),
+  'accentColorBrightness':PropertyDescription(type: Brightness, help: accentColorBrightnessHelp),
+  'canvasColor':PropertyDescription(type: Color, help: canvasColorHelp),
+  'scaffoldBackgroundColor':PropertyDescription(type: Color, help:scaffoldColorHelp),
+  'bottomAppBarColor':PropertyDescription(type: Color, help:bottomAppBarColorHelp),
+  'cardColor':PropertyDescription(type: Color, help: cardColorHelp),
+  'dividerColor':PropertyDescription(type: Color, help:dividerColorHelp),
+  'focusColor':PropertyDescription(type: Color, help:focusColorHelp),
+  'hoverColor':PropertyDescription(type: Color, help: hoverColorHelp),
+  'highlightColor':PropertyDescription(type: Color, help: highlightColorHelp),
+  'splashColor':PropertyDescription(type: Color, help: splashColorHelp),
+  'selectedRowColor':PropertyDescription(type: Color, help:selectedRowColorHelp),
+  'unselectedWidgetColor':PropertyDescription(type: Color, help:unselectedWidgetColorHelp),
+  'disabledColor':PropertyDescription(type: Color, help:disabledColorHelp),
+  'buttonColor':PropertyDescription(type: Color, help:buttonColorHelp),
+  'secondaryHeaderColor':PropertyDescription(type: Color, help:secondaryHeaderColorHelp),
+  'textSelectionColor':PropertyDescription(type: Color, help:textSelectionColorHelp),
+  'cursorColor':PropertyDescription(type: Color, help:cursorColorHelp),
+  'textSelectionHandleColor':PropertyDescription(type: Color, help:textSelectionHandleColorHelp),
+  'backgroundColor':PropertyDescription(type: Color, help:backgroundColorHelp),
+  'dialogBackgroundColor':PropertyDescription(type: Color, help:dialogBackgroundColorHelp),
+  'indicatorColor':PropertyDescription(type: Color, help:indicatorColorHelp),
+  'hintColor':PropertyDescription(type: Color, help:hintColorHelp),
+  'errorColor':PropertyDescription(type: Color, help:errorColorHelp),
+  'toggleableActiveColor':PropertyDescription(type: Color, help:toggleableActiveColorHelp),
 };
 
 final theme191ButtonTheme = <String, Type>{

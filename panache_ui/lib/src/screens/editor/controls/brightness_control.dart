@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../help/help.dart';
+import 'help_button.dart';
 import 'control_container.dart';
 
 class BrightnessSelector extends StatelessWidget {
@@ -7,6 +9,7 @@ class BrightnessSelector extends StatelessWidget {
   final bool isDark;
   final ValueChanged<bool> onChange;
   final ValueChanged<Brightness> onBrightnessChanged;
+  final HelpData help;
 
   final Axis direction;
 
@@ -14,6 +17,7 @@ class BrightnessSelector extends StatelessWidget {
       {this.label,
       this.isDark,
       this.onChange,
+      this.help,
       this.onBrightnessChanged,
       this.direction: Axis.vertical});
 
@@ -28,9 +32,12 @@ class BrightnessSelector extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: Text(
-              label,
-              style: labelStyle,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Flexible(child: Text(label, style: labelStyle)),
+                if (help != null) HelpButton(help: help),
+              ],
             ),
           ),
           Container(
