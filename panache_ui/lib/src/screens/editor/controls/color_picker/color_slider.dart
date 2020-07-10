@@ -1097,7 +1097,7 @@ class _RenderSlider extends RenderBox {
   }
 }
 
-class GradientSliderThemeData extends Diagnosticable {
+class GradientSliderThemeData with Diagnosticable {
   const GradientSliderThemeData({
     @required this.startRailColor,
     @required this.endRailColor,
