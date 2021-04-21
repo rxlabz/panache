@@ -31,7 +31,7 @@ class ExpanderHeader extends StatelessWidget {
           ),
           Text(
             label,
-            style: dense ? textTheme.subhead : textTheme.title,
+            style: dense ? textTheme.subtitle1 : textTheme.headline6,
           ),
         ],
       ),

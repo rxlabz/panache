@@ -834,7 +834,7 @@ class _RenderSlider extends RenderBox {
     if (label != null) {
       _labelPainter
         ..text = new TextSpan(
-            style: _theme.accentTextTheme.body2
+            style: _theme.accentTextTheme.bodyText2
                 .copyWith(color: getContrastColor(_thumbColor)),
             text: label)
         ..textDirection = textDirection
@@ -1097,7 +1097,7 @@ class _RenderSlider extends RenderBox {
   }
 }
 
-class GradientSliderThemeData extends Diagnosticable {
+class GradientSliderThemeData with Diagnosticable {
   const GradientSliderThemeData({
     @required this.startRailColor,
     @required this.endRailColor,
@@ -1292,7 +1292,7 @@ class GradientSliderTheme extends InheritedWidget {
 
   static GradientSliderThemeData of(BuildContext context) {
     final SliderTheme inheritedTheme =
-        context.inheritFromWidgetOfExactType(SliderTheme);
+        context.dependOnInheritedWidgetOfExactType(aspect: SliderTheme);
     return inheritedTheme != null
         ? inheritedTheme.data
         : sliderToGradientSliderTheme(Theme.of(context).sliderTheme);

@@ -30,7 +30,7 @@ Future<T> showColorPicker<T>(
       colorStream: colorStream,
       initialValue: initialValue,
       elevation: elevation,
-      theme: Theme.of(context, shadowThemeOnly: true),
+      theme: Theme.of(context),
     ),
   );
 }

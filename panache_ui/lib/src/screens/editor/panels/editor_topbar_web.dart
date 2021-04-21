@@ -46,16 +46,18 @@ class WebPanacheEditorTopbar extends StatelessWidget
     return AppBar(
       title: title,
       actions: <Widget>[
-        FlatButton.icon(
-          textColor: Colors.blueGrey.shade50,
+        TextButton.icon(
           icon: Icon(Icons.mobile_screen_share),
-          label: Text('App preview'),
+          label: Text(
+            'App preview',
+            style: TextStyle(color: Colors.blueGrey.shade50),
+          ),
           onPressed: showCode ? () => onShowCodeChanged(false) : null,
         ),
-        FlatButton.icon(
-          textColor: Colors.blueGrey.shade50,
+        TextButton.icon(
           icon: Icon(Icons.keyboard),
-          label: Text('Code preview'),
+          label: Text('Code preview',
+              style: TextStyle(color: Colors.blueGrey.shade50)),
           onPressed: showCode ? null : () => onShowCodeChanged(true),
         ),
         IconButton(icon: Icon(Icons.file_download), onPressed: saveTheme)

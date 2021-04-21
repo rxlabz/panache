@@ -5,8 +5,6 @@ import 'package:panache_core/src/converters/button_theme_converters.dart';
 import 'mock_button_theme.dart';
 
 void main() {
-  ButtonThemeData buttonTheme;
-
   group('convert buttonTheme', () {
     /*setUp(() {
       final theme = ThemeData.light();

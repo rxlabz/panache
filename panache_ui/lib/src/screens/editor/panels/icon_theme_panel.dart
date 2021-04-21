@@ -31,7 +31,7 @@ class IconThemePanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Icon theme', style: textTheme.subhead),
+          Text('Icon theme', style: textTheme.subtitle1),
           ColorSelector(
             'Color',
             iconTheme.color,
@@ -62,7 +62,7 @@ class IconThemePanel extends StatelessWidget {
           Divider(
             height: 32,
           ),
-          Text('Primary icon theme', style: textTheme.subhead),
+          Text('Primary icon theme', style: textTheme.subtitle1),
           ColorSelector(
             'Color',
             primaryIconTheme.color,
@@ -94,7 +94,7 @@ class IconThemePanel extends StatelessWidget {
           Divider(
             height: 32,
           ),
-          Text('Accent icon theme', style: textTheme.subhead),
+          Text('Accent icon theme', style: textTheme.subtitle1),
           ColorSelector(
             'Color',
             accentIconTheme.color,

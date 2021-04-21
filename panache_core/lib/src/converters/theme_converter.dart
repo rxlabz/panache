@@ -41,9 +41,9 @@ String themeToCode(ThemeData theme) {
     buttonColor: ${colorToCode(theme.buttonColor)},
     toggleableActiveColor: ${colorToCode(theme.toggleableActiveColor)},
     secondaryHeaderColor: ${colorToCode(theme.secondaryHeaderColor)},
-    textSelectionColor: ${colorToCode(theme.textSelectionColor)},
-    cursorColor: ${colorToCode(theme.cursorColor)},
-    textSelectionHandleColor: ${colorToCode(theme.textSelectionHandleColor)},
+    textSelectionColor: ${colorToCode(theme.textSelectionTheme.selectionColor)},
+    cursorColor: ${colorToCode(theme.textSelectionTheme.cursorColor)},
+    textSelectionHandleColor: ${colorToCode(theme.textSelectionTheme.selectionHandleColor)},
     backgroundColor: ${colorToCode(theme.backgroundColor)},
     dialogBackgroundColor: ${colorToCode(theme.dialogBackgroundColor)},
     indicatorColor: ${colorToCode(theme.indicatorColor)},
@@ -56,7 +56,7 @@ String themeToCode(ThemeData theme) {
     inputDecorationTheme: ${inputDecorationThemeToCode(
     theme.inputDecorationTheme,
     theme.hintColor,
-    theme.textTheme.body1,
+    theme.textTheme.bodyText1,
     theme.brightness,
   )},
     iconTheme: ${iconThemeToCode(theme.iconTheme)},
@@ -64,15 +64,15 @@ String themeToCode(ThemeData theme) {
     accentIconTheme: ${iconThemeToCode(theme.accentIconTheme)},
     sliderTheme: ${sliderThemeToCode(
     theme.sliderTheme,
-    theme.accentTextTheme.body2,
+    theme.accentTextTheme.bodyText2,
   )},
     tabBarTheme: ${tabBarThemeToCode(
     theme.tabBarTheme,
-    defaultLabelColor: theme.primaryTextTheme.body2.color,
+    defaultLabelColor: theme.primaryTextTheme.bodyText2.color,
   )},
     chipTheme: ${chipThemeToCode(
     theme.chipTheme,
-    defaultLabelStyle: theme.textTheme.body2,
+    defaultLabelStyle: theme.textTheme.bodyText2,
   )},
     dialogTheme: ${dialogThemeToCode(theme.dialogTheme)},
   );
@@ -110,9 +110,10 @@ Map<String, dynamic> themeToMap(ThemeData theme) {
     'buttonColor': theme.buttonColor.value,
     'toggleableActiveColor': theme.toggleableActiveColor.value,
     'secondaryHeaderColor': theme.secondaryHeaderColor.value,
-    'textSelectionColor': theme.textSelectionColor.value,
-    'cursorColor': theme.cursorColor.value,
-    'textSelectionHandleColor': theme.textSelectionHandleColor.value,
+    'textSelectionColor': theme.textSelectionTheme.selectionColor.value,
+    'cursorColor': theme.textSelectionTheme.cursorColor.value,
+    'textSelectionHandleColor':
+        theme.textSelectionTheme.selectionHandleColor.value,
     'backgroundColor': theme.backgroundColor.value,
     'dialogBackgroundColor': theme.dialogBackgroundColor.value,
     'indicatorColor': theme.indicatorColor.value,
@@ -125,7 +126,7 @@ Map<String, dynamic> themeToMap(ThemeData theme) {
     'inputDecorationTheme': inputDecorationThemeToMap(
         theme.inputDecorationTheme,
         theme.hintColor,
-        theme.textTheme.body1,
+        theme.textTheme.bodyText1,
         theme.brightness),
     'iconTheme': iconThemeToMap(theme.iconTheme),
     'primaryIconTheme': iconThemeToMap(theme.primaryIconTheme),
@@ -133,10 +134,10 @@ Map<String, dynamic> themeToMap(ThemeData theme) {
     /* FIXME'sliderTheme':
         sliderThemeToMap(theme.sliderTheme, theme.accentTextTheme.body2),*/
     'tabBarTheme': tabBarThemeToMap(theme.tabBarTheme,
-        defaultLabelColor: theme.primaryTextTheme.body2.color),
+        defaultLabelColor: theme.primaryTextTheme.bodyText2.color),
     'chipTheme': chipThemeToMap(
       theme.chipTheme,
-      defaultLabelStyle: theme.textTheme.body2,
+      defaultLabelStyle: theme.textTheme.bodyText2,
     ),
     'dialogTheme': dialogThemeToMap(theme.dialogTheme),
   };
@@ -186,11 +187,13 @@ ThemeData themeFromJson(String jsonTheme) {
         defaultTheme.toggleableActiveColor),
     secondaryHeaderColor: Color(
         themeMap['secondaryHeaderColor'] ?? defaultTheme.secondaryHeaderColor),
-    textSelectionColor: Color(
-        themeMap['textSelectionColor'] ?? defaultTheme.textSelectionColor),
-    cursorColor: Color(themeMap['cursorColor'] ?? defaultTheme.cursorColor),
-    textSelectionHandleColor: Color(themeMap['textSelectionHandleColor'] ??
-        defaultTheme.textSelectionHandleColor),
+    textSelectionTheme: TextSelectionThemeData(
+        selectionColor: Color(themeMap['textSelectionColor'] ??
+            defaultTheme.textSelectionTheme.selectionColor),
+        cursorColor: Color(themeMap['cursorColor'] ??
+            defaultTheme.textSelectionTheme.cursorColor),
+        selectionHandleColor: Color(themeMap['textSelectionHandleColor'] ??
+            defaultTheme.textSelectionTheme.selectionHandleColor)),
     backgroundColor:
         Color(themeMap['backgroundColor'] ?? defaultTheme.backgroundColor),
     dialogBackgroundColor: Color(themeMap['dialogBackgroundColor'] ??

@@ -208,7 +208,7 @@ class TextStyleControlState extends State<TextStyleControl> {
             children: <Widget>[
               Text(
                 widget.label,
-                style: textTheme.title,
+                style: textTheme.headline6,
                 textAlign: TextAlign.left,
               ),
               IconButton(
@@ -281,18 +281,18 @@ class PanacheDropdown<D extends SelectionItem> extends StatelessWidget {
           padding: const EdgeInsets.only(top: 2.0, bottom: 8.0),
           child: Text(
             label,
-            style: textTheme.subtitle,
+            style: textTheme.subtitle2,
           ),
         ),
         DropdownButton(
             items: buildItems(
-              style: textTheme.body2,
+              style: textTheme.bodyText2,
             ),
             isDense: true,
             value: selection,
             hint: Text(
               label,
-              style: textTheme.body2,
+              style: textTheme.bodyText2,
             ),
             onChanged: onValueChanged),
       ],

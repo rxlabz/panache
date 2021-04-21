@@ -48,14 +48,14 @@ class MobilePanacheEditorTopbar extends StatelessWidget
     return AppBar(
       title: title,
       actions: <Widget>[
-        FlatButton.icon(
-          textColor: Colors.blueGrey.shade50,
+        TextButton.icon(
+          //textColor: Colors.blueGrey.shade50,
           icon: Icon(Icons.mobile_screen_share),
           label: Text('App preview'),
           onPressed: showCode ? () => onShowCodeChanged(false) : null,
         ),
-        FlatButton.icon(
-          textColor: Colors.blueGrey.shade50,
+        TextButton.icon(
+          // textColor: Colors.blueGrey.shade50,
           icon: Icon(Icons.keyboard),
           label: Text('Code preview'),
           onPressed: showCode ? null : () => onShowCodeChanged(true),
@@ -66,6 +66,5 @@ class MobilePanacheEditorTopbar extends StatelessWidget
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

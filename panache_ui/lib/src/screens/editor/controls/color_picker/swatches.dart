@@ -21,7 +21,7 @@ class ColorSwatchesWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Swatches',
-                style: Theme.of(context).textTheme.subhead.copyWith(
+                style: Theme.of(context).textTheme.subtitle1.copyWith(
                     color: getContrastColor(getSwatchShade(color, 700))),
               ),
             ),

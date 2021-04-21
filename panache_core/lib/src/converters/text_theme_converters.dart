@@ -6,18 +6,18 @@ import 'converter_utils.dart';
 
 String textThemeToCode(TextTheme textTheme) {
   return '''TextTheme(
-      display4: ${textStyleToCode(textTheme.display4)},
-      display3: ${textStyleToCode(textTheme.display3)},
-      display2: ${textStyleToCode(textTheme.display2)},
-      display1: ${textStyleToCode(textTheme.display1)},
-      headline: ${textStyleToCode(textTheme.headline)},
-      title: ${textStyleToCode(textTheme.title)},
-      subhead: ${textStyleToCode(textTheme.subhead)},
-      body2: ${textStyleToCode(textTheme.body2)},
-      body1: ${textStyleToCode(textTheme.body1)},
+      display4: ${textStyleToCode(textTheme.headline1)},
+      display3: ${textStyleToCode(textTheme.headline2)},
+      display2: ${textStyleToCode(textTheme.headline3)},
+      display1: ${textStyleToCode(textTheme.headline4)},
+      headline: ${textStyleToCode(textTheme.headline5)},
+      title: ${textStyleToCode(textTheme.headline6)},
+      subhead: ${textStyleToCode(textTheme.subtitle1)},
+      body2: ${textStyleToCode(textTheme.bodyText2)},
+      body1: ${textStyleToCode(textTheme.bodyText1)},
       caption: ${textStyleToCode(textTheme.caption)},
       button: ${textStyleToCode(textTheme.button)},
-      subtitle: ${textStyleToCode(textTheme.subtitle)},
+      subtitle: ${textStyleToCode(textTheme.subtitle2)},
       overline: ${textStyleToCode(textTheme.overline)},
     )''';
 }
@@ -50,18 +50,18 @@ Map<String, dynamic> textThemeToMap(TextTheme textTheme) {
   assert(textTheme != null);
 
   return <String, dynamic>{
-    'display4': textStyleToMap(textTheme.display4),
-    'display3': textStyleToMap(textTheme.display3),
-    'display2': textStyleToMap(textTheme.display2),
-    'display1': textStyleToMap(textTheme.display1),
-    'headline': textStyleToMap(textTheme.headline),
-    'title': textStyleToMap(textTheme.title),
-    'subhead': textStyleToMap(textTheme.subhead),
-    'body2': textStyleToMap(textTheme.body2),
-    'body1': textStyleToMap(textTheme.body1),
+    'display4': textStyleToMap(textTheme.headline1),
+    'display3': textStyleToMap(textTheme.headline2),
+    'display2': textStyleToMap(textTheme.headline3),
+    'display1': textStyleToMap(textTheme.headline4),
+    'headline': textStyleToMap(textTheme.headline5),
+    'title': textStyleToMap(textTheme.headline6),
+    'subhead': textStyleToMap(textTheme.subtitle1),
+    'body2': textStyleToMap(textTheme.bodyText2),
+    'body1': textStyleToMap(textTheme.bodyText1),
     'caption': textStyleToMap(textTheme.caption),
     'button': textStyleToMap(textTheme.button),
-    'subtitle': textStyleToMap(textTheme.subtitle),
+    'subtitle': textStyleToMap(textTheme.subtitle2),
     'overline': textStyleToMap(textTheme.overline),
   };
 }
@@ -92,18 +92,18 @@ TextTheme textThemeFromMap(Map<String, dynamic> data) {
   if (data == null) return null;
 
   return TextTheme(
-    display4: textStyleFromMap(data['display4']),
-    display3: textStyleFromMap(data['display3']),
-    display2: textStyleFromMap(data['display2']),
-    display1: textStyleFromMap(data['display1']),
-    headline: textStyleFromMap(data['headline']),
-    title: textStyleFromMap(data['title']),
-    subhead: textStyleFromMap(data['subhead']),
-    body2: textStyleFromMap(data['body2']),
-    body1: textStyleFromMap(data['body1']),
+    headline1: textStyleFromMap(data['display4']),
+    headline2: textStyleFromMap(data['display3']),
+    headline3: textStyleFromMap(data['display2']),
+    headline4: textStyleFromMap(data['display1']),
+    headline5: textStyleFromMap(data['headline']),
+    headline6: textStyleFromMap(data['title']),
+    subtitle1: textStyleFromMap(data['subhead']),
+    bodyText2: textStyleFromMap(data['body2']),
+    bodyText1: textStyleFromMap(data['body1']),
     caption: textStyleFromMap(data['caption']),
     button: textStyleFromMap(data['button']),
-    subtitle: textStyleFromMap(data['subtitle']),
+    subtitle2: textStyleFromMap(data['subtitle']),
     overline: textStyleFromMap(data['overline']),
   );
 }

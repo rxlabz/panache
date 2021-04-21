@@ -1,16 +1,15 @@
-import 'package:http/http.dart';
-import 'package:http/io_client.dart';
+import 'package:http/http.dart' as http;
 
-class GoogleHttpClient extends IOClient {
-  Map<String, String> _headers;
-
+class GoogleHttpClient extends http.BaseClient {
   GoogleHttpClient(this._headers) : super();
+  final Map<String, String> _headers;
+  http.Client _inner = new http.Client();
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) =>
-      super.send(request..headers.addAll(_headers));
+  Future<http.StreamedResponse> send(http.BaseRequest request) =>
+      _inner.send(request..headers.addAll(_headers));
 
   @override
-  Future<Response> head(Object url, {Map<String, String> headers}) =>
-      super.head(url, headers: headers..addAll(_headers));
+  Future<http.Response> head(Object url, {Map<String, String> headers}) =>
+      _inner.head(url, headers: headers..addAll(_headers));
 }

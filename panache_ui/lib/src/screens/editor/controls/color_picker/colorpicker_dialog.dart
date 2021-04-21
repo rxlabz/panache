@@ -58,14 +58,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
           ? _buildPortraitPicker()
           : _buildLandscapePicker(),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             'CANCEL',
             style: buttonStyle.copyWith(color: Colors.grey),
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        FlatButton.icon(
+        TextButton.icon(
           label: Text('SELECT'),
           icon: Icon(Icons.check_circle, color: currentColor),
           onPressed: () => Navigator.of(context).pop(currentColor),
@@ -293,7 +293,7 @@ class _ColorTextFieldState extends State<ColorTextField> {
         maxLines: 1,
         textAlign: TextAlign.center,
         controller: fieldController,
-        style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12),
+        style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 12),
         decoration: InputDecoration(
             prefixText: '#',
             counterText: '',

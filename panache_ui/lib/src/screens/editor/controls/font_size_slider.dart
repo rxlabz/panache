@@ -58,11 +58,11 @@ class FontSizeSelectorState extends State<FontSizeSelector> {
           RichText(
             text: TextSpan(
                 text: 'Font size ',
-                style: textTheme.subtitle,
+                style: textTheme.subtitle2,
                 children: [
                   TextSpan(
                     text: widget.value.toStringAsFixed(1),
-                    style: textTheme.body1,
+                    style: textTheme.bodyText1,
                   )
                 ]),
           ),

@@ -41,7 +41,7 @@ class DriveMenu extends StatelessWidget {
 
   void _onExportToDrive(BuildContext context, ThemeModel model) async {
     final result = await userService.save(model.themeCode);
-    Scaffold.of(context).showSnackBar(_buildSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(
         result: result != null,
         successLabel: 'Export success => $result',
         errorLabel: 'Sorry, the export failed... :('));
@@ -50,7 +50,7 @@ class DriveMenu extends StatelessWidget {
   void _onLoginRequest(BuildContext context, ThemeModel model) async {
     final result = await userService.login();
     if (result)
-      Scaffold.of(context).showSnackBar(_buildSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(
           result: result,
           successLabel: 'Logged as ${model.user.name}.',
           errorLabel: 'Authentication failed.'));

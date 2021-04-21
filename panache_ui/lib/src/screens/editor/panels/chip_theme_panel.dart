@@ -19,7 +19,7 @@ class ChipThemePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTextTheme = Theme.of(context).textTheme;
-    final labelStyle = appTextTheme.subtitle;
+    final labelStyle = appTextTheme.subtitle2;
     final chipLabelStyle = chipTheme.labelStyle;
     final secondaryLabelStyle = chipTheme.secondaryLabelStyle;
 
@@ -97,7 +97,7 @@ class ChipThemePanel extends StatelessWidget {
                 direction: Axis.vertical,
                 onChange: (value) => _onBrightnessChanged(
                     value ? Brightness.dark : Brightness.light,
-                    labelStyle: appTextTheme.body1),
+                    labelStyle: appTextTheme.bodyText1),
               ),
               /*Expanded(
                 child: BrightnessSelector(

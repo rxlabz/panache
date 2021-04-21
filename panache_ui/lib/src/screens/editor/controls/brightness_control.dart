@@ -20,7 +20,7 @@ class BrightnessSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final labelStyle = textTheme.subtitle;
+    final labelStyle = textTheme.subtitle2;
     return ControlContainerBorder(
       child: Flex(
         direction: direction,
