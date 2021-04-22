@@ -36,7 +36,7 @@ class ShapeFormControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final _labelStyle = labelStyle ?? textTheme.subtitle;
+    final _labelStyle = labelStyle ?? textTheme.subtitle2;
     return ControlContainerBorder(
       padding: EdgeInsets.only(top: 6, bottom: 0, left: 8, right: 8),
       child: Flex(
@@ -54,7 +54,7 @@ class ShapeFormControl extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 4.0),
             child: DropdownButton(
-                style: textTheme.body2,
+                style: textTheme.bodyText2,
                 value: _getShapeType(shape),
                 items: shapes.map(_getShapeMenuItem).toList(),
                 onChanged: (type) => onShapeChanged(_buildShape(type))),

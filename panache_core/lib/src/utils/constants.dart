@@ -11,6 +11,6 @@ const kDarkTextStyle = const TextStyle(color: Colors.black, fontSize: 11.0);
 
 const kLightTextStyle = const TextStyle(color: Colors.white, fontSize: 11.0);
 
-final enabledRaisedButton = RaisedButton(onPressed: () {});
+final enabledRaisedButton = MaterialButton(onPressed: () {}, child: null);
 
-const disabledRaisedButton = RaisedButton(onPressed: null);
+const disabledRaisedButton = MaterialButton(onPressed: null, child: null);

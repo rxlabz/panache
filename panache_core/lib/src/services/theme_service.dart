@@ -57,5 +57,7 @@ abstract class ThemeService<D, F> {
 
   Future<ThemeData> loadTheme(String path);
 
-  bool themeExists(String path) {}
+  bool themeExists(String path) {
+    return false;
+  }
 }

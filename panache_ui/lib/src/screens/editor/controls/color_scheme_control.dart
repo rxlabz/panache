@@ -50,7 +50,7 @@ class ColorSchemeControl extends StatelessWidget {
         children: <Widget>[
           Text(
             'Color scheme',
-            style: appTheme.title,
+            style: appTheme.headline6,
           ),
           GridView.count(
             shrinkWrap: true,

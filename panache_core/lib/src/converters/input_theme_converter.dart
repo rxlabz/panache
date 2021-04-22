@@ -14,7 +14,7 @@ String inputDecorationThemeToCode(InputDecorationTheme inputTheme,
     hintStyle: ${textStyleToCode(inputTheme.hintStyle ?? defaultHintStyle)},
     errorStyle: ${textStyleToCode(inputTheme.errorStyle ?? defaultHintStyle)},
     errorMaxLines: ${inputTheme.errorMaxLines},
-    hasFloatingPlaceholder: ${inputTheme.hasFloatingPlaceholder},
+    hasFloatingPlaceholder: ${inputTheme.floatingLabelBehavior},
     isDense: ${inputTheme.isDense},
     contentPadding: ${paddingToCode(
     inputTheme.contentPadding ?? getDefaultContentPadding(inputTheme),
@@ -100,7 +100,7 @@ Map<String, dynamic> inputDecorationThemeToMap(
     'suffixStyle': textStyleToMap(inputTheme.suffixStyle ?? defaultHintStyle),
     'counterStyle': textStyleToMap(inputTheme.counterStyle ?? defaultHintStyle),
     'errorMaxLines': inputTheme.errorMaxLines,
-    'hasFloatingPlaceholder': inputTheme.hasFloatingPlaceholder,
+    'hasFloatingPlaceholder': inputTheme.floatingLabelBehavior,
     'isDense': inputTheme.isDense,
     'contentPadding': paddingToMap(
         inputTheme.contentPadding ?? getDefaultContentPadding(inputTheme)),
@@ -157,7 +157,7 @@ InputDecorationTheme inputDecorationThemeFromMap(Map<String, dynamic> data) {
       hintStyle: textStyleFromMap(data['hintStyle']),
       errorStyle: textStyleFromMap(data['errorStyle']),
       errorMaxLines: data['errorMaxLines'],
-      hasFloatingPlaceholder: data['hasFloatingPlaceholder'],
+      floatingLabelBehavior: data['hasFloatingPlaceholder'],
       isDense: data['isDense'],
       contentPadding: paddingFromMap(data['contentPadding']),
       isCollapsed: data['isCollapsed'],
@@ -205,14 +205,14 @@ String getInputBorderType(InputBorder border) {
 
 EdgeInsets getDefaultContentPadding(InputDecorationTheme theme) {
   EdgeInsets contentPadding;
-  double floatingLabelHeight;
+  //double floatingLabelBehavior;
 
   if (theme.isCollapsed) {
-    floatingLabelHeight = 0.0;
+    //floatingLabelBehavior = 0.0;
     contentPadding = theme.contentPadding ?? EdgeInsets.zero;
   } else if (getInputBorderType(theme.border) != 'OutlineInputBorder') {
     // 4.0: the vertical gap between the inline elements and the floating label.
-    floatingLabelHeight = (4.0 + 0.75 * (theme.labelStyle?.fontSize ?? 14.0));
+    //floatingLabelBehavior = (4.0 + 0.75 * (theme.labelStyle?.fontSize ?? 14.0));
     if (theme.filled == true) {
       // filled == null same as filled == false
       contentPadding = theme.contentPadding ??
@@ -229,7 +229,7 @@ EdgeInsets getDefaultContentPadding(InputDecorationTheme theme) {
               : const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0));
     }
   } else {
-    floatingLabelHeight = 0.0;
+    //floatingLabelBehavior = 0.0;
     contentPadding = theme.contentPadding ??
         (theme.isDense
             ? const EdgeInsets.fromLTRB(12.0, 20.0, 12.0, 12.0)

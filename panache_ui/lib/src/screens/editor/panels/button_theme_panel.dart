@@ -20,8 +20,8 @@ class ButtonThemePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTextTheme = Theme.of(context).textTheme;
-    final labelStyle = appTextTheme.subtitle;
-    final dropdownTextStyle = appTextTheme.body2;
+    final labelStyle = appTextTheme.subtitle2;
+    final dropdownTextStyle = appTextTheme.bodyText2;
 
     return Container(
       padding: kPadding,

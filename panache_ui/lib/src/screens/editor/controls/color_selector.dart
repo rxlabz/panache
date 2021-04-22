@@ -41,7 +41,7 @@ class ColorSelector extends StatelessWidget {
                 Text.rich(
                   TextSpan(
                       text: '$label\n',
-                      style: Theme.of(context).textTheme.subtitle,
+                      style: Theme.of(context).textTheme.subtitle2,
                       children: [
                         TextSpan(
                             text: colorLabel,

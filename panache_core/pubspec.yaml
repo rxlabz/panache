@@ -5,7 +5,7 @@ author: Erick Ghaumez <erick@rxla.bz>
 homepage: https://github.com/rxlabz/panache
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:

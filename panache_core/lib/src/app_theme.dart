@@ -28,12 +28,12 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
 
   return theme.copyWith(
     textTheme: textTheme.copyWith(
-      body1: textTheme.body1.copyWith(fontSize: 12),
-      body2: textTheme.body2.copyWith(fontSize: 12),
-      subtitle:
-          textTheme.subtitle.copyWith(color: primarySwatch[400], fontSize: 12),
-      title: textTheme.title.copyWith(color: primarySwatch[300]),
-      headline: textTheme.headline.copyWith(color: primarySwatch),
+      bodyText1: textTheme.bodyText1.copyWith(fontSize: 12),
+      bodyText2: textTheme.bodyText2.copyWith(fontSize: 12),
+      subtitle2:
+          textTheme.subtitle2.copyWith(color: primarySwatch[400], fontSize: 12),
+      headline6: textTheme.headline6.copyWith(color: primarySwatch[300]),
+      headline5: textTheme.headline5.copyWith(color: primarySwatch),
     ),
     primaryColor: primarySwatch,
     primaryColorBrightness: ThemeData.estimateBrightnessForColor(primarySwatch),
@@ -43,8 +43,9 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
     accentColor: accentColor,
     primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
     secondaryHeaderColor: primarySwatch[50],
-    textSelectionColor: primarySwatch[200],
-    textSelectionHandleColor: primarySwatch[300],
+    textSelectionTheme: TextSelectionThemeData(
+        selectionColor: primarySwatch[200],
+        selectionHandleColor: primarySwatch[300]),
     backgroundColor: primarySwatch[200],
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: primarySwatch,

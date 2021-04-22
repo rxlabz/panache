@@ -56,9 +56,9 @@ class DriveService implements CloudService {
         _userStreamer.add(User(account.displayName, account.photoUrl)));
 
     try {
-      _account = await _googleSignIn
-          .signIn()
-          .catchError((error) => print('Signin error : $error'));
+      _account = await _googleSignIn.signIn().catchError((error) {
+        print('Signin error : $error');
+      });
       if (_account == null) return false;
 
       final authHeaders = await _googleSignIn.currentUser.authHeaders;

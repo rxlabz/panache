@@ -21,7 +21,7 @@ class SwitcherControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final labelStyle = textTheme.subtitle;
+    final labelStyle = textTheme.subtitle2;
 
     final children = <Widget>[
       Flex(
