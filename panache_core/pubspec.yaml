@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  scoped_model: ^1.0.1
-  path_provider: ^1.2.0
-  string_scanner: ^1.0.5
-  http: ^0.12.0
+  scoped_model: ^2.0.0-nullsafety.0
+  path_provider: ^2.0.1
+  string_scanner: ^1.1.0
+  http: ^0.13.1
 
 dev_dependencies:
   flutter_test:

@@ -14,15 +14,7 @@ class ScreenshotRenderer extends StatelessWidget {
   final ValueChanged<PanacheTheme> onThemeSelection;
   final ValueChanged<PanacheTheme> onDeleteTheme;
 
-  const ScreenshotRenderer(
-      {Key key,
-      @required this.theme,
-      @required this.basePath,
-      @required this.size,
-      this.onThemeSelection,
-      this.onDeleteTheme,
-      this.removable: false})
-      : super(key: key);
+  const ScreenshotRenderer({Key key, @required this.theme, @required this.basePath, @required this.size, this.onThemeSelection, this.onDeleteTheme, this.removable: false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +36,15 @@ class ScreenshotRenderer extends StatelessWidget {
                         height: size.height,
                         fit: BoxFit.fitHeight,
                       )
-                    : SizedBox(
-                        width: size.width,
-                        height: size.height,
-                        child: Icon(Icons.color_lens))),
+                    : SizedBox(width: size.width, height: size.height, child: Icon(Icons.color_lens))),
           ),
         ),
         removable
             ? Positioned(
                 right: 0,
                 top: 0,
-                child: RaisedButton(
-                  padding: EdgeInsets.zero,
-                  shape: CircleBorder(),
-                  color: Colors.red,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(padding: EdgeInsets.zero, shape: CircleBorder(), primary: Colors.red),
                   onPressed: () => onDeleteTheme(theme),
                   child: Icon(
                     Icons.close,

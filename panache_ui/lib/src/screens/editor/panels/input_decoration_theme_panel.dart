@@ -19,13 +19,11 @@ class InputDecorationThemePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final baseStyle =
-        model.theme.textTheme.caption.copyWith(color: model.theme.hintColor);
+    final baseStyle = model.theme.textTheme.caption.copyWith(color: model.theme.hintColor);
     final helperStyle = inputTheme.helperStyle ?? baseStyle;
     final labelStyle = inputTheme.labelStyle ?? baseStyle;
     final hintStyle = inputTheme.hintStyle ?? baseStyle;
-    final errorStyle = inputTheme.errorStyle ??
-        baseStyle.copyWith(color: model.theme.errorColor);
+    final errorStyle = inputTheme.errorStyle ?? baseStyle.copyWith(color: model.theme.errorColor);
     final counterStyle = inputTheme.counterStyle ?? baseStyle;
     final prefixStyle = inputTheme.prefixStyle ?? baseStyle;
     final suffixStyle = inputTheme.suffixStyle ?? baseStyle;
@@ -46,15 +44,12 @@ class InputDecorationThemePanel extends StatelessWidget {
             SwitcherControl(
               label: 'Filled',
               checked: inputTheme.filled,
-              onChange: (filled) => _updateInputDecorationTheme(
-                  _copyInputDecorationThemeWith(inputTheme, filled: filled)),
+              onChange: (filled) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, filled: filled)),
             ),
             ColorSelector(
               'Fill color',
               inputTheme.fillColor ?? Colors.white.withAlpha(0),
-              (color) => _updateInputDecorationTheme(
-                  _copyInputDecorationThemeWith(inputTheme,
-                      fillColor: color, filled: true)),
+              (color) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, fillColor: color, filled: true)),
               padding: 0,
             ),
           ]),
@@ -65,8 +60,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               axis: Axis.vertical,
               border: inputTheme.border,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(
-                    _copyInputDecorationThemeWith(inputTheme, border: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, border: value));
               },
             ),
             InputBorderControl(
@@ -75,9 +69,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               axis: Axis.vertical,
               border: inputTheme.errorBorder,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(_copyInputDecorationThemeWith(
-                    inputTheme,
-                    errorBorder: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, errorBorder: value));
               },
             )
           ]),
@@ -88,9 +80,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 2,
               border: inputTheme.enabledBorder,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(_copyInputDecorationThemeWith(
-                    inputTheme,
-                    enabledBorder: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, enabledBorder: value));
               },
             ),
             InputBorderControl(
@@ -99,9 +89,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 2,
               border: inputTheme.disabledBorder,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(_copyInputDecorationThemeWith(
-                    inputTheme,
-                    disabledBorder: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, disabledBorder: value));
               },
             ),
           ]),
@@ -112,9 +100,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 2,
               border: inputTheme.focusedBorder,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(_copyInputDecorationThemeWith(
-                    inputTheme,
-                    focusedBorder: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, focusedBorder: value));
               },
             ),
             InputBorderControl(
@@ -123,9 +109,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 2,
               border: inputTheme.focusedErrorBorder,
               onShapeChanged: (InputBorder value) {
-                _updateInputDecorationTheme(_copyInputDecorationThemeWith(
-                    inputTheme,
-                    focusedErrorBorder: value));
+                _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, focusedErrorBorder: value));
               },
             ),
           ]),
@@ -135,14 +119,12 @@ class InputDecorationThemePanel extends StatelessWidget {
               SwitcherControl(
                 label: 'Is dense',
                 checked: inputTheme.isDense,
-                onChange: (value) => _updateInputDecorationTheme(
-                    _copyInputDecorationThemeWith(inputTheme, isDense: value)),
+                onChange: (value) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, isDense: value)),
               ),
               SwitcherControl(
                   label: 'Is collapsed',
                   checked: inputTheme.isCollapsed,
-                  onChange: (value) =>
-                      _updateInputDecorationTheme(_copyInputDecorationThemeWith(
+                  onChange: (value) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(
                         inputTheme,
                         isCollapsed: value,
                       ))),
@@ -150,9 +132,9 @@ class InputDecorationThemePanel extends StatelessWidget {
           ),
           SwitcherControl(
               label: 'Has floating label',
-              checked: inputTheme.hasFloatingPlaceholder,
-              onChange: (value) =>
-                  _updateInputDecorationTheme(_copyInputDecorationThemeWith(
+              checked: inputTheme.floatingLabelBehavior != FloatingLabelBehavior.never,
+              //   checked: inputTheme.hasFloatingPlaceholder,
+              onChange: (value) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(
                     inputTheme,
                     hasFloatingPlaceholder: value,
                   ))),
@@ -213,9 +195,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: const EdgeInsets.all(6.0),
               child: SliderPropertyControl(
                 inputTheme.contentPadding?.vertical ?? 0,
-                (double newValue) => _updateInputDecorationTheme(
-                    _copyInputDecorationThemeWith(inputTheme,
-                        contentPadding: EdgeInsets.all(newValue))),
+                (double newValue) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, contentPadding: EdgeInsets.all(newValue))),
                 label: 'Content Padding',
                 max: 48,
               ),
@@ -226,8 +206,7 @@ class InputDecorationThemePanel extends StatelessWidget {
     );
   }
 
-  void _updateInputDecorationTheme(InputDecorationTheme inputTheme) =>
-      model.updateTheme(model.theme.copyWith(inputDecorationTheme: inputTheme));
+  void _updateInputDecorationTheme(InputDecorationTheme inputTheme) => model.updateTheme(model.theme.copyWith(inputDecorationTheme: inputTheme));
 
   TextStyleControl _buildTextStyleControl({
     @required String key,
@@ -242,30 +221,16 @@ class InputDecorationThemePanel extends StatelessWidget {
       useMobileLayout: useMobileLayout,
       style: textStyle,
       maxFontSize: 24,
-      onColorChanged: (color) =>
-          apply(textStyle.copyWith(color: color), styleName),
-      onSizeChanged: (size) =>
-          apply(textStyle.copyWith(fontSize: size), styleName),
-      onWeightChanged: (isBold) => apply(
-          textStyle.copyWith(
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
-          styleName),
-      onFontStyleChanged: (isItalic) => apply(
-          textStyle.copyWith(
-              fontStyle: isItalic ? FontStyle.italic : FontStyle.normal),
-          styleName),
-      onLetterSpacingChanged: (double value) =>
-          apply(textStyle.copyWith(letterSpacing: value), styleName),
-      onLineHeightChanged: (double value) =>
-          apply(textStyle.copyWith(height: value), styleName),
-      onWordSpacingChanged: (double value) =>
-          apply(textStyle.copyWith(wordSpacing: value), styleName),
-      onDecorationChanged: (TextDecoration value) =>
-          apply(textStyle.copyWith(decoration: value), styleName),
-      onDecorationStyleChanged: (TextDecorationStyle value) =>
-          apply(textStyle.copyWith(decorationStyle: value), styleName),
-      onDecorationColorChanged: (Color value) =>
-          apply(textStyle.copyWith(decorationColor: value), styleName),
+      onColorChanged: (color) => apply(textStyle.copyWith(color: color), styleName),
+      onSizeChanged: (size) => apply(textStyle.copyWith(fontSize: size), styleName),
+      onWeightChanged: (isBold) => apply(textStyle.copyWith(fontWeight: isBold ? FontWeight.bold : FontWeight.normal), styleName),
+      onFontStyleChanged: (isItalic) => apply(textStyle.copyWith(fontStyle: isItalic ? FontStyle.italic : FontStyle.normal), styleName),
+      onLetterSpacingChanged: (double value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
+      onLineHeightChanged: (double value) => apply(textStyle.copyWith(height: value), styleName),
+      onWordSpacingChanged: (double value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
+      onDecorationChanged: (TextDecoration value) => apply(textStyle.copyWith(decoration: value), styleName),
+      onDecorationStyleChanged: (TextDecorationStyle value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
+      onDecorationColorChanged: (Color value) => apply(textStyle.copyWith(decorationColor: value), styleName),
     );
   }
 
@@ -274,8 +239,12 @@ class InputDecorationThemePanel extends StatelessWidget {
     styleArgs[Symbol(styleName)] = style;
 
     final args = <Symbol, dynamic>{};
-    args[Symbol(_themeRef)] =
-        Function.apply(_copyInputDecorationThemeWith, [inputTheme], styleArgs);
+    args[Symbol(_themeRef)] = Function.apply(
+        _copyInputDecorationThemeWith,
+        [
+          inputTheme
+        ],
+        styleArgs);
     model.updateTheme(Function.apply(model.theme.copyWith, null, args));
   }
 }
@@ -316,8 +285,7 @@ InputDecorationTheme _copyInputDecorationThemeWith(
     filled: filled ?? theme.filled,
     focusedBorder: focusedBorder ?? theme.focusedBorder,
     focusedErrorBorder: focusedErrorBorder ?? theme.focusedErrorBorder,
-    hasFloatingPlaceholder:
-        hasFloatingPlaceholder ?? theme.hasFloatingPlaceholder,
+    floatingLabelBehavior: hasFloatingPlaceholder ? FloatingLabelBehavior.always : FloatingLabelBehavior.never,
     helperStyle: helperStyle ?? theme.helperStyle,
     hintStyle: hintStyle ?? theme.hintStyle,
     isCollapsed: isCollapsed ?? theme.isCollapsed,

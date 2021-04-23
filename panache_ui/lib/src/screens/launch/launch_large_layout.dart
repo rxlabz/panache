@@ -17,21 +17,9 @@ class LaunchLayout extends StatelessWidget {
   final void Function(Brightness value) onBrightnessSelection;
   final Function(ThemeModel model) newTheme;
   final VoidCallback toggleEditMode;
-  final List<Widget> Function(List<PanacheTheme> themes,
-      {String basePath, Size size}) buildThemeThumbs;
+  final List<Widget> Function(List<PanacheTheme> themes, {String basePath, Size size}) buildThemeThumbs;
 
-  const LaunchLayout(
-      {Key key,
-      this.model,
-      this.editMode,
-      this.newThemePrimary,
-      this.initialBrightness,
-      this.onSwatchSelection,
-      this.onBrightnessSelection,
-      this.newTheme,
-      this.toggleEditMode,
-      this.buildThemeThumbs})
-      : super(key: key);
+  const LaunchLayout({Key key, this.model, this.editMode, this.newThemePrimary, this.initialBrightness, this.onSwatchSelection, this.onBrightnessSelection, this.newTheme, this.toggleEditMode, this.buildThemeThumbs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,30 +31,16 @@ class LaunchLayout extends StatelessWidget {
     );
   }
 
-  Column _buildDefaultLayout(
-      BuildContext context, ThemeModel model, BoxConstraints constraints) {
-    final linkManager = Provider.of<LinkService>(context);
-
+  Column _buildDefaultLayout(BuildContext context, ThemeModel model, BoxConstraints constraints) {
     final useLargeLayout = constraints.biggest.height >= 700;
 
     final orientation = MediaQuery.of(context).orientation;
     final inPortrait = orientation == Orientation.portrait;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: InkWell(
-                child: Image.asset('github.png', package: 'panache_ui'),
-                onTap: () => linkManager.open(_projectRepo),
-              ),
-            )
-          ],
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 60),
           child: PanacheLogo(
@@ -84,8 +58,7 @@ class LaunchLayout extends StatelessWidget {
             onNewTheme: () => newTheme(model),
           ),
         ),
-        if ((model.themes?.isNotEmpty ?? false) && !kIsWeb)
-          _buildHistoryThumbs(useLargeLayout, model)
+        if ((model.themes?.isNotEmpty ?? false) && !kIsWeb) _buildHistoryThumbs(useLargeLayout, model)
       ],
     );
   }
@@ -95,28 +68,23 @@ class LaunchLayout extends StatelessWidget {
     final elements = [
       Align(
         alignment: Alignment.topRight,
-        child: FlatButton(
+        child: TextButton(
             child: Text(
               editMode ? 'Done' : 'Edit',
-              style: TextStyle(
-                  fontWeight: FontWeight.normal, color: Colors.blueGrey),
+              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.blueGrey),
             ),
             onPressed: toggleEditMode),
       ),
       Container(
         color: Colors.blueGrey.shade200,
-        constraints: BoxConstraints.expand(
-            height: thumbSize.height + (useLargeLayout ? 40 : 20)),
+        constraints: BoxConstraints.expand(height: thumbSize.height + (useLargeLayout ? 40 : 20)),
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
           shrinkWrap: true,
           itemExtent: thumbSize.width + 40,
           scrollDirection: Axis.horizontal,
           semanticChildCount: model.themes?.length ?? 0,
-          children: buildThemeThumbs(
-              model.themes.where(_fileExists).toList() ?? [],
-              basePath: '${model.dirPath ?? ''}/themes',
-              size: thumbSize),
+          children: buildThemeThumbs(model.themes.where(_fileExists).toList() ?? [], basePath: '${model.dirPath ?? ''}/themes', size: thumbSize),
         ),
       )
     ];

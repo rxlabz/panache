@@ -15,9 +15,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  http: ^0.12.0
+  http: ^0.13.1
 
-  shared_preferences: ^0.5.3
+  shared_preferences: ^2.0.5 
   shared_preferences_fde:
     path: ../desktop_plugins/shared_preferences_fde
 

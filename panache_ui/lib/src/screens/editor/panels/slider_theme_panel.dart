@@ -61,28 +61,23 @@ class SliderThemePanel extends StatelessWidget {
 
   SliderThemePanel(this.model);
 
-  Color get thumbColor =>
-      model.theme.sliderTheme.thumbColor ?? model.theme.primaryColor;
+  Color get thumbColor => model.theme.sliderTheme.thumbColor ?? model.theme.primaryColor;
 
-  TextStyle get indicatorStyle =>
-      model.theme.sliderTheme.valueIndicatorTextStyle;
+  TextStyle get indicatorStyle => model.theme.sliderTheme.valueIndicatorTextStyle;
 
   @override
   Widget build(BuildContext context) {
     print('SliderThemePanel.build... ${model.theme.sliderTheme.toString()}');
 
-    print(
-        'SliderThemePanel.build... model.theme.sliderTheme.valueIndicatorColor ${model.theme.sliderTheme.valueIndicatorColor}');
-    print(
-        'SliderThemePanel.build... model.theme.sliderTheme.overlayColor ${model.theme.sliderTheme.overlayColor}');
+    print('SliderThemePanel.build... model.theme.sliderTheme.valueIndicatorColor ${model.theme.sliderTheme.valueIndicatorColor}');
+    print('SliderThemePanel.build... model.theme.sliderTheme.overlayColor ${model.theme.sliderTheme.overlayColor}');
 
     final textTheme = Theme.of(context).textTheme;
     final overlayColor = sliderTheme.overlayColor ?? thumbColor.withAlpha(0xB2);
     final valueIndicatorColor = sliderTheme.valueIndicatorColor ?? thumbColor;
     print('SliderThemePanel.build... overlayColor $overlayColor');
 
-    print(
-        'SliderThemePanel.build... overlayColor ${Theme.of(context).sliderTheme.overlayColor}');
+    print('SliderThemePanel.build... overlayColor ${Theme.of(context).sliderTheme.overlayColor}');
     return Container(
       padding: kPadding,
       color: Colors.grey.shade100,
@@ -93,31 +88,22 @@ class SliderThemePanel extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Show value indicator',
-                style: textTheme.subtitle,
+                style: textTheme.subtitle2,
               ),
-              DropdownButton(
-                  style: textTheme.body2,
-                  value: sliderTheme.showValueIndicator,
-                  items: showIndicatorOptions
-                      .map(_buildIndicatorOptions)
-                      .toList(growable: false),
-                  onChanged: (value) => _updateSliderTheme(
-                      sliderTheme.copyWith(showValueIndicator: value))),
+              DropdownButton(style: textTheme.bodyText2, value: sliderTheme.showValueIndicator, items: showIndicatorOptions.map(_buildIndicatorOptions).toList(growable: false), onChanged: (value) => _updateSliderTheme(sliderTheme.copyWith(showValueIndicator: value))),
             ],
           ),
           getFieldsRow([
             ColorSelector(
               'Thumb color',
               thumbColor,
-              (color) =>
-                  _updateSliderTheme(sliderTheme.copyWith(thumbColor: color)),
+              (color) => _updateSliderTheme(sliderTheme.copyWith(thumbColor: color)),
               padding: 0,
             ),
             ColorSelector(
               'Disabled thumb color',
               sliderTheme.disabledThumbColor ?? thumbColor.withAlpha(0xB2),
-              (color) => _updateSliderTheme(
-                  sliderTheme.copyWith(disabledThumbColor: color)),
+              (color) => _updateSliderTheme(sliderTheme.copyWith(disabledThumbColor: color)),
               padding: 0,
             ),
           ]),
@@ -125,15 +111,13 @@ class SliderThemePanel extends StatelessWidget {
             ColorSelector(
               'Value indicator color',
               valueIndicatorColor,
-              (color) => _updateSliderTheme(
-                  sliderTheme.copyWith(valueIndicatorColor: color)),
+              (color) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorColor: color)),
               padding: 0,
             ),
             ColorSelector(
               'Overlay color',
               overlayColor,
-              (color) =>
-                  _updateSliderTheme(sliderTheme.copyWith(overlayColor: color)),
+              (color) => _updateSliderTheme(sliderTheme.copyWith(overlayColor: color)),
               padding: 0,
             ),
           ]),
@@ -208,59 +192,32 @@ class SliderThemePanel extends StatelessWidget {
     );
   }
 
-  DropdownMenuItem<ShowValueIndicator> _buildIndicatorOptions(
-          ShowValueIndicator value) =>
-      DropdownMenuItem(
+  DropdownMenuItem<ShowValueIndicator> _buildIndicatorOptions(ShowValueIndicator value) => DropdownMenuItem(
         child: Text('$value'.split('.').last),
         value: value,
       );
 
-  void _updateSliderTheme(SliderThemeData sliderTheme) =>
-      model.updateTheme(model.theme.copyWith(sliderTheme: sliderTheme));
+  void _updateSliderTheme(SliderThemeData sliderTheme) => model.updateTheme(model.theme.copyWith(sliderTheme: sliderTheme));
 
   Widget _buildValueIndicatorTextStyleControl() {
-    print(
-        'SliderThemePanel._buildValueIndicatorTextStyleControl $indicatorStyle');
+    print('SliderThemePanel._buildValueIndicatorTextStyleControl $indicatorStyle');
     return TextStyleControl(
       'Value indicator text style',
       style: indicatorStyle,
       maxFontSize: 20,
-      onColorChanged: (c) => _updateSliderTheme(sliderTheme.copyWith(
-          valueIndicatorTextStyle: indicatorStyle.copyWith(color: c))),
-      onFontStyleChanged: (bool isItalic) =>
-          _updateSliderTheme(sliderTheme.copyWith(
-              valueIndicatorTextStyle: indicatorStyle.copyWith(
+      onColorChanged: (c) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: indicatorStyle.copyWith(color: c))),
+      onFontStyleChanged: (bool isItalic) => _updateSliderTheme(sliderTheme.copyWith(
+          valueIndicatorTextStyle: indicatorStyle.copyWith(
         fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
       ))),
-      onSizeChanged: (size) => _updateSliderTheme(sliderTheme.copyWith(
-          valueIndicatorTextStyle: indicatorStyle.copyWith(fontSize: size))),
-      onWeightChanged: (bool isBold) => _updateSliderTheme(sliderTheme.copyWith(
-          valueIndicatorTextStyle: indicatorStyle.copyWith(
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal))),
-      onLetterSpacingChanged: (double value) => _updateSliderTheme(
-          sliderTheme.copyWith(
-              valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle
-                  .copyWith(letterSpacing: value))),
-      onLineHeightChanged: (double value) => _updateSliderTheme(
-          sliderTheme.copyWith(
-              valueIndicatorTextStyle:
-                  sliderTheme.valueIndicatorTextStyle.copyWith(height: value))),
-      onWordSpacingChanged: (double value) => _updateSliderTheme(
-          sliderTheme.copyWith(
-              valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle
-                  .copyWith(wordSpacing: value))),
-      onDecorationChanged: (TextDecoration value) => _updateSliderTheme(
-          sliderTheme.copyWith(
-              valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle
-                  .copyWith(decoration: value))),
-      onDecorationStyleChanged: (TextDecorationStyle value) =>
-          _updateSliderTheme(sliderTheme.copyWith(
-              valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle
-                  .copyWith(decorationStyle: value))),
-      onDecorationColorChanged: (Color value) => _updateSliderTheme(
-          sliderTheme.copyWith(
-              valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle
-                  .copyWith(decorationColor: value))),
+      onSizeChanged: (size) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: indicatorStyle.copyWith(fontSize: size))),
+      onWeightChanged: (bool isBold) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: indicatorStyle.copyWith(fontWeight: isBold ? FontWeight.bold : FontWeight.normal))),
+      onLetterSpacingChanged: (double value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(letterSpacing: value))),
+      onLineHeightChanged: (double value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(height: value))),
+      onWordSpacingChanged: (double value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(wordSpacing: value))),
+      onDecorationChanged: (TextDecoration value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(decoration: value))),
+      onDecorationStyleChanged: (TextDecorationStyle value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(decorationStyle: value))),
+      onDecorationColorChanged: (Color value) => _updateSliderTheme(sliderTheme.copyWith(valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle.copyWith(decorationColor: value))),
     );
   }
 }

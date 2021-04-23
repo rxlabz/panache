@@ -15,25 +15,24 @@ class ButtonPreview extends StatelessWidget {
         children: [
           Text(
             'RaisedButton',
-            style: theme.textTheme.subhead,
+            style: theme.textTheme.subtitle1,
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Wrap(
               spacing: 8.0,
               children: [
-                RaisedButton(
-                  onPressed: () => Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Snack bar'))),
+                ElevatedButton(
+                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Snack bar'))),
                   child: Text("A button"),
                 ),
-                RaisedButton.icon(
+                ElevatedButton.icon(
                   onPressed: () {},
                   icon: Icon(Icons.add_box),
-                  label: Text('RaisedButton.icon'),
+                  label: Text('ElevatedButton.Icon'),
                 ),
-                RaisedButton(onPressed: null, child: Text("Disabled")),
-                RaisedButton.icon(
+                ElevatedButton(onPressed: null, child: Text("Disabled")),
+                ElevatedButton.icon(
                   onPressed: null,
                   icon: Icon(Icons.add_box),
                   label: Text('Disabled with icon'),
@@ -42,21 +41,21 @@ class ButtonPreview extends StatelessWidget {
             ),
           ),
           Divider(),
-          Text('OutlineButton'),
+          Text('OutlinedButton'),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Wrap(
               spacing: 8.0,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                OutlineButton(onPressed: () {}, child: Text("A button")),
-                OutlineButton.icon(
+                OutlinedButton(onPressed: () {}, child: Text("A button")),
+                OutlinedButton.icon(
                   onPressed: () {},
                   icon: Icon(Icons.add_box),
-                  label: Text('OutlineButton.icon'),
+                  label: Text('OutlinedButton.icon'),
                 ),
-                OutlineButton(onPressed: null, child: Text("Disabled")),
-                OutlineButton.icon(
+                OutlinedButton(onPressed: null, child: Text("Disabled")),
+                OutlinedButton.icon(
                   onPressed: () {},
                   icon: Icon(Icons.add_box),
                   label: Text('Disabled with icon icon'),
@@ -71,7 +70,7 @@ class ButtonPreview extends StatelessWidget {
               Expanded(
                 child: Text(
                   'IconButton',
-                  style: theme.textTheme.subhead,
+                  style: theme.textTheme.subtitle1,
                 ),
               ),
               IconButton(
@@ -93,26 +92,28 @@ class ButtonPreview extends StatelessWidget {
                 child: Text('Dropdown'),
               ),
               DropdownButton(
-                  items: ['Paris', 'Moscou', 'Amsterdam']
-                      .map((item) => DropdownMenuItem(child: Text(item)))
-                      .toList(growable: false),
+                  items: [
+                    'Paris',
+                    'Moscou',
+                    'Amsterdam'
+                  ].map((item) => DropdownMenuItem(child: Text(item))).toList(growable: false),
                   onChanged: (value) => print('dropdown value $value')),
             ],
           ),
           Divider(),
-          Text('FlatButton', style: theme.textTheme.subhead),
+          Text('TextButton', style: theme.textTheme.subtitle1),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Wrap(
               children: [
-                FlatButton(onPressed: () {}, child: Text("Enabled")),
-                FlatButton(onPressed: null, child: Text('Disabled')),
-                FlatButton.icon(
+                TextButton(onPressed: () {}, child: Text("Enabled")),
+                TextButton(onPressed: null, child: Text('Disabled')),
+                TextButton.icon(
                   icon: Icon(Icons.restore_from_trash),
                   onPressed: () {},
-                  label: Text('FlatButton.icon'),
+                  label: Text('TextButton.icon'),
                 ),
-                FlatButton.icon(
+                TextButton.icon(
                   icon: Icon(Icons.restore_from_trash),
                   onPressed: null,
                   label: Text('Disabled.icon'),
@@ -135,26 +136,22 @@ class WidgetPreview1 extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final bodyStyle = textTheme.body2.copyWith(fontSize: 12);
+    final bodyStyle = textTheme.bodyText1.copyWith(fontSize: 12);
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: ListView(
         children: [
           Container(
             padding: EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-                color: theme.primaryColorDark,
-                borderRadius: BorderRadius.circular(4)),
+            decoration: BoxDecoration(color: theme.primaryColorDark, borderRadius: BorderRadius.circular(4)),
             child: Text(
                 'Active color : ThemeData.unselectedWidgetColor\n'
                 'Active selected color : ThemeData.toggleableActiveColor\n'
                 'Disabled color : ThemeData.disabledColor',
-                style: theme.primaryTextTheme.body2.copyWith(
-                    height: 1.4,
-                    color: getContrastColor(theme.primaryColorDark))),
+                style: theme.primaryTextTheme.bodyText1.copyWith(height: 1.4, color: getContrastColor(theme.primaryColorDark))),
           ),
           Divider(),
-          Text('Checkbox', style: textTheme.subtitle),
+          Text('Checkbox', style: textTheme.subtitle2),
           Column(
             children: [
               Row(
@@ -184,7 +181,7 @@ class WidgetPreview1 extends StatelessWidget {
             ],
           ),
           Divider(),
-          Text('Radio buttons', style: textTheme.subtitle),
+          Text('Radio buttons', style: textTheme.subtitle2),
           Column(
             children: [
               Row(children: [
@@ -202,7 +199,7 @@ class WidgetPreview1 extends StatelessWidget {
             ],
           ),
           Divider(),
-          Text('Switchs', style: textTheme.subtitle),
+          Text('Switchs', style: textTheme.subtitle2),
           Column(
             children: [
               Row(children: [
