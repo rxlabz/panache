@@ -4,6 +4,8 @@ version: 0.2.2
 author: Erick Ghaumez <erick@rxla.bz>
 homepage: https://github.com/rxlabz/panache
 
+publish_to: none
+
 environment:
   sdk: ">=2.10.0 <3.0.0"
 

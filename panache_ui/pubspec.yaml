@@ -3,6 +3,7 @@ description: A new Flutter project.
 version: 0.0.1
 author:
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.10.0 <3.0.0"
@@ -14,7 +15,7 @@ dependencies:
   panache_core:
     path: ../panache_core
 
-  provider: ^3.1.0
+  provider: ^4.3.2+2
 
   #panache_services:
     #path: ../panache_services

@@ -26,7 +26,9 @@ class HelpButton extends StatelessWidget {
       builder: (context) => SimpleDialog(
         title: Text(title),
         contentPadding: const EdgeInsets.all(24),
-        children: [Text(content, style: textTheme.subtitle1)],
+        children: [
+          Text(content, style: textTheme.subtitle1)
+        ],
       ),
     );
   }

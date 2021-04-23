@@ -24,11 +24,9 @@ class ThemeColorPanel extends StatelessWidget {
             label: 'Primary color',
             currentColor: theme.primaryColor,
             help: primaryColorHelp,
-            changeHandler: (c) =>
-                themeModel.updateColor(property: "primaryColor", color: c),
+            changeHandler: (c) => themeModel.updateColor(property: "primaryColor", color: c),
             isDark: theme.primaryColorBrightness == Brightness.dark,
-            brightnessChangeHandler: (bool isDark) =>
-                _onPrimaryBrightnessChanged(
+            brightnessChangeHandler: (bool isDark) => _onPrimaryBrightnessChanged(
               themeModel,
               isDark ? Brightness.dark : Brightness.light,
             ),
@@ -46,8 +44,7 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Primary color dark',
               theme.primaryColorDark,
-              (c) => themeModel.updateColor(
-                  property: "primaryColorDark", color: c),
+              (c) => themeModel.updateColor(property: "primaryColorDark", color: c),
               padding: 2,
             ),
           ]),
@@ -55,11 +52,9 @@ class ThemeColorPanel extends StatelessWidget {
             label: 'Accent color',
             currentColor: theme.accentColor,
             help: accentColorHelp,
-            changeHandler: (c) =>
-                themeModel.updateColor(property: "accentColor", color: c),
+            changeHandler: (c) => themeModel.updateColor(property: "accentColor", color: c),
             isDark: theme.accentColorBrightness == Brightness.dark,
-            brightnessChangeHandler: (bool isDark) =>
-                _onAccentBrightnessChanged(
+            brightnessChangeHandler: (bool isDark) => _onAccentBrightnessChanged(
               themeModel,
               isDark ? Brightness.dark : Brightness.light,
             ),
@@ -67,12 +62,10 @@ class ThemeColorPanel extends StatelessWidget {
           getColorBrightnessSelector(
             label: 'Scaffold background color',
             currentColor: theme.scaffoldBackgroundColor,
-            changeHandler: (c) => themeModel.updateColor(
-                property: "scaffoldBackgroundColor", color: c),
+            changeHandler: (c) => themeModel.updateColor(property: "scaffoldBackgroundColor", color: c),
             isDark: theme.brightness == Brightness.dark,
             brightnessChangeHandler: (isDark) {
-              final updatedTheme = theme.copyWith(
-                  brightness: isDark ? Brightness.dark : Brightness.light);
+              final updatedTheme = theme.copyWith(brightness: isDark ? Brightness.dark : Brightness.light);
               themeModel.updateTheme(updatedTheme);
             },
           ),
@@ -80,18 +73,13 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Button color',
               theme.buttonColor,
-              (color) => themeModel.updateTheme(theme.copyWith(
-                  buttonColor: color,
-                  buttonTheme: theme.buttonTheme.copyWith(buttonColor: color))),
+              (color) => themeModel.updateTheme(theme.copyWith(buttonColor: color, buttonTheme: theme.buttonTheme.copyWith(buttonColor: color))),
               padding: 2,
             ),
             ColorSelector(
               'Disabled color',
               theme.disabledColor,
-              (color) => themeModel.updateTheme(theme.copyWith(
-                  disabledColor: color,
-                  buttonTheme:
-                      theme.buttonTheme.copyWith(disabledColor: color))),
+              (color) => themeModel.updateTheme(theme.copyWith(disabledColor: color, buttonTheme: theme.buttonTheme.copyWith(disabledColor: color))),
               padding: 2,
             ),
           ]),
@@ -113,15 +101,13 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Unselected widget color',
               theme.unselectedWidgetColor,
-              (c) => themeModel.updateColor(
-                  property: "unselectedWidgetColor", color: c),
+              (c) => themeModel.updateColor(property: "unselectedWidgetColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Toggleable Active Color',
               theme.toggleableActiveColor,
-              (c) => themeModel.updateColor(
-                  property: "toggleableActiveColor", color: c),
+              (c) => themeModel.updateColor(property: "toggleableActiveColor", color: c),
               padding: 2,
             )
           ]),
@@ -129,13 +115,12 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'BottomAppBar color',
               theme.bottomAppBarColor,
-              (c) => themeModel.updateColor(
-                  property: "bottomAppBarColor", color: c),
+              (c) => themeModel.updateColor(property: "bottomAppBarColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Text cursor color',
-              theme.cursorColor,
+              theme.textSelectionTheme.cursorColor,
               (c) => themeModel.updateColor(property: "cursorColor", color: c),
               padding: 2,
             ),
@@ -158,8 +143,7 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Highlight color',
               theme.highlightColor,
-              (c) =>
-                  themeModel.updateColor(property: "highlightColor", color: c),
+              (c) => themeModel.updateColor(property: "highlightColor", color: c),
               padding: 2,
             ),
             ColorSelector(
@@ -173,15 +157,13 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Indicator color',
               theme.indicatorColor,
-              (c) =>
-                  themeModel.updateColor(property: "indicatorColor", color: c),
+              (c) => themeModel.updateColor(property: "indicatorColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Dialog background color',
               theme.dialogBackgroundColor,
-              (c) => themeModel.updateColor(
-                  property: "dialogBackgroundColor", color: c),
+              (c) => themeModel.updateColor(property: "dialogBackgroundColor", color: c),
               padding: 2,
             ),
           ]),
@@ -195,8 +177,7 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Secondary header widget color',
               theme.secondaryHeaderColor,
-              (c) => themeModel.updateColor(
-                  property: "secondaryHeaderColor", color: c),
+              (c) => themeModel.updateColor(property: "secondaryHeaderColor", color: c),
               padding: 2,
             ),
           ]),
@@ -204,31 +185,27 @@ class ThemeColorPanel extends StatelessWidget {
             ColorSelector(
               'Selected row color',
               theme.selectedRowColor,
-              (c) => themeModel.updateColor(
-                  property: "selectedRowColor", color: c),
+              (c) => themeModel.updateColor(property: "selectedRowColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Background color',
               theme.backgroundColor,
-              (c) =>
-                  themeModel.updateColor(property: "backgroundColor", color: c),
+              (c) => themeModel.updateColor(property: "backgroundColor", color: c),
               padding: 2,
             ),
           ]),
           getFieldsRow([
             ColorSelector(
               'Text selection color',
-              theme.textSelectionColor,
-              (c) => themeModel.updateColor(
-                  property: "textSelectionColor", color: c),
+              theme.textSelectionTheme.selectionHandleColor,
+              (c) => themeModel.updateColor(property: "textSelectionColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Text selection handler color',
-              theme.textSelectionHandleColor,
-              (c) => themeModel.updateColor(
-                  property: "textSelectionHandleColor", color: c),
+              theme.textSelectionTheme.selectionHandleColor,
+              (c) => themeModel.updateColor(property: "textSelectionHandleColor", color: c),
               padding: 2,
             ),
           ]),
@@ -242,12 +219,9 @@ class ThemeColorPanel extends StatelessWidget {
     );
   }
 
-  void _onPrimaryBrightnessChanged(
-      ThemeModel themeModel, Brightness brightness) {
+  void _onPrimaryBrightnessChanged(ThemeModel themeModel, Brightness brightness) {
     themeModel.updateTheme(theme.copyWith(primaryColorBrightness: brightness));
   }
 
-  void _onAccentBrightnessChanged(
-          ThemeModel themeModel, Brightness brightness) =>
-      themeModel.updateTheme(theme.copyWith(accentColorBrightness: brightness));
+  void _onAccentBrightnessChanged(ThemeModel themeModel, Brightness brightness) => themeModel.updateTheme(theme.copyWith(accentColorBrightness: brightness));
 }

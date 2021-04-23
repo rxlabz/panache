@@ -11,9 +11,7 @@ class TabBarThemePanel extends StatelessWidget {
 
   TabBarThemePanel(this.model);
 
-  Color get selectedColor =>
-      model.theme.tabBarTheme.labelColor ??
-      model.theme.primaryTextTheme.body2.color;
+  Color get selectedColor => model.theme.tabBarTheme.labelColor ?? model.theme.primaryTextTheme.bodyText2.color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +24,13 @@ class TabBarThemePanel extends StatelessWidget {
             ColorSelector(
               'Label color',
               selectedColor,
-              (color) =>
-                  _updateTabBarTheme(tabTheme.copyWith(labelColor: color)),
+              (color) => _updateTabBarTheme(tabTheme.copyWith(labelColor: color)),
               padding: 4,
             ),
             ColorSelector(
               'Unselected label color',
               tabTheme.unselectedLabelColor ?? selectedColor.withAlpha(0xB2),
-              (color) => _updateTabBarTheme(
-                  tabTheme.copyWith(unselectedLabelColor: color)),
+              (color) => _updateTabBarTheme(tabTheme.copyWith(unselectedLabelColor: color)),
               padding: 4,
             ),
           ]),
@@ -47,25 +43,21 @@ class TabBarThemePanel extends StatelessWidget {
           ),*/
           _TabBarIndicatorSizeControl(
             indicatorSize: tabTheme.indicatorSize,
-            onSizeModeChanged: (TabBarIndicatorSize value) =>
-                _updateTabBarTheme(tabTheme.copyWith(indicatorSize: value)),
+            onSizeModeChanged: (TabBarIndicatorSize value) => _updateTabBarTheme(tabTheme.copyWith(indicatorSize: value)),
           ),
         ],
       ),
     );
   }
 
-  void _updateTabBarTheme(TabBarTheme tabTheme) =>
-      model.updateTheme(model.theme.copyWith(tabBarTheme: tabTheme));
+  void _updateTabBarTheme(TabBarTheme tabTheme) => model.updateTheme(model.theme.copyWith(tabBarTheme: tabTheme));
 }
 
 class _TabBarIndicatorSizeControl extends StatelessWidget {
   final ValueChanged<TabBarIndicatorSize> onSizeModeChanged;
   final TabBarIndicatorSize indicatorSize;
 
-  const _TabBarIndicatorSizeControl(
-      {Key key, @required this.onSizeModeChanged, @required this.indicatorSize})
-      : super(key: key);
+  const _TabBarIndicatorSizeControl({Key key, @required this.onSizeModeChanged, @required this.indicatorSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,21 +72,15 @@ class _TabBarIndicatorSizeControl extends StatelessWidget {
               padding: const EdgeInsets.only(right: 18.0),
               child: Text(
                 'Indicator size',
-                style: appTextTheme.subtitle,
+                style: appTextTheme.subtitle2,
               ),
             ),
-            Radio(
-                value: TabBarIndicatorSize.tab,
-                groupValue: indicatorSize ?? TabBarIndicatorSize.tab,
-                onChanged: onSizeModeChanged),
+            Radio(value: TabBarIndicatorSize.tab, groupValue: indicatorSize ?? TabBarIndicatorSize.tab, onChanged: onSizeModeChanged),
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Text('Tab'),
             ),
-            Radio(
-                value: TabBarIndicatorSize.label,
-                groupValue: indicatorSize ?? TabBarIndicatorSize.tab,
-                onChanged: onSizeModeChanged),
+            Radio(value: TabBarIndicatorSize.label, groupValue: indicatorSize ?? TabBarIndicatorSize.tab, onChanged: onSizeModeChanged),
             Text('Label'),
           ],
         ),
@@ -107,20 +93,17 @@ class _TabBarIndicatorControl extends StatelessWidget {
   final Decoration decoration;
   final ValueChanged<Decoration> onDecorationChanged;
 
-  const _TabBarIndicatorControl(
-      {Key key, this.decoration, this.onDecorationChanged})
-      : super(key: key);
+  const _TabBarIndicatorControl({Key key, this.decoration, this.onDecorationChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return FieldBorder(
       child: Row(children: [
-        Text('Indicator decoration', style: textTheme.subtitle),
+        Text('Indicator decoration', style: textTheme.subtitle2),
         DropdownButton(
             items: _indicatorDecorations.map((value) {
-              return DropdownMenuItem(
-                  child: Text("${value.name}"), value: value.decoration);
+              return DropdownMenuItem(child: Text("${value.name}"), value: value.decoration);
             }).toList(growable: false),
             value: decoration,
             onChanged: onDecorationChanged)

@@ -48,10 +48,7 @@ class AppPreviewContainerState extends State<AppPreviewContainer> {
         child: widget.showCode
             ? ThemeCodePreview(model)
             : Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        left: BorderSide(color: Colors.blueGrey.shade800)),
-                    color: Colors.blueGrey.shade700),
+                decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.blueGrey.shade800)), color: Colors.blueGrey.shade700),
                 child: Center(
                   child: Container(
                     width: widget.size.width,
@@ -78,8 +75,7 @@ class ThemePreviewApp extends StatefulWidget {
   ThemePreviewAppState createState() => ThemePreviewAppState();
 }
 
-class ThemePreviewAppState extends State<ThemePreviewApp>
-    with SingleTickerProviderStateMixin {
+class ThemePreviewAppState extends State<ThemePreviewApp> with SingleTickerProviderStateMixin {
   // RepaintBoundary key
   GlobalKey _globalKey = new GlobalKey();
 
@@ -101,9 +97,18 @@ class ThemePreviewAppState extends State<ThemePreviewApp>
   bool showFAB = true;
 
   get bottomItems => [
-        {'label': 'Map', 'icon': Icons.map},
-        {'label': 'Description', 'icon': Icons.description},
-        {'label': 'Transform', 'icon': Icons.transform},
+        {
+          'label': 'Map',
+          'icon': Icons.map
+        },
+        {
+          'label': 'Description',
+          'icon': Icons.description
+        },
+        {
+          'label': 'Transform',
+          'icon': Icons.transform
+        },
       ]
           .map<Widget>((item) => IconButton(
                     icon: Icon(item['icon']),
@@ -111,7 +116,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp>
                   )
               /*BottomNavigationBarItem(
                 icon: Icon(item['icon']),
-                title: Text(item['label']),
+                headline6: Text(item['label']),
               )*/
               )
           .toList();
@@ -142,8 +147,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp>
               bottom: _buildTabBar(),
               actions: <Widget>[
                 IconButton(icon: Icon(Icons.add), onPressed: () {}),
-                IconButton(
-                    icon: Icon(Icons.add_a_photo), onPressed: _screenshot),
+                IconButton(icon: Icon(Icons.add_a_photo), onPressed: _screenshot),
                 /*IconButton(
                       icon: Icon(Icons.create_new_folder),
                       onPressed: () => Scaffold.of(context).openDrawer()),*/
@@ -157,8 +161,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp>
                     ),
                     onPressed: () {})
                 : null,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.endDocked,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
             drawer: Drawer(
               child: ListView(
                 children: <Widget>[
@@ -196,11 +199,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp>
     );
   }
 
-  _buildTabBar() => TabBar(
-      isScrollable: true,
-      controller: tabBarController,
-      tabs:
-          _tabsItem.map((t) => Tab(text: t.text, icon: Icon(t.icon))).toList());
+  _buildTabBar() => TabBar(isScrollable: true, controller: tabBarController, tabs: _tabsItem.map((t) => Tab(text: t.text, icon: Icon(t.icon))).toList());
 
   Future<Uint8List> _screenshot() async {
     ByteData bytedata;

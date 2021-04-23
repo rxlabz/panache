@@ -7,13 +7,13 @@ const panachePrimarySwatch = Colors.blueGrey;
       fontFamily: 'Roboto',
       primarySwatch: panachePrimarySwatch,
       textTheme: Typography.blackCupertino.copyWith(
-        body1: Typography.blackCupertino.body1.copyWith(fontSize: 12),
-        body2: Typography.blackCupertino.body2.copyWith(fontSize: 12),
-        subtitle: Typography.blackCupertino.subtitle
+        bodyText2: Typography.blackCupertino.bodyText2.copyWith(fontSize: 12),
+        bodyText1: Typography.blackCupertino.bodyText1.copyWith(fontSize: 12),
+        subheadline6: Typography.blackCupertino.subtitle
             .copyWith(color: panachePrimarySwatch.shade400, fontSize: 12),
-        title: Typography.blackCupertino.title
+        headline6: Typography.blackCupertino.title
             .copyWith(color: panachePrimarySwatch.shade300),
-        headline: Typography.blackCupertino.headline
+        headline5: Typography.blackCupertino.headline
             .copyWith(color: panachePrimarySwatch),
       ),
       primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
@@ -30,8 +30,7 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
     textTheme: textTheme.copyWith(
       bodyText1: textTheme.bodyText1.copyWith(fontSize: 12),
       bodyText2: textTheme.bodyText2.copyWith(fontSize: 12),
-      subtitle2:
-          textTheme.subtitle2.copyWith(color: primarySwatch[400], fontSize: 12),
+      subtitle2: textTheme.subtitle2.copyWith(color: primarySwatch[400], fontSize: 12),
       headline6: textTheme.headline6.copyWith(color: primarySwatch[300]),
       headline5: textTheme.headline5.copyWith(color: primarySwatch),
     ),
@@ -43,9 +42,7 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
     accentColor: accentColor,
     primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
     secondaryHeaderColor: primarySwatch[50],
-    textSelectionTheme: TextSelectionThemeData(
-        selectionColor: primarySwatch[200],
-        selectionHandleColor: primarySwatch[300]),
+    textSelectionTheme: TextSelectionThemeData(selectionColor: primarySwatch[200], selectionHandleColor: primarySwatch[300]),
     backgroundColor: primarySwatch[200],
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: primarySwatch,

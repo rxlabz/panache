@@ -31,8 +31,7 @@ class ChipThemePanel extends StatelessWidget {
           ColorSelector(
             'Background color',
             model.theme.chipTheme.backgroundColor,
-            (color) =>
-                _updateChipTheme(chipTheme.copyWith(backgroundColor: color)),
+            (color) => _updateChipTheme(chipTheme.copyWith(backgroundColor: color)),
             padding: 2,
             maxLabelWidth: 250,
           ),
@@ -40,15 +39,13 @@ class ChipThemePanel extends StatelessWidget {
             ColorSelector(
               'Secondary selected color',
               model.theme.chipTheme.secondarySelectedColor,
-              (color) => _updateChipTheme(
-                  chipTheme.copyWith(secondarySelectedColor: color)),
+              (color) => _updateChipTheme(chipTheme.copyWith(secondarySelectedColor: color)),
               padding: 2,
             ),
             ColorSelector(
               'Selected color',
               model.theme.chipTheme.selectedColor,
-              (color) =>
-                  _updateChipTheme(chipTheme.copyWith(selectedColor: color)),
+              (color) => _updateChipTheme(chipTheme.copyWith(selectedColor: color)),
               padding: 2,
             ),
           ]),
@@ -56,15 +53,13 @@ class ChipThemePanel extends StatelessWidget {
             ColorSelector(
               'Disabled color',
               model.theme.chipTheme.disabledColor,
-              (color) =>
-                  _updateChipTheme(chipTheme.copyWith(disabledColor: color)),
+              (color) => _updateChipTheme(chipTheme.copyWith(disabledColor: color)),
               padding: 2,
             ),
             ColorSelector(
               'Delete icon color',
               model.theme.chipTheme.deleteIconColor,
-              (color) =>
-                  _updateChipTheme(chipTheme.copyWith(deleteIconColor: color)),
+              (color) => _updateChipTheme(chipTheme.copyWith(deleteIconColor: color)),
               padding: 2,
             ),
           ]),
@@ -86,18 +81,12 @@ class ChipThemePanel extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              ShapeFormControl(
-                  onShapeChanged: (shapeBorder) =>
-                      _updateChipTheme(chipTheme.copyWith(shape: shapeBorder)),
-                  shape: chipTheme.shape,
-                  labelStyle: labelStyle),
+              ShapeFormControl(onShapeChanged: (shapeBorder) => _updateChipTheme(chipTheme.copyWith(shape: shapeBorder)), shape: chipTheme.shape, labelStyle: labelStyle),
               SwitcherControl(
                 checked: chipTheme.brightness == Brightness.dark,
                 checkedLabel: 'Dark',
                 direction: Axis.vertical,
-                onChange: (value) => _onBrightnessChanged(
-                    value ? Brightness.dark : Brightness.light,
-                    labelStyle: appTextTheme.bodyText1),
+                onChange: (value) => _onBrightnessChanged(value ? Brightness.dark : Brightness.light, labelStyle: appTextTheme.bodyText1),
               ),
               /*Expanded(
                 child: BrightnessSelector(
@@ -105,7 +94,7 @@ class ChipThemePanel extends StatelessWidget {
                   direction: Axis.horizontal,
                   isDark: chipTheme.brightness == Brightness.dark,
                   onBrightnessChanged: (value) => _onBrightnessChanged(value,
-                      labelStyle: appTextTheme.body1),
+                      labelStyle: appTextTheme.bodyText2),
                 ),
               )*/
             ],
@@ -126,30 +115,16 @@ class ChipThemePanel extends StatelessWidget {
       key: Key(key),
       style: textStyle,
       maxFontSize: 32,
-      onColorChanged: (color) =>
-          apply(textStyle.copyWith(color: color), styleName),
-      onSizeChanged: (size) =>
-          apply(textStyle.copyWith(fontSize: size), styleName),
-      onWeightChanged: (isBold) => apply(
-          textStyle.copyWith(
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
-          styleName),
-      onFontStyleChanged: (isItalic) => apply(
-          textStyle.copyWith(
-              fontStyle: isItalic ? FontStyle.italic : FontStyle.normal),
-          styleName),
-      onLetterSpacingChanged: (double value) =>
-          apply(textStyle.copyWith(letterSpacing: value), styleName),
-      onLineHeightChanged: (double value) =>
-          apply(textStyle.copyWith(height: value), styleName),
-      onWordSpacingChanged: (double value) =>
-          apply(textStyle.copyWith(wordSpacing: value), styleName),
-      onDecorationChanged: (TextDecoration value) =>
-          apply(textStyle.copyWith(decoration: value), styleName),
-      onDecorationStyleChanged: (TextDecorationStyle value) =>
-          apply(textStyle.copyWith(decorationStyle: value), styleName),
-      onDecorationColorChanged: (Color value) =>
-          apply(textStyle.copyWith(decorationColor: value), styleName),
+      onColorChanged: (color) => apply(textStyle.copyWith(color: color), styleName),
+      onSizeChanged: (size) => apply(textStyle.copyWith(fontSize: size), styleName),
+      onWeightChanged: (isBold) => apply(textStyle.copyWith(fontWeight: isBold ? FontWeight.bold : FontWeight.normal), styleName),
+      onFontStyleChanged: (isItalic) => apply(textStyle.copyWith(fontStyle: isItalic ? FontStyle.italic : FontStyle.normal), styleName),
+      onLetterSpacingChanged: (double value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
+      onLineHeightChanged: (double value) => apply(textStyle.copyWith(height: value), styleName),
+      onWordSpacingChanged: (double value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
+      onDecorationChanged: (TextDecoration value) => apply(textStyle.copyWith(decoration: value), styleName),
+      onDecorationStyleChanged: (TextDecorationStyle value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
+      onDecorationColorChanged: (Color value) => apply(textStyle.copyWith(decorationColor: value), styleName),
     );
   }
 
@@ -158,8 +133,7 @@ class ChipThemePanel extends StatelessWidget {
     styleArgs[Symbol(styleName)] = style;
 
     final args = <Symbol, dynamic>{};
-    args[Symbol(_themeRef)] =
-        Function.apply(chipTheme.copyWith, null, styleArgs);
+    args[Symbol(_themeRef)] = Function.apply(chipTheme.copyWith, null, styleArgs);
     model.updateTheme(Function.apply(model.theme.copyWith, null, args));
   }
 
