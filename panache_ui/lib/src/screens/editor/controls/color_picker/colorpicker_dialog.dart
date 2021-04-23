@@ -5,10 +5,7 @@ import './color_pickers.dart';
 
 enum ColorMode { rgb, hsl }
 
-void showColorPicker(
-    {BuildContext context,
-    Color currentColor,
-    ValueChanged<Color> onColor}) async {
+void showColorPicker({BuildContext context, Color currentColor, ValueChanged<Color> onColor}) async {
   final selectedColor = await showDialog<Color>(
     context: context,
     builder: (context) => ColorPickerDialog(currentColor),
@@ -27,11 +24,10 @@ class ColorPickerDialog extends StatefulWidget {
   ColorPickerDialog(this.currentColor);
 
   @override
-  _ColorPickerDialogState createState() => new _ColorPickerDialogState();
+  _ColorPickerDialogState createState() => _ColorPickerDialogState();
 }
 
-class _ColorPickerDialogState extends State<ColorPickerDialog>
-    with TickerProviderStateMixin {
+class _ColorPickerDialogState extends State<ColorPickerDialog> with TickerProviderStateMixin {
   Color currentColor/*= Colors.red*/;
 
   TabController tabController;
@@ -42,8 +38,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
   void initState() {
     currentColor = widget.currentColor ?? Colors.blue;
     tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(
-        () => setState(() => currentTabIndex = tabController.index));
+    tabController.addListener(() => setState(() => currentTabIndex = tabController.index));
     super.initState();
   }
 
@@ -54,9 +49,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
     final buttonStyle = Theme.of(context).textTheme.button;
     return AlertDialog(
       contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-      content: mQ.orientation == Orientation.portrait
-          ? _buildPortraitPicker()
-          : _buildLandscapePicker(),
+      content: mQ.orientation == Orientation.portrait ? _buildPortraitPicker() : _buildLandscapePicker(),
       actions: <Widget>[
         TextButton(
           child: Text(
@@ -75,19 +68,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
   }
 
   _buildRGBPicker(Orientation orientation) => RGBPicker(
-        onColor: (Color color) => setState(() => currentColor = color),
+        onColor: (color) => setState(() => currentColor = color),
         color: currentColor,
         orientation: orientation,
       );
 
   _buildHSLPicker(Orientation orientation) => HSLPicker(
-        onColor: (Color color) => setState(() => currentColor = color),
+        onColor: (color) => setState(() => currentColor = color),
         color: currentColor,
         orientation: orientation,
       );
 
   _buildMaterialPicker() => MaterialPicker(
-        onColor: (Color color) => setState(() => currentColor = color),
+        onColor: (color) => setState(() => currentColor = color),
         color: currentColor,
       );
 
@@ -124,8 +117,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
         ),
         SizedBox(
           width: 100,
-          child: ColorTextField(
-              color: currentColor, onColorChanged: _updateColorValue),
+          child: ColorTextField(color: currentColor, onColorChanged: _updateColorValue),
         ),
         _getPicker(currentTabIndex, Orientation.portrait),
       ],
@@ -193,7 +185,11 @@ class MaterialPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = List.from(Colors.primaries);
-    colors.addAll([white, black, grey]);
+    colors.addAll([
+      white,
+      black,
+      grey
+    ]);
     final swatches = colors
         .map<Widget>((c) => InkWell(
               child: Container(width: 42.0, height: 42.0, color: c),
@@ -221,8 +217,7 @@ class ColorThumbPreview extends StatelessWidget {
   final Color color;
   final BoxConstraints constraints;
 
-  const ColorThumbPreview({Key key, this.color, this.constraints})
-      : super(key: key);
+  const ColorThumbPreview({Key key, this.color, this.constraints}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -249,8 +244,7 @@ class ColorTextField extends StatefulWidget {
   final Color color;
   final ValueChanged<Color> onColorChanged;
 
-  const ColorTextField({Key key, this.color, this.onColorChanged})
-      : super(key: key);
+  const ColorTextField({Key key, this.color, this.onColorChanged}) : super(key: key);
 
   @override
   _ColorTextFieldState createState() => _ColorTextFieldState();
@@ -259,8 +253,7 @@ class ColorTextField extends StatefulWidget {
 class _ColorTextFieldState extends State<ColorTextField> {
   TextEditingController fieldController;
 
-  bool get valid =>
-      RegExp(r'[0-9A-Fa-f]{8}').hasMatch('${fieldController.text}');
+  bool get valid => RegExp(r'[0-9A-Fa-f]{8}').hasMatch('${fieldController.text}');
 
   @override
   void initState() {
@@ -279,8 +272,7 @@ class _ColorTextFieldState extends State<ColorTextField> {
 
   @override
   void didUpdateWidget(ColorTextField oldWidget) {
-    if (oldWidget.color != widget.color)
-      fieldController.text = colorToHex32(widget.color).replaceFirst('#', '');
+    if (oldWidget.color != widget.color) fieldController.text = colorToHex32(widget.color).replaceFirst('#', '');
     super.didUpdateWidget(oldWidget);
   }
 
@@ -294,12 +286,7 @@ class _ColorTextFieldState extends State<ColorTextField> {
         textAlign: TextAlign.center,
         controller: fieldController,
         style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 12),
-        decoration: InputDecoration(
-            prefixText: '#',
-            counterText: '',
-            filled: true,
-            contentPadding: const EdgeInsets.all(4),
-            border: OutlineInputBorder()),
+        decoration: InputDecoration(prefixText: '#', counterText: '', filled: true, contentPadding: const EdgeInsets.all(4), border: OutlineInputBorder()),
       ),
     );
   }

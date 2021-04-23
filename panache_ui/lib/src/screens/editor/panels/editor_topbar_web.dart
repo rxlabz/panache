@@ -56,7 +56,6 @@ class WebPanacheEditorTopbar extends StatelessWidget implements PreferredSizeWid
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
   void saveTheme() {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:panache_core/panache_core.dart';
 
-import '../../screens/editor/controls/color_selector.dart';
 import '../../screens/editor/controls/brightness_control.dart';
+import '../../screens/editor/controls/color_selector.dart';
 
 class NewThemePanel extends StatelessWidget {
   final ColorSwatch newThemePrimary;

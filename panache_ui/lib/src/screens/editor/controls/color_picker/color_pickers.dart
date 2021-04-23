@@ -6,9 +6,9 @@ import 'package:panache_core/panache_core.dart';
 
 import './color_slider.dart';
 
-typedef void ColorCallback(Color color);
+typedef ColorCallback = void Function(Color color);
 
-typedef Widget ColorSliderBuilder({
+typedef ColorSliderBuilder = Widget Function({
   @required Color startColor,
   @required Color endColor,
   @required Color thumbColor,
@@ -17,25 +17,24 @@ typedef Widget ColorSliderBuilder({
   List<Color> colors,
   double value,
   double minValue,
-  maxValue,
+  double maxValue,
 });
 
-Widget buildSlider<RGB>(
-        {@required Color startColor,
-        @required Color endColor,
-        @required Color thumbColor,
-        @required RGB channel,
-        Key sliderKey,
-        List<Color> colors,
-        double value,
-        minValue: 0.0,
-        maxValue: 1.0,
-        ValueChanged<double> onChange}) =>
+Widget buildSlider<RGB>({
+  @required Color startColor,
+  @required Color endColor,
+  @required Color thumbColor,
+  @required RGB channel,
+  Key sliderKey,
+  List<Color> colors,
+  double value,
+  double minValue = 0.0,
+  double maxValue = 1.0,
+  ValueChanged<double> onChange,
+}) =>
     GradientSlider(
       key: sliderKey,
-      label: value < 1 && value > 0
-          ? value.toStringAsFixed(2)
-          : value.toInt().toString(),
+      label: value < 1 && value > 0 ? value.toStringAsFixed(2) : value.toInt().toString(),
       value: min(max(minValue, value), maxValue),
       startColor: startColor ?? colors.first,
       endColor: endColor ?? colors.last,
@@ -47,11 +46,7 @@ Widget buildSlider<RGB>(
     );
 
 class RGBPicker extends StatefulWidget {
-  RGBPicker(
-      {@required this.color,
-      this.onColor,
-      this.dynamicBackground: false,
-      this.orientation});
+  RGBPicker({@required this.color, this.onColor, this.dynamicBackground = false, this.orientation});
 
   final ColorCallback onColor;
   final Color color;
@@ -59,11 +54,13 @@ class RGBPicker extends StatefulWidget {
   final Orientation orientation;
 
   @override
-  RGBPickerState createState() => new RGBPickerState(color);
+  RGBPickerState createState() => RGBPickerState(color);
 }
 
 class RGBPickerState extends State<RGBPicker> {
   Color _color;
+
+  Color get color => _color;
 
   set color(Color color) {
     _color = color;
@@ -72,20 +69,22 @@ class RGBPickerState extends State<RGBPicker> {
 
   double _r = 0.0;
 
+  double get r => _r;
+
   set r(double r) {
     _r = r;
     updateColor();
   }
 
   double _g = 0.0;
-
+  double get g => _g;
   set g(double g) {
     _g = g;
     updateColor();
   }
 
   double _b = 0.0;
-
+  double get b => _b;
   set b(double b) {
     _b = b;
     updateColor();
@@ -101,8 +100,7 @@ class RGBPickerState extends State<RGBPicker> {
     _b = _color.blue.toDouble();
   }
 
-  void updateColor() => setState(
-      () => color = Color.fromRGBO(_r.toInt(), _g.toInt(), _b.toInt(), 1.0));
+  void updateColor() => setState(() => color = Color.fromRGBO(_r.toInt(), _g.toInt(), _b.toInt(), 1.0));
 
   @override
   void didUpdateWidget(RGBPicker oldWidget) {
@@ -118,8 +116,7 @@ class RGBPickerState extends State<RGBPicker> {
     print('RGBPickerState.build... $_color');
     final hsl = HSLColor.fromColor(_color);
     final shade50 = hsl.withLightness(.95).toColor();
-    final bgColor =
-        widget.dynamicBackground ? shade50.withOpacity(1) : Colors.white;
+    final bgColor = widget.dynamicBackground ? shade50.withOpacity(1) : Colors.white;
 
     return Container(
       color: bgColor,
@@ -129,42 +126,9 @@ class RGBPickerState extends State<RGBPicker> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          RGBSliderRow(
-              sliderKey: Key('sldR'),
-              sliderBuilder: buildSlider,
-              startColor: Colors.black,
-              endColor: Color.fromRGBO(255, 0, 0, 1.0),
-              thumbColor: Color.fromRGBO(_color.red, 0, 0, 1),
-              value: _r,
-              label: 'Red',
-              labelStyle: TextStyle(color: Colors.red.shade600, fontSize: 12),
-              orientation: widget.orientation,
-              maxValue: 255.0,
-              onChange: (value) => setState(() => r = value)),
-          RGBSliderRow(
-              sliderKey: Key('sldG'),
-              sliderBuilder: buildSlider,
-              startColor: Colors.black,
-              endColor: Color.fromRGBO(0, 255, 0, 1.0),
-              thumbColor: Color.fromRGBO(0, _color.green, 0, 1),
-              value: _g,
-              label: 'Green',
-              labelStyle: TextStyle(color: Colors.green.shade600, fontSize: 12),
-              orientation: widget.orientation,
-              maxValue: 255.0,
-              onChange: (value) => setState(() => g = value)),
-          RGBSliderRow(
-              sliderKey: Key('sldB'),
-              sliderBuilder: buildSlider,
-              value: _b,
-              label: 'Blue',
-              startColor: Colors.black,
-              endColor: Color.fromRGBO(0, 0, 255, 1.0),
-              thumbColor: Color.fromRGBO(0, 0, _color.blue, 1),
-              labelStyle: TextStyle(color: Colors.blue.shade600, fontSize: 12),
-              orientation: widget.orientation,
-              maxValue: 255.0,
-              onChange: (value) => setState(() => b = value)),
+          RGBSliderRow(sliderKey: Key('sldR'), sliderBuilder: buildSlider, startColor: Colors.black, endColor: Color.fromRGBO(255, 0, 0, 1.0), thumbColor: Color.fromRGBO(_color.red, 0, 0, 1), value: _r, label: 'Red', labelStyle: TextStyle(color: Colors.red.shade600, fontSize: 12), orientation: widget.orientation, maxValue: 255.0, onChange: (value) => setState(() => r = value)),
+          RGBSliderRow(sliderKey: Key('sldG'), sliderBuilder: buildSlider, startColor: Colors.black, endColor: Color.fromRGBO(0, 255, 0, 1.0), thumbColor: Color.fromRGBO(0, _color.green, 0, 1), value: _g, label: 'Green', labelStyle: TextStyle(color: Colors.green.shade600, fontSize: 12), orientation: widget.orientation, maxValue: 255.0, onChange: (value) => setState(() => g = value)),
+          RGBSliderRow(sliderKey: Key('sldB'), sliderBuilder: buildSlider, value: _b, label: 'Blue', startColor: Colors.black, endColor: Color.fromRGBO(0, 0, 255, 1.0), thumbColor: Color.fromRGBO(0, 0, _color.blue, 1), labelStyle: TextStyle(color: Colors.blue.shade600, fontSize: 12), orientation: widget.orientation, maxValue: 255.0, onChange: (value) => setState(() => b = value)),
         ],
       ),
     );
@@ -172,11 +136,12 @@ class RGBPickerState extends State<RGBPicker> {
 }
 
 class HSLPicker extends StatefulWidget {
-  HSLPicker(
-      {@required this.color,
-      this.onColor,
-      this.dynamicBackground: false,
-      this.orientation});
+  HSLPicker({
+    @required this.color,
+    this.onColor,
+    this.dynamicBackground = false,
+    this.orientation,
+  });
 
   final ColorCallback onColor;
   final Color color;
@@ -184,11 +149,13 @@ class HSLPicker extends StatefulWidget {
   final Orientation orientation;
 
   @override
-  HSLPickerState createState() => new HSLPickerState(color);
+  HSLPickerState createState() => HSLPickerState(color);
 }
 
 class HSLPickerState extends State<HSLPicker> {
   HSLColor _color;
+
+  HSLColor get color => _color;
 
   set color(HSLColor color) {
     _color = color;
@@ -197,27 +164,29 @@ class HSLPickerState extends State<HSLPicker> {
 
   double _h = 0.0;
 
+  double get h => _h;
+
   set h(double r) {
     _h = r;
     updateColor();
   }
 
   double _s = 0.0;
-
+  double get s => _s;
   set s(double g) {
     _s = g;
     updateColor();
   }
 
   double _l = 0.0;
-
+  double get l => _l;
   set l(double b) {
     _l = b;
     updateColor();
   }
 
   HSLPickerState(Color c) {
-    this._color = HSLColor.fromColor(c);
+    _color = HSLColor.fromColor(c);
   }
 
   void updateColor() => color = HSLColor.fromAHSL(1, _h, _s, _l);
@@ -225,8 +194,7 @@ class HSLPickerState extends State<HSLPicker> {
   @override
   void didUpdateWidget(HSLPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.color != oldWidget.color)
-      _color = HSLColor.fromColor(widget.color);
+    if (widget.color != oldWidget.color) _color = HSLColor.fromColor(widget.color);
   }
 
   @override
@@ -237,8 +205,7 @@ class HSLPickerState extends State<HSLPicker> {
 
     final rgb = HSLColor.fromAHSL(1, _h, _s, 0.95).toColor();
 
-    final bgColor =
-        widget.dynamicBackground ? rgb.withOpacity(1) : Colors.white;
+    final bgColor = widget.dynamicBackground ? rgb.withOpacity(1) : Colors.white;
     return Container(
       color: bgColor,
       padding: EdgeInsets.all(10.0),
@@ -278,7 +245,11 @@ class HSLPickerState extends State<HSLPicker> {
             orientation: widget.orientation,
             maxValue: 1.0,
             onChange: (value) => setState(() => l = value),
-            colors: [Colors.black, _color.toColor(), Colors.white],
+            colors: [
+              Colors.black,
+              _color.toColor(),
+              Colors.white
+            ],
             thumbColor: _color.toColor(),
           ),
         ],
@@ -299,16 +270,14 @@ class HueGradientPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
-    final Gradient gradient = new LinearGradient(
+    final Gradient gradient = LinearGradient(
       colors: getHueGradientColors(),
     );
-    Rect gradientRect =
-        Rect.fromPoints(Offset.zero, Offset(size.width, size.height));
+    var gradientRect = Rect.fromPoints(Offset.zero, Offset(size.width, size.height));
     final gradientPaint = Paint()..shader = gradient.createShader(gradientRect);
 
     final valueX = value / 360 * size.width;
-    Rect cursorRect =
-        Rect.fromPoints(Offset(valueX, 0.0), Offset(valueX + 2, size.height));
+    var cursorRect = Rect.fromPoints(Offset(valueX, 0.0), Offset(valueX + 2, size.height));
 
     canvas.drawRect(gradientRect, gradientPaint);
     final cursorPaint = Paint()
@@ -318,8 +287,7 @@ class HueGradientPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(HueGradientPainter oldDelegate) =>
-      oldDelegate.value != value;
+  bool shouldRepaint(HueGradientPainter oldDelegate) => oldDelegate.value != value;
 
   @override
   bool hitTest(Offset position) {
@@ -330,81 +298,70 @@ class HueGradientPainter extends CustomPainter {
 }
 
 class HSLSliderRow extends GradientSliderRow {
-  HSLSliderRow(
-      {Key sliderKey,
-      @required double value,
-      @required ValueChanged<double> onChange,
-      @required ColorSliderBuilder sliderBuilder,
-      @required Color thumbColor,
-      @required Orientation orientation,
-      Color startColor,
-      Color endColor,
-      List<Color> colors,
-      String label,
-      TextStyle labelStyle,
-      double minValue: 0.0,
-      double maxValue: 1.0,
-      double width: 160.0,
-      Key key})
-      : super(
-            key: key,
-            value: value,
-            sliderKey: sliderKey,
-            onChange: onChange,
-            sliderBuilder: sliderBuilder,
-            startColor: startColor,
-            endColor: endColor,
-            colors: colors,
-            thumbColor: thumbColor,
-            label: label,
-            labelStyle: labelStyle,
-            minValue: minValue,
-            maxValue: maxValue,
-            width: width,
-            orientation: orientation);
+  HSLSliderRow({
+    Key sliderKey,
+    @required double value,
+    @required ValueChanged<double> onChange,
+    @required ColorSliderBuilder sliderBuilder,
+    @required Color thumbColor,
+    @required Orientation orientation,
+    Color startColor,
+    Color endColor,
+    List<Color> colors,
+    String label,
+    TextStyle labelStyle,
+    double minValue = 0.0,
+    double maxValue = 1.0,
+    double width = 160.0,
+    Key key,
+  }) : super(
+          key: key,
+          value: value,
+          sliderKey: sliderKey,
+          onChange: onChange,
+          sliderBuilder: sliderBuilder,
+          startColor: startColor,
+          endColor: endColor,
+          colors: colors,
+          thumbColor: thumbColor,
+          label: label,
+          labelStyle: labelStyle,
+          minValue: minValue,
+          maxValue: maxValue,
+          width: width,
+          orientation: orientation,
+        );
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-        direction: orientation == Orientation.portrait
-            ? Axis.vertical
-            : Axis.horizontal,
-        children: [
-          Text(
-            '$label',
-            style: labelStyle ?? Theme.of(context).textTheme.bodyText1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          sliderBuilder(
-              startColor: startColor ?? colors[0],
-              endColor: endColor ?? colors[1],
-              colors: colors,
-              thumbColor: thumbColor,
-              sliderKey: sliderKey,
-              maxValue: maxValue,
-              onChange: onChange,
-              value: min(max(minValue, value), maxValue)),
-        ]);
+    return Flex(direction: orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal, children: [
+      Text(
+        '$label',
+        style: labelStyle ?? Theme.of(context).textTheme.bodyText1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      sliderBuilder(startColor: startColor ?? colors[0], endColor: endColor ?? colors[1], colors: colors, thumbColor: thumbColor, sliderKey: sliderKey, maxValue: maxValue, onChange: onChange, value: min(max(minValue, value), maxValue)),
+    ]);
   }
 }
 
 class RGBSliderRow extends GradientSliderRow<RGB> {
-  RGBSliderRow(
-      {Key sliderKey,
-      @required double value,
-      @required ValueChanged<double> onChange,
-      @required ColorSliderBuilder sliderBuilder,
-      @required Color startColor,
-      @required Color endColor,
-      @required Color thumbColor,
-      @required Orientation orientation,
-      String label,
-      TextStyle labelStyle,
-      double minValue: 0.0,
-      double maxValue: 1.0,
-      double width: 160.0,
-      Key key})
-      : super(
+  RGBSliderRow({
+    Key sliderKey,
+    @required double value,
+    @required ValueChanged<double> onChange,
+    @required ColorSliderBuilder sliderBuilder,
+    @required Color startColor,
+    @required Color endColor,
+    @required Color thumbColor,
+    @required Orientation orientation,
+    String label,
+    TextStyle labelStyle,
+    double minValue = 0.0,
+    double maxValue = 1.0,
+    double width = 160.0,
+    Key key,
+  }) : super(
           key: key,
           value: value,
           sliderKey: sliderKey,
@@ -423,49 +380,40 @@ class RGBSliderRow extends GradientSliderRow<RGB> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> elements = [
+    var elements = [
       Text(
         '$label : ${value.round()}',
         style: labelStyle ?? Theme.of(context).textTheme.bodyText1,
         overflow: TextOverflow.ellipsis,
       ),
-      sliderBuilder(
-          startColor: startColor,
-          endColor: endColor,
-          thumbColor: thumbColor,
-          sliderKey: sliderKey,
-          maxValue: maxValue,
-          onChange: onChange,
-          value: min(max(minValue, value), maxValue)),
+      sliderBuilder(startColor: startColor, endColor: endColor, thumbColor: thumbColor, sliderKey: sliderKey, maxValue: maxValue, onChange: onChange, value: min(max(minValue, value), maxValue)),
     ];
-    if (orientation == Orientation.landscape)
-      elements = elements.reversed.toList();
+    if (orientation == Orientation.landscape) elements = elements.reversed.toList();
     return Flex(
-      direction:
-          orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
+      direction: orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
       children: elements,
     );
   }
 }
 
 abstract class GradientSliderRow<T> extends StatelessWidget {
-  GradientSliderRow(
-      {this.sliderKey,
-      @required this.value,
-      @required this.onChange,
-      @required this.sliderBuilder,
-      @required this.startColor,
-      @required this.endColor,
-      @required this.thumbColor,
-      this.colors,
-      this.label,
-      this.labelStyle,
-      this.minValue: 0.0,
-      this.maxValue: 1.0,
-      this.width: 160.0,
-      this.orientation: Orientation.portrait,
-      Key key})
-      : super(key: key);
+  GradientSliderRow({
+    this.sliderKey,
+    @required this.value,
+    @required this.onChange,
+    @required this.sliderBuilder,
+    @required this.startColor,
+    @required this.endColor,
+    @required this.thumbColor,
+    this.colors,
+    this.label,
+    this.labelStyle,
+    this.minValue = 0.0,
+    this.maxValue = 1.0,
+    this.width = 160.0,
+    this.orientation = Orientation.portrait,
+    Key key,
+  }) : super(key: key);
 
   final double value;
 

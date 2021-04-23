@@ -19,7 +19,7 @@ class HelpButton extends StatelessWidget {
     );
   }
 
-  showHelp(BuildContext context, {String content, String title}) {
+  void showHelp(BuildContext context, {String content, String title}) {
     final textTheme = Theme.of(context).textTheme;
     showDialog(
       context: context,

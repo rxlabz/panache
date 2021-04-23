@@ -12,12 +12,18 @@ class ScreenshotRenderer extends StatelessWidget {
   final ValueChanged<PanacheTheme> onThemeSelection;
   final ValueChanged<PanacheTheme> onDeleteTheme;
 
-  const ScreenshotRenderer({Key key, @required this.theme, @required this.basePath, @required this.size, this.onThemeSelection, this.onDeleteTheme, this.removable: false}) : super(key: key);
+  const ScreenshotRenderer({
+    Key key,
+    @required this.theme,
+    @required this.basePath,
+    @required this.size,
+    this.onThemeSelection,
+    this.onDeleteTheme,
+    this.removable = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final screenshotPath = '$basePath/${theme.id}.png';
-
     return Stack(
       alignment: Alignment.bottomLeft,
       children: <Widget>[

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum InputBorders { UnderlineInputBorder, OutlineInputBorder, None }
+enum InputBorders { underlineInputBorder, outlineInputBorder, none }
 
 final borders = [
-  InputBorders.UnderlineInputBorder,
-  InputBorders.OutlineInputBorder,
-  InputBorders.None,
+  InputBorders.underlineInputBorder,
+  InputBorders.outlineInputBorder,
+  InputBorders.none,
 ];
 
 class InputBorderControl extends StatelessWidget {
@@ -18,16 +18,16 @@ class InputBorderControl extends StatelessWidget {
   final double padding;
   final Axis axis;
 
-  get vertical => axis == Axis.vertical;
+  bool get vertical => axis == Axis.vertical;
 
   const InputBorderControl({
     Key key,
     @required this.onShapeChanged,
     @required this.border,
     @required this.label,
-    this.axis: Axis.horizontal,
+    this.axis = Axis.horizontal,
     this.labelStyle,
-    this.padding: 8.0,
+    this.padding = 8.0,
   }) : super(key: key);
 
   @override
@@ -35,15 +35,13 @@ class InputBorderControl extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final _labelStyle = labelStyle ?? textTheme.subtitle2;
     return Padding(
-      padding:
-          EdgeInsets.symmetric(vertical: padding, horizontal: vertical ? 2 : 0),
+      padding: EdgeInsets.symmetric(vertical: padding, horizontal: vertical ? 2 : 0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.white,
         ),
-        padding: EdgeInsets.symmetric(
-            vertical: padding, horizontal: vertical ? 0 : 8),
+        padding: EdgeInsets.symmetric(vertical: padding, horizontal: vertical ? 0 : 8),
         child: Flex(
           direction: axis,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -61,11 +59,7 @@ class InputBorderControl extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 2.0),
-              child: DropdownButton(
-                  style: textTheme.bodyText2,
-                  value: _getShapeType(border),
-                  items: borders.map(_getShapeMenuItem).toList(),
-                  onChanged: (type) => onShapeChanged(_buildBorder(type))),
+              child: DropdownButton(style: textTheme.bodyText2, value: _getShapeType(border), items: borders.map(_getShapeMenuItem).toList(), onChanged: (type) => onShapeChanged(_buildBorder(type))),
             )
           ],
         ),
@@ -73,14 +67,13 @@ class InputBorderControl extends StatelessWidget {
     );
   }
 
-  DropdownMenuItem<InputBorders> _getShapeMenuItem(InputBorders shape) =>
-      DropdownMenuItem(value: shape, child: Text(_shapeLabel(shape)));
+  DropdownMenuItem<InputBorders> _getShapeMenuItem(InputBorders shape) => DropdownMenuItem(value: shape, child: Text(_shapeLabel(shape)));
 
   InputBorder _buildBorder(InputBorders shape) {
     switch (shape) {
-      case InputBorders.OutlineInputBorder:
+      case InputBorders.outlineInputBorder:
         return OutlineInputBorder();
-      case InputBorders.None:
+      case InputBorders.none:
         return InputBorder.none;
       default:
         return UnderlineInputBorder();
@@ -89,9 +82,9 @@ class InputBorderControl extends StatelessWidget {
 
   String _shapeLabel(InputBorders shape) {
     switch (shape) {
-      case InputBorders.OutlineInputBorder:
+      case InputBorders.outlineInputBorder:
         return 'Outline';
-      case InputBorders.None:
+      case InputBorders.none:
         return 'None';
       default:
         return 'Underline';

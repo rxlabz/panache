@@ -8,8 +8,8 @@ class ControlContainerBorder extends StatelessWidget {
   const ControlContainerBorder({
     Key key,
     this.child,
-    this.margin: const EdgeInsets.all(4.0),
-    this.padding: const EdgeInsets.all(8.0),
+    this.margin = const EdgeInsets.all(4.0),
+    this.padding = const EdgeInsets.all(8.0),
   }) : super(key: key);
 
   @override

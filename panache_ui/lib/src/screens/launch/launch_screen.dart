@@ -14,7 +14,7 @@ class LaunchScreen extends StatefulWidget {
 
   @override
   LaunchScreenState createState() {
-    return new LaunchScreenState();
+    return LaunchScreenState();
   }
 }
 
@@ -35,10 +35,20 @@ class LaunchScreenState extends State<LaunchScreen> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.blueGrey.shade50,
-      body: SafeArea(child: ScopedModelDescendant<ThemeModel>(builder: (BuildContext context, Widget child, ThemeModel model) {
+      body: SafeArea(child: ScopedModelDescendant<ThemeModel>(builder: (context, child, model) {
         return ConstrainedBox(
           constraints: BoxConstraints.expand(),
-          child: LaunchLayout(model: model, newThemePrimary: newThemePrimary, initialBrightness: initialBrightness, onSwatchSelection: onSwatchSelection, onBrightnessSelection: onBrightnessSelection, newTheme: _newTheme, editMode: editMode, toggleEditMode: () => setState(() => editMode = !editMode), buildThemeThumbs: _buildThemeThumbs),
+          child: LaunchLayout(
+            model: model,
+            newThemePrimary: newThemePrimary,
+            initialBrightness: initialBrightness,
+            onSwatchSelection: onSwatchSelection,
+            onBrightnessSelection: onBrightnessSelection,
+            newTheme: _newTheme,
+            editMode: editMode,
+            toggleEditMode: () => setState(() => editMode = !editMode),
+            buildThemeThumbs: _buildThemeThumbs,
+          ),
         );
       })),
     );
@@ -53,8 +63,8 @@ class LaunchScreenState extends State<LaunchScreen> {
             theme: f,
             removable: editMode,
             basePath: basePath,
-            onThemeSelection: (PanacheTheme theme) => _loadTheme(theme),
-            onDeleteTheme: (PanacheTheme theme) => widget.model.deleteTheme(theme),
+            onThemeSelection: _loadTheme,
+            onDeleteTheme: widget.model.deleteTheme, //TODO: Aqui esta funcionando?
             size: size,
           ))
       .toList();
@@ -68,9 +78,9 @@ class LaunchScreenState extends State<LaunchScreen> {
 
   Future _loadTheme(PanacheTheme theme) async {
     final result = await widget.model.loadTheme(theme);
-    if (result != null)
+    if (result != null) {
       _editTheme();
-    else {
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error : Can\'t load this theme.'),
         backgroundColor: Colors.red.shade700,

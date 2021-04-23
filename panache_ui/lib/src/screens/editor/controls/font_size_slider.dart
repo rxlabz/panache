@@ -9,16 +9,20 @@ class FontSizeSelector extends StatefulWidget {
   final bool vertical;
   final ValueChanged<double> onValueChanged;
 
-  FontSizeSelector(this.value, this.onValueChanged,
-      {this.min: 0.0, this.max: 112.0, this.vertical})
-      : assert(value != null),
+  FontSizeSelector(
+    this.value,
+    this.onValueChanged, {
+    this.min = 0.0,
+    this.max = 112.0,
+    this.vertical,
+  })  : assert(value != null),
         assert(min != null),
         assert(max != null),
         assert(min <= max);
 
   @override
   FontSizeSelectorState createState() {
-    return new FontSizeSelectorState();
+    return FontSizeSelectorState();
   }
 }
 
@@ -40,8 +44,7 @@ class FontSizeSelectorState extends State<FontSizeSelector> {
         children: [
           Slider(
             value: visibleValue,
-            onChanged: (currentValue) =>
-                setState(() => visibleValue = currentValue),
+            onChanged: (currentValue) => setState(() => visibleValue = currentValue),
             onChangeEnd: (value) {
               print(
                 'FontSizeSelectorState onChangeEnd => $value ${value == 20.0}'
@@ -56,15 +59,12 @@ class FontSizeSelectorState extends State<FontSizeSelector> {
             label: '${visibleValue.toStringAsFixed(0)}',
           ),
           RichText(
-            text: TextSpan(
-                text: 'Font size ',
-                style: textTheme.subtitle2,
-                children: [
-                  TextSpan(
-                    text: widget.value.toStringAsFixed(1),
-                    style: textTheme.bodyText1,
-                  )
-                ]),
+            text: TextSpan(text: 'Font size ', style: textTheme.subtitle2, children: [
+              TextSpan(
+                text: widget.value.toStringAsFixed(1),
+                style: textTheme.bodyText1,
+              )
+            ]),
           ),
         ],
       ),

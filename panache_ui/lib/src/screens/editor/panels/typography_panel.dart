@@ -72,12 +72,12 @@ class TypographyThemePanel extends StatelessWidget {
           data.style.copyWith(fontStyle: isItalic ? FontStyle.italic : FontStyle.normal),
           data.styleName,
         ),
-        onLetterSpacingChanged: (double spacing) => apply(data.style.copyWith(letterSpacing: spacing), data.styleName),
-        onWordSpacingChanged: (double spacing) => apply(data.style.copyWith(wordSpacing: spacing), data.styleName),
-        onLineHeightChanged: (double lineHeight) => apply(data.style.copyWith(height: lineHeight), data.styleName),
-        onDecorationChanged: (TextDecoration decoration) => apply(data.style.copyWith(decoration: decoration), data.styleName),
-        onDecorationStyleChanged: (TextDecorationStyle decorationStyle) => apply(data.style.copyWith(decorationStyle: decorationStyle), data.styleName),
-        onDecorationColorChanged: (Color color) => apply(data.style.copyWith(decorationColor: color), data.styleName),
+        onLetterSpacingChanged: (spacing) => apply(data.style.copyWith(letterSpacing: spacing), data.styleName),
+        onWordSpacingChanged: (spacing) => apply(data.style.copyWith(wordSpacing: spacing), data.styleName),
+        onLineHeightChanged: (lineHeight) => apply(data.style.copyWith(height: lineHeight), data.styleName),
+        onDecorationChanged: (decoration) => apply(data.style.copyWith(decoration: decoration), data.styleName),
+        onDecorationStyleChanged: (decorationStyle) => apply(data.style.copyWith(decorationStyle: decorationStyle), data.styleName),
+        onDecorationColorChanged: (color) => apply(data.style.copyWith(decorationColor: color), data.styleName),
       );
     }).toList();
   }

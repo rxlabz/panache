@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
+import '../../../widgets/fields_row.dart';
 import '../controls/color_selector.dart';
 import '../controls/inputs_border_control.dart';
 import '../controls/slider_control.dart';
 import '../controls/switcher_control.dart';
 import '../controls/text_style_control.dart';
-import '../editor_utils.dart';
 
 const _themeRef = 'inputDecorationTheme';
 
@@ -40,7 +40,7 @@ class InputDecorationThemePanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          getFieldsRow([
+          FieldsRow([
             SwitcherControl(
               label: 'Filled',
               checked: inputTheme.filled,
@@ -53,13 +53,13 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 0,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             InputBorderControl(
               label: 'Border',
               padding: 2,
               axis: Axis.vertical,
               border: inputTheme.border,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, border: value));
               },
             ),
@@ -68,18 +68,18 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: 2,
               axis: Axis.vertical,
               border: inputTheme.errorBorder,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, errorBorder: value));
               },
             )
           ]),
-          getFieldsRow([
+          FieldsRow([
             InputBorderControl(
               label: 'Enabled border',
               axis: Axis.vertical,
               padding: 2,
               border: inputTheme.enabledBorder,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, enabledBorder: value));
               },
             ),
@@ -88,18 +88,18 @@ class InputDecorationThemePanel extends StatelessWidget {
               axis: Axis.vertical,
               padding: 2,
               border: inputTheme.disabledBorder,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, disabledBorder: value));
               },
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             InputBorderControl(
               label: 'Focused border',
               axis: Axis.vertical,
               padding: 2,
               border: inputTheme.focusedBorder,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, focusedBorder: value));
               },
             ),
@@ -108,14 +108,14 @@ class InputDecorationThemePanel extends StatelessWidget {
               axis: Axis.vertical,
               padding: 2,
               border: inputTheme.focusedErrorBorder,
-              onShapeChanged: (InputBorder value) {
+              onShapeChanged: (value) {
                 _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, focusedErrorBorder: value));
               },
             ),
           ]),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: getFieldsRow([
+            child: FieldsRow([
               SwitcherControl(
                 label: 'Is dense',
                 checked: inputTheme.isDense,
@@ -195,7 +195,7 @@ class InputDecorationThemePanel extends StatelessWidget {
               padding: const EdgeInsets.all(6.0),
               child: SliderPropertyControl(
                 inputTheme.contentPadding?.vertical ?? 0,
-                (double newValue) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, contentPadding: EdgeInsets.all(newValue))),
+                (newValue) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, contentPadding: EdgeInsets.all(newValue))),
                 label: 'Content Padding',
                 max: 48,
               ),
@@ -225,12 +225,12 @@ class InputDecorationThemePanel extends StatelessWidget {
       onSizeChanged: (size) => apply(textStyle.copyWith(fontSize: size), styleName),
       onWeightChanged: (isBold) => apply(textStyle.copyWith(fontWeight: isBold ? FontWeight.bold : FontWeight.normal), styleName),
       onFontStyleChanged: (isItalic) => apply(textStyle.copyWith(fontStyle: isItalic ? FontStyle.italic : FontStyle.normal), styleName),
-      onLetterSpacingChanged: (double value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
-      onLineHeightChanged: (double value) => apply(textStyle.copyWith(height: value), styleName),
-      onWordSpacingChanged: (double value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
-      onDecorationChanged: (TextDecoration value) => apply(textStyle.copyWith(decoration: value), styleName),
-      onDecorationStyleChanged: (TextDecorationStyle value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
-      onDecorationColorChanged: (Color value) => apply(textStyle.copyWith(decorationColor: value), styleName),
+      onLetterSpacingChanged: (value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
+      onLineHeightChanged: (value) => apply(textStyle.copyWith(height: value), styleName),
+      onWordSpacingChanged: (value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
+      onDecorationChanged: (value) => apply(textStyle.copyWith(decoration: value), styleName),
+      onDecorationStyleChanged: (value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
+      onDecorationColorChanged: (value) => apply(textStyle.copyWith(decorationColor: value), styleName),
     );
   }
 

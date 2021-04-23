@@ -12,9 +12,9 @@ class SwitcherControl extends StatelessWidget {
 
   SwitcherControl({
     this.label,
-    this.checkedLabel: '',
+    this.checkedLabel = '',
     this.checked,
-    this.direction: Axis.horizontal,
+    this.direction = Axis.horizontal,
     this.onChange,
   });
 
@@ -35,21 +35,19 @@ class SwitcherControl extends StatelessWidget {
         ],
       ),
     ];
-    if (label != null)
-      children.add(Padding(
-        padding: const EdgeInsets.only(right: 6.0),
-        child: Text(
-          label,
-          style: labelStyle,
+    if (label != null) {
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(right: 6.0),
+          child: Text(
+            label,
+            style: labelStyle,
+          ),
         ),
-      ));
-
+      );
+    }
     return ControlContainerBorder(
-      child: Flex(
-          direction: direction,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: children),
+      child: Flex(direction: direction, mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: children),
     );
   }
 }

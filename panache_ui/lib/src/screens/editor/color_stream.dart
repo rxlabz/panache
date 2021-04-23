@@ -4,7 +4,7 @@ import 'dart:ui';
 class ColorStream {
   ColorStream(this._currentColor);
 
-  StreamController<Color> _colorStreamer = new StreamController<Color>();
+  final _colorStreamer = StreamController<Color>();
 
   Color _currentColor;
 

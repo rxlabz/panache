@@ -11,19 +11,14 @@ class ColorSwatchControl extends StatelessWidget {
 
   String get label {
     final namedPeer = namedColors().where((c) => c.color.value == color.value);
-    return namedPeer.length > 0
-        ? namedPeer.first.name
-        : "#${color.value.toRadixString(16)}";
+    return namedPeer.isNotEmpty ? namedPeer.first.name : "#${color.value.toRadixString(16)}";
   }
 
   ColorSwatchControl({this.color, this.onSelection});
 
   @override
   Widget build(BuildContext context) => InkWell(
-      onTap: onSelection != null
-          ? () => showColorPicker(
-              context: context, onColor: onSelection, currentColor: color)
-          : null
+      onTap: onSelection != null ? () => showColorPicker(context: context, onColor: onSelection, currentColor: color) : null
       /*openColorMenu(context, onSelection: onSelection, color: color)*/,
       child: Container(
         width: kSwatchSize,

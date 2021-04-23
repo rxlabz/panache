@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../editor/editor_utils.dart';
+import '../../../widgets/fields_row.dart';
 
 class OthersPreview extends StatelessWidget {
   final ThemeData theme;
@@ -29,7 +28,7 @@ class OthersPreview extends StatelessWidget {
                         Text('Circle Avatar')
                       ],
                     ),
-                    getFieldsRow([
+                    FieldsRow([
                       TextButton.icon(
                         icon: Icon(Icons.event),
                         label: Text('Datepicker'),
@@ -69,7 +68,7 @@ class OthersPreview extends StatelessWidget {
 
   void _showDialog(context) => showDialog(
         context: context,
-        builder: (BuildContext context) => Theme(
+        builder: (context) => Theme(
             child: Dialog(
               child: Container(
                 width: 420.0,

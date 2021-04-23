@@ -21,6 +21,7 @@ dependencies:
     #path: ../panache_services
 
 dev_dependencies:
+  effective_dart:
   flutter_test:
     sdk: flutter
 

@@ -1,12 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
-import 'package:provider/provider.dart';
 
 import 'logo.dart';
 import 'new_theme_panel.dart';
-
-const _projectRepo = 'https://github.com/rxlabz/panache';
 
 class LaunchLayout extends StatelessWidget {
   final ThemeModel model;
@@ -24,7 +21,7 @@ class LaunchLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
+      builder: (context, constraints) {
         print('LaunchLayout.build => constraints $constraints');
         return _buildDefaultLayout(context, model, constraints);
       },

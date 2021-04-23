@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
+import '../../../widgets/field_border.dart';
+import '../../../widgets/fields_row.dart';
 import '../controls/color_selector.dart';
-import '../editor_utils.dart';
 
 class TabBarThemePanel extends StatelessWidget {
   final ThemeModel model;
@@ -20,7 +21,7 @@ class TabBarThemePanel extends StatelessWidget {
       color: Colors.grey.shade100,
       child: Column(
         children: <Widget>[
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Label color',
               selectedColor,
@@ -43,7 +44,7 @@ class TabBarThemePanel extends StatelessWidget {
           ),*/
           _TabBarIndicatorSizeControl(
             indicatorSize: tabTheme.indicatorSize,
-            onSizeModeChanged: (TabBarIndicatorSize value) => _updateTabBarTheme(tabTheme.copyWith(indicatorSize: value)),
+            onSizeModeChanged: (value) => _updateTabBarTheme(tabTheme.copyWith(indicatorSize: value)),
           ),
         ],
       ),
@@ -89,42 +90,19 @@ class _TabBarIndicatorSizeControl extends StatelessWidget {
   }
 }
 
-class _TabBarIndicatorControl extends StatelessWidget {
-  final Decoration decoration;
-  final ValueChanged<Decoration> onDecorationChanged;
-
-  const _TabBarIndicatorControl({Key key, this.decoration, this.onDecorationChanged}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return FieldBorder(
-      child: Row(children: [
-        Text('Indicator decoration', style: textTheme.subtitle2),
-        DropdownButton(
-            items: _indicatorDecorations.map((value) {
-              return DropdownMenuItem(child: Text("${value.name}"), value: value.decoration);
-            }).toList(growable: false),
-            value: decoration,
-            onChanged: onDecorationChanged)
-      ]),
-    );
-  }
-}
-
-final List<IndicatorDecoration> _indicatorDecorations = [
-  IndicatorDecoration('UnderlineTabIndicator', UnderlineTabIndicator()),
-  IndicatorDecoration('BoxDecoration', BoxDecoration()),
-  IndicatorDecoration(
-    'ShapeDecoration',
-    ShapeDecoration(
-      color: Colors.pink,
-      shape: BeveledRectangleBorder(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(5.0)),
-      ),
-    ),
-  )
-];
+// final List<IndicatorDecoration> _indicatorDecorations = [
+//   IndicatorDecoration('UnderlineTabIndicator', UnderlineTabIndicator()),
+//   IndicatorDecoration('BoxDecoration', BoxDecoration()),
+//   IndicatorDecoration(
+//     'ShapeDecoration',
+//     ShapeDecoration(
+//       color: Colors.pink,
+//       shape: BeveledRectangleBorder(
+//         borderRadius: BorderRadius.only(topRight: Radius.circular(5.0)),
+//       ),
+//     ),
+//   )
+// ];
 
 class IndicatorDecoration {
   final String name;

@@ -3,7 +3,6 @@ import 'package:panache_core/panache_core.dart';
 
 import 'web_persistence_bridge.dart';
 
-const _themeKey = 'themes';
 const _panelsKey = 'panelsState';
 const _positionKey = 'scrollPosition';
 

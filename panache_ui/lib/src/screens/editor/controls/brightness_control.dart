@@ -10,12 +10,13 @@ class BrightnessSelector extends StatelessWidget {
 
   final Axis direction;
 
-  BrightnessSelector(
-      {this.label,
-      this.isDark,
-      this.onChange,
-      this.onBrightnessChanged,
-      this.direction: Axis.vertical});
+  BrightnessSelector({
+    this.label,
+    this.isDark,
+    this.onChange,
+    this.onBrightnessChanged,
+    this.direction = Axis.vertical,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,6 @@ class BrightnessSelector extends StatelessWidget {
   void _onChange(bool value) {
     if (onChange != null) onChange(value);
 
-    if (onBrightnessChanged != null)
-      onBrightnessChanged(value ? Brightness.dark : Brightness.light);
+    if (onBrightnessChanged != null) onBrightnessChanged(value ? Brightness.dark : Brightness.light);
   }
 }

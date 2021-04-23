@@ -16,15 +16,11 @@ class ColorSelector extends StatelessWidget {
 
   final HelpData help;
 
-  ColorSelector(this.label, this.value, this.onSelection,
-      {this.padding: 8.0, this.maxLabelWidth: 100, this.help});
+  ColorSelector(this.label, this.value, this.onSelection, {this.padding = 8.0, this.maxLabelWidth = 100, this.help});
 
   String get colorLabel {
-    final namedPeer =
-        namedColors().where((c) => c.color?.value == value?.value);
-    return namedPeer.length > 0
-        ? namedPeer.first.name
-        : "#${value.value.toRadixString(16)}";
+    final namedPeer = namedColors().where((c) => c.color?.value == value?.value);
+    return namedPeer.isNotEmpty ? namedPeer.first.name : "#${value.value.toRadixString(16)}";
   }
 
   @override
@@ -39,15 +35,10 @@ class ColorSelector extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text.rich(
-                  TextSpan(
-                      text: '$label\n',
-                      style: Theme.of(context).textTheme.subtitle2,
-                      children: [
-                        TextSpan(
-                            text: colorLabel,
-                            style: textTheme.overline.copyWith(height: 1.5)
-                            /*kDarkTextStyle.copyWith(height: 2)*/)
-                      ]),
+                  TextSpan(text: '$label\n', style: Theme.of(context).textTheme.subtitle2, children: [
+                    TextSpan(text: colorLabel, style: textTheme.overline.copyWith(height: 1.5)
+                        /*kDarkTextStyle.copyWith(height: 2)*/)
+                  ]),
                 ),
                 if (help != null) HelpButton(help: help)
               ],

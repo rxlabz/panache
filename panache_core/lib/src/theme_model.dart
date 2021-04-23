@@ -103,6 +103,9 @@ class ThemeModel extends Model {
   }
 
   void updateColor({String property, Color color}) {
+    print(color);
+    print(property);
+
     final args = <Symbol, dynamic>{};
     args[Symbol(property)] = color;
     final updatedTheme = Function.apply(theme.copyWith, null, args);

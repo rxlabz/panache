@@ -31,11 +31,7 @@ class _FakeSlider extends StatefulWidget {
   final int id;
   final String labelPrefix;
 
-  _FakeSlider(
-      {this.id,
-      this.disabled: false,
-      this.divisions: 10,
-      this.labelPrefix: 'Value'});
+  _FakeSlider({this.id, this.disabled = false, this.divisions = 10, this.labelPrefix = 'Value'});
 
   @override
   _FakeSliderState createState() => _FakeSliderState();
@@ -56,9 +52,7 @@ class _FakeSliderState extends State<_FakeSlider> {
           divisions: widget.divisions,
           value: value,
           /*label: '${widget.labelPrefix}' */ /* ${value.toStringAsFixed(2)} */ /*,*/
-          onChanged: widget.disabled
-              ? null
-              : (newValue) => setState(() => value = newValue)),
+          onChanged: widget.disabled ? null : (newValue) => setState(() => value = newValue)),
     );
   }
 }

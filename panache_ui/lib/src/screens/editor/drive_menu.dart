@@ -7,8 +7,7 @@ class DriveMenu extends StatelessWidget {
   final ThemeModel model;
   final CloudService userService;
 
-  const DriveMenu({Key key, @required this.model, @required this.userService})
-      : super(key: key);
+  const DriveMenu({Key key, @required this.model, @required this.userService}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,8 @@ class DriveMenu extends StatelessWidget {
             )
           : null,
       icon: model.user != null ? null : Icon(Icons.cloud_upload),
-      itemBuilder: (BuildContext context) => _buildActions(),
-      onSelected: (DriveAction action) {
+      itemBuilder: (context) => _buildActions(),
+      onSelected: (action) {
         switch (action) {
           case DriveAction.login:
             _onLoginRequest(context, model);
@@ -41,19 +40,12 @@ class DriveMenu extends StatelessWidget {
 
   void _onExportToDrive(BuildContext context, ThemeModel model) async {
     final result = await userService.save(model.themeCode);
-    ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(
-        result: result != null,
-        successLabel: 'Export success => $result',
-        errorLabel: 'Sorry, the export failed... :('));
+    ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(result: result != null, successLabel: 'Export success => $result', errorLabel: 'Sorry, the export failed... :('));
   }
 
   void _onLoginRequest(BuildContext context, ThemeModel model) async {
     final result = await userService.login();
-    if (result)
-      ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(
-          result: result,
-          successLabel: 'Logged as ${model.user.name}.',
-          errorLabel: 'Authentication failed.'));
+    if (result) ScaffoldMessenger.of(context).showSnackBar(_buildSnackBar(result: result, successLabel: 'Logged as ${model.user.name}.', errorLabel: 'Authentication failed.'));
   }
 
   List<PopupMenuItem<DriveAction>> _buildActions() {
@@ -68,10 +60,7 @@ class DriveMenu extends StatelessWidget {
                     Expanded(child: Text('Export', textAlign: TextAlign.right)),
                   ],
                 )),
-            PopupMenuItem<DriveAction>(
-                value: DriveAction.logout,
-                child: Align(
-                    alignment: Alignment.centerRight, child: Text('Logout'))),
+            PopupMenuItem<DriveAction>(value: DriveAction.logout, child: Align(alignment: Alignment.centerRight, child: Text('Logout'))),
           ])
         : actions.add(PopupMenuItem<DriveAction>(
             value: DriveAction.login,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
+import '../../../widgets/fields_row.dart';
 import '../controls/color_selector.dart';
 import '../controls/shape_form_control.dart';
 import '../controls/switcher_control.dart';
 import '../controls/text_style_control.dart';
-import '../editor_utils.dart';
 
 const _themeRef = 'chipTheme';
 
@@ -35,7 +35,7 @@ class ChipThemePanel extends StatelessWidget {
             padding: 2,
             maxLabelWidth: 250,
           ),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Secondary selected color',
               model.theme.chipTheme.secondarySelectedColor,
@@ -49,7 +49,7 @@ class ChipThemePanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Disabled color',
               model.theme.chipTheme.disabledColor,
@@ -119,12 +119,12 @@ class ChipThemePanel extends StatelessWidget {
       onSizeChanged: (size) => apply(textStyle.copyWith(fontSize: size), styleName),
       onWeightChanged: (isBold) => apply(textStyle.copyWith(fontWeight: isBold ? FontWeight.bold : FontWeight.normal), styleName),
       onFontStyleChanged: (isItalic) => apply(textStyle.copyWith(fontStyle: isItalic ? FontStyle.italic : FontStyle.normal), styleName),
-      onLetterSpacingChanged: (double value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
-      onLineHeightChanged: (double value) => apply(textStyle.copyWith(height: value), styleName),
-      onWordSpacingChanged: (double value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
-      onDecorationChanged: (TextDecoration value) => apply(textStyle.copyWith(decoration: value), styleName),
-      onDecorationStyleChanged: (TextDecorationStyle value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
-      onDecorationColorChanged: (Color value) => apply(textStyle.copyWith(decorationColor: value), styleName),
+      onLetterSpacingChanged: (value) => apply(textStyle.copyWith(letterSpacing: value), styleName),
+      onLineHeightChanged: (value) => apply(textStyle.copyWith(height: value), styleName),
+      onWordSpacingChanged: (value) => apply(textStyle.copyWith(wordSpacing: value), styleName),
+      onDecorationChanged: (value) => apply(textStyle.copyWith(decoration: value), styleName),
+      onDecorationStyleChanged: (value) => apply(textStyle.copyWith(decorationStyle: value), styleName),
+      onDecorationColorChanged: (value) => apply(textStyle.copyWith(decorationColor: value), styleName),
     );
   }
 

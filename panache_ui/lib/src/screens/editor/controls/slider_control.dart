@@ -12,14 +12,16 @@ class SliderPropertyControl extends StatefulWidget {
   final bool vertical;
   final ValueChanged<double> onValueChanged;
 
-  SliderPropertyControl(this.value, this.onValueChanged,
-      {this.label,
-      this.min: 0.0,
-      this.max: 112.0,
-      this.maxWidth,
-      this.showDivisions: true,
-      this.vertical: false})
-      : assert(value != null),
+  SliderPropertyControl(
+    this.value,
+    this.onValueChanged, {
+    this.label,
+    this.min = 0.0,
+    this.max = 112.0,
+    this.maxWidth,
+    this.showDivisions = true,
+    this.vertical = false,
+  })  : assert(value != null),
         assert(min != null),
         assert(max != null),
         assert(min <= max);
@@ -57,8 +59,7 @@ class SliderPropertyControlState extends State<SliderPropertyControl> {
           value: updatedValue,
           min: widget.min,
           max: widget.max,
-          divisions:
-              widget.showDivisions ? (widget.max - widget.min) ~/ 4 : null,
+          divisions: widget.showDivisions ? (widget.max - widget.min) ~/ 4 : null,
           onChangeEnd: widget.onValueChanged,
           onChanged: (value) {
             setState(() {
@@ -67,15 +68,12 @@ class SliderPropertyControlState extends State<SliderPropertyControl> {
           },
         ),
         RichText(
-          text: TextSpan(
-              text: '${widget.label} : ',
-              style: textTheme.subtitle2,
-              children: [
-                TextSpan(
-                  text: updatedValue.toStringAsFixed(2),
-                  style: textTheme.bodyText1,
-                )
-              ]),
+          text: TextSpan(text: '${widget.label} : ', style: textTheme.subtitle2, children: [
+            TextSpan(
+              text: updatedValue.toStringAsFixed(2),
+              style: textTheme.bodyText1,
+            )
+          ]),
         )
       ],
     ));

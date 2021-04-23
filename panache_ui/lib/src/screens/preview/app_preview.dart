@@ -15,11 +15,11 @@ import 'subscreens/slider_preview.dart';
 import 'subscreens/typography_preview.dart';
 import 'subscreens/widgets_preview.dart';
 
-const kIPhone5 = const Size(640 / 2, 1136 / 2);
+const kIPhone5 = Size(640 / 2, 1136 / 2);
 
-const kIPhone6 = const Size(750 / 2, 1334 / 2);
+const kIPhone6 = Size(750 / 2, 1334 / 2);
 
-const kS6 = const Size(1440 / 4, 2560 / 4);
+const kS6 = Size(1440 / 4, 2560 / 4);
 
 class TabItem {
   final String text;
@@ -36,7 +36,7 @@ class AppPreviewContainer extends StatefulWidget {
 
   @override
   AppPreviewContainerState createState() {
-    return new AppPreviewContainerState();
+    return AppPreviewContainerState();
   }
 }
 
@@ -77,7 +77,7 @@ class ThemePreviewApp extends StatefulWidget {
 
 class ThemePreviewAppState extends State<ThemePreviewApp> with SingleTickerProviderStateMixin {
   // RepaintBoundary key
-  GlobalKey _globalKey = new GlobalKey();
+  final _globalKey = GlobalKey();
 
   final _tabsItem = [
     TabItem('Controls', Icons.check_box),
@@ -96,7 +96,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp> with SingleTickerProvi
 
   bool showFAB = true;
 
-  get bottomItems => [
+  List get bottomItems => [
         {
           'label': 'Map',
           'icon': Icons.map
@@ -211,7 +211,7 @@ class ThemePreviewAppState extends State<ThemePreviewApp> with SingleTickerProvi
       final capture = await boundary.toImage();
       bytedata = await capture.toByteData(format: ImageByteFormat.png);
       if (bytedata.lengthInBytes == 0) bytedata = null;
-    } catch (error) {
+    } on Exception catch (error) {
       print('ThemePreviewAppState._screenshot => ERROR !\n$error');
       return Future.value(null);
     }

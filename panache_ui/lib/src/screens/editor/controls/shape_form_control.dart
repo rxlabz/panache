@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'control_container.dart';
 
-enum BorderShapes {
-  BeveledRectangleBorder,
-  CircleBorder,
-  RoundedRectangleBorder,
-  StadiumBorder
-}
+enum BorderShapes { beveledRectangleBorder, circleBorder, roundedRectangleBorder, stadiumBorder }
 
 final shapes = [
-  BorderShapes.RoundedRectangleBorder,
-  BorderShapes.CircleBorder,
-  BorderShapes.BeveledRectangleBorder,
-  BorderShapes.StadiumBorder
+  BorderShapes.roundedRectangleBorder,
+  BorderShapes.circleBorder,
+  BorderShapes.beveledRectangleBorder,
+  BorderShapes.stadiumBorder
 ];
 
 class ShapeFormControl extends StatelessWidget {
@@ -25,13 +20,13 @@ class ShapeFormControl extends StatelessWidget {
 
   final Axis direction;
 
-  const ShapeFormControl(
-      {Key key,
-      @required this.onShapeChanged,
-      @required this.shape,
-      this.direction: Axis.horizontal,
-      this.labelStyle})
-      : super(key: key);
+  const ShapeFormControl({
+    Key key,
+    @required this.onShapeChanged,
+    @required this.shape,
+    this.direction = Axis.horizontal,
+    this.labelStyle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,35 +48,27 @@ class ShapeFormControl extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 4.0),
-            child: DropdownButton(
-                style: textTheme.bodyText2,
-                value: _getShapeType(shape),
-                items: shapes.map(_getShapeMenuItem).toList(),
-                onChanged: (type) => onShapeChanged(_buildShape(type))),
+            child: DropdownButton(style: textTheme.bodyText2, value: _getShapeType(shape), items: shapes.map(_getShapeMenuItem).toList(), onChanged: (type) => onShapeChanged(_buildShape(type))),
           )
         ],
       ),
     );
   }
 
-  DropdownMenuItem<BorderShapes> _getShapeMenuItem(BorderShapes shape) =>
-      DropdownMenuItem(value: shape, child: Text('$shape'.split('.').last));
+  DropdownMenuItem<BorderShapes> _getShapeMenuItem(BorderShapes shape) => DropdownMenuItem(value: shape, child: Text('$shape'.split('.').last));
 
   ShapeBorder _buildShape(BorderShapes shape) {
     switch (shape) {
-      case BorderShapes.StadiumBorder:
-        return new StadiumBorder();
-      case BorderShapes.CircleBorder:
-        return new CircleBorder();
-      case BorderShapes.BeveledRectangleBorder:
-        return new BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0));
-      case BorderShapes.RoundedRectangleBorder:
-        return new RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0));
+      case BorderShapes.stadiumBorder:
+        return StadiumBorder();
+      case BorderShapes.circleBorder:
+        return CircleBorder();
+      case BorderShapes.beveledRectangleBorder:
+        return BeveledRectangleBorder(borderRadius: BorderRadius.circular(6.0));
+      case BorderShapes.roundedRectangleBorder:
+        return RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0));
       default:
-        return new RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0));
+        return RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0));
     }
   }
 

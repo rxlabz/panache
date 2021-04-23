@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
+
+import '../../../widgets/fields_row.dart';
 import '../controls/color_selector.dart';
 import '../controls/slider_control.dart';
-import '../editor_utils.dart';
 
 final showIndicatorOptions = [
   ShowValueIndicator.always,
@@ -38,7 +39,7 @@ class IconThemePanel extends StatelessWidget {
             (color) => _updateIconTheme(iconTheme.copyWith(color: color)),
             padding: 4,
           ),
-          getFieldsRow([
+          FieldsRow([
             SliderPropertyControl(
               iconTheme.size ?? 12,
               (size) => _updateIconTheme(iconTheme.copyWith(size: size)),
@@ -50,8 +51,7 @@ class IconThemePanel extends StatelessWidget {
             ),
             SliderPropertyControl(
               iconTheme.opacity ?? 1.0,
-              (opacity) =>
-                  _updateIconTheme(iconTheme.copyWith(opacity: opacity)),
+              (opacity) => _updateIconTheme(iconTheme.copyWith(opacity: opacity)),
               label: 'Opacity',
               min: 0.0,
               max: 1.0,
@@ -66,15 +66,13 @@ class IconThemePanel extends StatelessWidget {
           ColorSelector(
             'Color',
             primaryIconTheme.color,
-            (color) => _updatePrimaryIconTheme(
-                primaryIconTheme.copyWith(color: color)),
+            (color) => _updatePrimaryIconTheme(primaryIconTheme.copyWith(color: color)),
             padding: 0,
           ),
-          getFieldsRow([
+          FieldsRow([
             SliderPropertyControl(
               primaryIconTheme.size ?? 12,
-              (size) => _updatePrimaryIconTheme(
-                  primaryIconTheme.copyWith(size: size)),
+              (size) => _updatePrimaryIconTheme(primaryIconTheme.copyWith(size: size)),
               label: 'Size',
               min: 8,
               max: 64,
@@ -82,8 +80,7 @@ class IconThemePanel extends StatelessWidget {
             ),
             SliderPropertyControl(
               primaryIconTheme.opacity ?? 1.0,
-              (opacity) => _updatePrimaryIconTheme(
-                  primaryIconTheme.copyWith(opacity: opacity)),
+              (opacity) => _updatePrimaryIconTheme(primaryIconTheme.copyWith(opacity: opacity)),
               label: 'Opacity',
               min: 0.0,
               max: 1.0,
@@ -98,15 +95,13 @@ class IconThemePanel extends StatelessWidget {
           ColorSelector(
             'Color',
             accentIconTheme.color,
-            (color) =>
-                _updateAccentIconTheme(accentIconTheme.copyWith(color: color)),
+            (color) => _updateAccentIconTheme(accentIconTheme.copyWith(color: color)),
             padding: 0,
           ),
-          getFieldsRow([
+          FieldsRow([
             SliderPropertyControl(
               accentIconTheme.size ?? 12,
-              (size) =>
-                  _updateAccentIconTheme(accentIconTheme.copyWith(size: size)),
+              (size) => _updateAccentIconTheme(accentIconTheme.copyWith(size: size)),
               label: 'Size',
               min: 8,
               max: 64,
@@ -114,8 +109,7 @@ class IconThemePanel extends StatelessWidget {
             ),
             SliderPropertyControl(
               accentIconTheme.opacity ?? 1.0,
-              (opacity) => _updateAccentIconTheme(
-                  accentIconTheme.copyWith(opacity: opacity)),
+              (opacity) => _updateAccentIconTheme(accentIconTheme.copyWith(opacity: opacity)),
               label: 'Opacity',
               min: 0.0,
               max: 1.0,
@@ -128,12 +122,9 @@ class IconThemePanel extends StatelessWidget {
     );
   }
 
-  void _updateIconTheme(IconThemeData iconTheme) =>
-      model.updateTheme(model.theme.copyWith(iconTheme: iconTheme));
+  void _updateIconTheme(IconThemeData iconTheme) => model.updateTheme(model.theme.copyWith(iconTheme: iconTheme));
 
-  void _updatePrimaryIconTheme(IconThemeData iconTheme) =>
-      model.updateTheme(model.theme.copyWith(primaryIconTheme: iconTheme));
+  void _updatePrimaryIconTheme(IconThemeData iconTheme) => model.updateTheme(model.theme.copyWith(primaryIconTheme: iconTheme));
 
-  void _updateAccentIconTheme(IconThemeData iconTheme) =>
-      model.updateTheme(model.theme.copyWith(accentIconTheme: iconTheme));
+  void _updateAccentIconTheme(IconThemeData iconTheme) => model.updateTheme(model.theme.copyWith(accentIconTheme: iconTheme));
 }

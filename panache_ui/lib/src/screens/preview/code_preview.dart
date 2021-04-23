@@ -9,20 +9,17 @@ class ThemeCodePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SyntaxHighlighterStyle style =
-        SyntaxHighlighterStyle.panacheThemeStyle();
+    final style = SyntaxHighlighterStyle.panacheThemeStyle();
 
     return Container(
       constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
-          border: Border(left: BorderSide(color: Colors.blueGrey.shade800)),
-          color: Colors.blueGrey.shade900),
+      decoration: BoxDecoration(border: Border(left: BorderSide(color: Colors.blueGrey.shade800)), color: Colors.blueGrey.shade900),
       padding: EdgeInsets.only(top: 24, left: 24),
       child: SingleChildScrollView(
         child: RichText(
-          text: TextSpan(
-              style: const TextStyle(fontSize: 12.0),
-              children: <TextSpan>[DartSyntaxHighlighter(style).format(code)]),
+          text: TextSpan(style: const TextStyle(fontSize: 12.0), children: <TextSpan>[
+            DartSyntaxHighlighter(style).format(code)
+          ]),
         ),
       ),
     );

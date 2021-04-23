@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 
-import '../controls/color_selector.dart';
 import '../../../help/help.dart';
-import '../editor_utils.dart';
+import '../../../widgets/color_brightness_selector.dart';
+import '../../../widgets/fields_row.dart';
+import '../controls/color_selector.dart';
 
 class ThemeColorPanel extends StatelessWidget {
   final ThemeModel themeModel;
@@ -20,18 +21,18 @@ class ThemeColorPanel extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          getColorBrightnessSelector(
+          ColorBrightnessSelector(
             label: 'Primary color',
             currentColor: theme.primaryColor,
             help: primaryColorHelp,
             changeHandler: (c) => themeModel.updateColor(property: "primaryColor", color: c),
             isDark: theme.primaryColorBrightness == Brightness.dark,
-            brightnessChangeHandler: (bool isDark) => _onPrimaryBrightnessChanged(
+            brightnessChangeHandler: (isDark) => _onPrimaryBrightnessChanged(
               themeModel,
               isDark ? Brightness.dark : Brightness.light,
             ),
           ),
-          getFieldsRow([
+          FieldsRow([
             /* FIXME disabled => visible */
             ColorSelector(
               'Primary color light ( generated )',
@@ -48,18 +49,18 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getColorBrightnessSelector(
+          ColorBrightnessSelector(
             label: 'Accent color',
             currentColor: theme.accentColor,
             help: accentColorHelp,
             changeHandler: (c) => themeModel.updateColor(property: "accentColor", color: c),
             isDark: theme.accentColorBrightness == Brightness.dark,
-            brightnessChangeHandler: (bool isDark) => _onAccentBrightnessChanged(
+            brightnessChangeHandler: (isDark) => _onAccentBrightnessChanged(
               themeModel,
               isDark ? Brightness.dark : Brightness.light,
             ),
           ),
-          getColorBrightnessSelector(
+          ColorBrightnessSelector(
             label: 'Scaffold background color',
             currentColor: theme.scaffoldBackgroundColor,
             changeHandler: (c) => themeModel.updateColor(property: "scaffoldBackgroundColor", color: c),
@@ -69,7 +70,7 @@ class ThemeColorPanel extends StatelessWidget {
               themeModel.updateTheme(updatedTheme);
             },
           ),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Button color',
               theme.buttonColor,
@@ -83,7 +84,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Canvas color',
               theme.canvasColor,
@@ -97,7 +98,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Unselected widget color',
               theme.unselectedWidgetColor,
@@ -111,7 +112,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             )
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'BottomAppBar color',
               theme.bottomAppBarColor,
@@ -125,7 +126,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Error color',
               theme.errorColor,
@@ -139,7 +140,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Highlight color',
               theme.highlightColor,
@@ -153,7 +154,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Indicator color',
               theme.indicatorColor,
@@ -167,7 +168,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Divider color',
               theme.dividerColor,
@@ -181,7 +182,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Selected row color',
               theme.selectedRowColor,
@@ -195,7 +196,7 @@ class ThemeColorPanel extends StatelessWidget {
               padding: 2,
             ),
           ]),
-          getFieldsRow([
+          FieldsRow([
             ColorSelector(
               'Text selection color',
               theme.textSelectionTheme.selectionHandleColor ?? Colors.blue,

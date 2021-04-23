@@ -15,11 +15,10 @@ import 'package:panache_core/panache_core.dart';
 abstract class GradientSliderComponentShape {
   const GradientSliderComponentShape();
 
-  Size getPreferredSize(bool isEnabled, bool isDiscrete);
+  Size getPreferredSize({bool isEnabled, bool isDiscrete});
   void paint(
     RenderBox parentBox,
     PaintingContext context,
-    bool isDiscrete,
     Offset thumbCenter,
     Animation<double> activationAnimation,
     Animation<double> enableAnimation,
@@ -27,8 +26,9 @@ abstract class GradientSliderComponentShape {
     GradientSliderThemeData sliderTheme,
     TextDirection textDirection,
     double value,
-    Color colorValue,
-  );
+    Color colorValue, {
+    bool isDiscrete,
+  });
 }
 
 class RectSliderThumbShape extends GradientSliderComponentShape {
@@ -37,15 +37,14 @@ class RectSliderThumbShape extends GradientSliderComponentShape {
   static const double _disabledThumbRadius = 4.0;
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return new Size.fromRadius(isEnabled ? _thumbRadius : _disabledThumbRadius);
+  Size getPreferredSize({bool isEnabled, bool isDiscrete}) {
+    return Size.fromRadius(isEnabled ? _thumbRadius : _disabledThumbRadius);
   }
 
   @override
   void paint(
     RenderBox parentBox,
     PaintingContext context,
-    bool isDiscrete,
     Offset thumbCenter,
     Animation<double> activationAnimation,
     Animation<double> enableAnimation,
@@ -53,17 +52,17 @@ class RectSliderThumbShape extends GradientSliderComponentShape {
     GradientSliderThemeData sliderTheme,
     TextDirection textDirection,
     double value,
-    Color colorValue,
-  ) {
-    final Canvas canvas = context.canvas;
-    final ColorTween colorTween = new ColorTween(
+    Color colorValue, {
+    bool isDiscrete,
+  }) {
+    final canvas = context.canvas;
+    final colorTween = ColorTween(
       begin: Colors.white,
       end: colorValue ?? Colors.white,
     );
     canvas.drawRect(
-      Rect.fromPoints(Offset(thumbCenter.dx - 3.0, thumbCenter.dy - 6.0),
-          Offset(thumbCenter.dx + 3.0, thumbCenter.dy + 6.0)),
-      new Paint()..color = colorTween.evaluate(enableAnimation),
+      Rect.fromPoints(Offset(thumbCenter.dx - 3.0, thumbCenter.dy - 6.0), Offset(thumbCenter.dx + 3.0, thumbCenter.dy + 6.0)),
+      Paint()..color = colorTween.evaluate(enableAnimation),
     );
   }
 }
@@ -75,15 +74,14 @@ class RoundColorSliderThumbShape extends GradientSliderComponentShape {
   static const double _disabledThumbRadius = 4.0;
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return new Size.fromRadius(isEnabled ? _thumbRadius : _disabledThumbRadius);
+  Size getPreferredSize({bool isEnabled, bool isDiscrete}) {
+    return Size.fromRadius(isEnabled ? _thumbRadius : _disabledThumbRadius);
   }
 
   @override
   void paint(
     RenderBox parentBox,
     PaintingContext context,
-    bool isDiscrete,
     Offset thumbCenter,
     Animation<double> activationAnimation,
     Animation<double> enableAnimation,
@@ -91,35 +89,35 @@ class RoundColorSliderThumbShape extends GradientSliderComponentShape {
     GradientSliderThemeData sliderTheme,
     TextDirection textDirection,
     double value,
-    Color colorValue,
-  ) {
-    final Canvas canvas = context.canvas;
-    final Tween<double> radiusTween = new Tween<double>(
+    Color colorValue, {
+    bool isDiscrete,
+  }) {
+    final canvas = context.canvas;
+    final radiusTween = Tween<double>(
       begin: _disabledThumbRadius,
       end: _thumbRadius,
     );
 
-    final ColorTween colorTween = new ColorTween(
+    final colorTween = ColorTween(
       begin: Colors.white,
       end: colorValue ?? Colors.white,
     );
     canvas.drawCircle(
       thumbCenter,
       radiusTween.evaluate(enableAnimation),
-      new Paint()..color = colorTween.evaluate(enableAnimation),
+      Paint()..color = colorTween.evaluate(enableAnimation),
     );
     canvas.drawCircle(
         thumbCenter,
         radiusTween.evaluate(enableAnimation),
-        new Paint()
+        Paint()
           ..color = getContrastColor(colorValue, limit: 650)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2.0);
   }
 }
 
-class PaddleSliderColorValueIndicatorShape
-    extends GradientSliderComponentShape {
+class PaddleSliderColorValueIndicatorShape extends GradientSliderComponentShape {
   const PaddleSliderColorValueIndicatorShape();
 
   static const double _topLobeRadius = 16.0;
@@ -129,49 +127,46 @@ class PaddleSliderColorValueIndicatorShape
   static const double _bottomLobeEndAngle = 1.1 * 5 * math.pi / 4.0;
   static const double _labelPadding = 8.0;
   static const double _distanceBetweenTopBottomCenters = 40.0;
-  static const Offset _topLobeCenter =
-      const Offset(0.0, -_distanceBetweenTopBottomCenters);
+  static const Offset _topLobeCenter = Offset(0.0, -_distanceBetweenTopBottomCenters);
   static const double _topNeckRadius = 14.0;
   static const double _neckTriangleHypotenuse = _topLobeRadius + _topNeckRadius;
   static const double _twoSeventyDegrees = 3.0 * math.pi / 2.0;
   static const double _ninetyDegrees = math.pi / 2.0;
   static const double _thirtyDegrees = math.pi / 6.0;
-  static const Size _preferredSize = const Size.fromHeight(
-      _distanceBetweenTopBottomCenters + _topLobeRadius + _bottomLobeRadius);
+  static const Size _preferredSize = Size.fromHeight(_distanceBetweenTopBottomCenters + _topLobeRadius + _bottomLobeRadius);
   static const bool _debuggingLabelLocation = false;
 
   static Path _bottomLobePath; // Initialized by _generateBottomLobe
   static Offset _bottomLobeEnd; // Initialized by _generateBottomLobe
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) => _preferredSize;
+  Size getPreferredSize({bool isEnabled, bool isDiscrete}) => _preferredSize;
 
-  static void _addArc(Path path, Offset center, double radius,
-      double startAngle, double endAngle) {
-    final Rect arcRect = new Rect.fromCircle(center: center, radius: radius);
+  static void _addArc(Path path, Offset center, double radius, double startAngle, double endAngle) {
+    final arcRect = Rect.fromCircle(center: center, radius: radius);
     path.arcTo(arcRect, startAngle, endAngle - startAngle, false);
   }
 
   static void _generateBottomLobe() {
-    const double bottomNeckRadius = 4.5;
-    const double bottomNeckStartAngle = _bottomLobeEndAngle - math.pi;
-    const double bottomNeckEndAngle = 0.0;
+    const bottomNeckRadius = 4.5;
+    const bottomNeckStartAngle = _bottomLobeEndAngle - math.pi;
+    const bottomNeckEndAngle = 0.0;
 
-    final Path path = new Path();
-    final Offset bottomKnobStart = new Offset(
+    final path = Path();
+    final bottomKnobStart = Offset(
       _bottomLobeRadius * math.cos(_bottomLobeStartAngle),
       _bottomLobeRadius * math.sin(_bottomLobeStartAngle),
     );
-    final Offset bottomNeckRightCenter = bottomKnobStart +
-        new Offset(
+    final bottomNeckRightCenter = bottomKnobStart +
+        Offset(
           bottomNeckRadius * math.cos(bottomNeckStartAngle),
           -bottomNeckRadius * math.sin(bottomNeckStartAngle),
         );
-    final Offset bottomNeckLeftCenter = new Offset(
+    final bottomNeckLeftCenter = Offset(
       -bottomNeckRightCenter.dx,
       bottomNeckRightCenter.dy,
     );
-    final Offset bottomNeckStartRight = new Offset(
+    final bottomNeckStartRight = Offset(
       bottomNeckRightCenter.dx - bottomNeckRadius,
       bottomNeckRightCenter.dy,
     );
@@ -198,7 +193,7 @@ class PaddleSliderColorValueIndicatorShape
       bottomNeckEndAngle,
     );
 
-    _bottomLobeEnd = new Offset(
+    _bottomLobeEnd = Offset(
       -bottomNeckStartRight.dx,
       bottomNeckStartRight.dy,
     );
@@ -219,17 +214,17 @@ class PaddleSliderColorValueIndicatorShape
     double scale,
     Offset center,
   ) {
-    const double edgeMargin = 4.0;
-    final Rect topLobeRect = new Rect.fromLTWH(
+    const edgeMargin = 4.0;
+    final topLobeRect = Rect.fromLTWH(
       -_topLobeRadius - halfWidthNeeded,
       -_topLobeRadius - _distanceBetweenTopBottomCenters,
       2.0 * (_topLobeRadius + halfWidthNeeded),
       2.0 * _topLobeRadius,
     );
 
-    final Offset topLeft = (topLobeRect.topLeft * scale) + center;
-    final Offset bottomRight = (topLobeRect.bottomRight * scale) + center;
-    double shift = 0.0;
+    final topLeft = (topLobeRect.topLeft * scale) + center;
+    final bottomRight = (topLobeRect.bottomRight * scale) + center;
+    var shift = 0.0;
     if (topLeft.dx < edgeMargin) {
       shift = edgeMargin - topLeft.dx;
     }
@@ -250,20 +245,18 @@ class PaddleSliderColorValueIndicatorShape
   ) {
     canvas.save();
     canvas.translate(center.dx, center.dy);
-    final double textScaleFactor = labelPainter.height / _labelTextDesignSize;
-    final double overallScale = scale * textScaleFactor;
+    final textScaleFactor = labelPainter.height / _labelTextDesignSize;
+    final overallScale = scale * textScaleFactor;
     canvas.scale(overallScale, overallScale);
-    final double inverseTextScale =
-        textScaleFactor != 0 ? 1.0 / textScaleFactor : 0.0;
-    final double labelHalfWidth = labelPainter.width / 2.0;
+    final inverseTextScale = textScaleFactor != 0 ? 1.0 / textScaleFactor : 0.0;
+    final labelHalfWidth = labelPainter.width / 2.0;
 
-    final double halfWidthNeeded = math.max(
+    final halfWidthNeeded = math.max(
       0.0,
       inverseTextScale * labelHalfWidth - (_topLobeRadius - _labelPadding),
     );
 
-    double shift =
-        _getIdealOffset(parentBox, halfWidthNeeded, overallScale, center);
+    var shift = _getIdealOffset(parentBox, halfWidthNeeded, overallScale, center);
     double leftWidthNeeded;
     double rightWidthNeeded;
     if (shift < 0.0) {
@@ -274,50 +267,44 @@ class PaddleSliderColorValueIndicatorShape
     rightWidthNeeded = halfWidthNeeded + shift;
     leftWidthNeeded = halfWidthNeeded - shift;
 
-    final Path path = new Path();
-    final Offset bottomLobeEnd = _addBottomLobe(path);
+    final path = Path();
+    final bottomLobeEnd = _addBottomLobe(path);
 
-    final double neckTriangleBase = _topNeckRadius - bottomLobeEnd.dx;
+    final neckTriangleBase = _topNeckRadius - bottomLobeEnd.dx;
 
-    final double leftAmount =
-        math.max(0.0, math.min(1.0, leftWidthNeeded / neckTriangleBase));
-    final double rightAmount =
-        math.max(0.0, math.min(1.0, rightWidthNeeded / neckTriangleBase));
+    final leftAmount = math.max(0.0, math.min(1.0, leftWidthNeeded / neckTriangleBase));
+    final rightAmount = math.max(0.0, math.min(1.0, rightWidthNeeded / neckTriangleBase));
 
-    final double leftTheta = (1.0 - leftAmount) * _thirtyDegrees;
-    final double rightTheta = (1.0 - rightAmount) * _thirtyDegrees;
+    final leftTheta = (1.0 - leftAmount) * _thirtyDegrees;
+    final rightTheta = (1.0 - rightAmount) * _thirtyDegrees;
 
-    final Offset neckLeftCenter = new Offset(
+    final neckLeftCenter = Offset(
       -neckTriangleBase,
       _topLobeCenter.dy + math.cos(leftTheta) * _neckTriangleHypotenuse,
     );
-    final Offset neckRightCenter = new Offset(
+    final neckRightCenter = Offset(
       neckTriangleBase,
       _topLobeCenter.dy + math.cos(rightTheta) * _neckTriangleHypotenuse,
     );
-    final double leftNeckArcAngle = _ninetyDegrees - leftTheta;
-    final double rightNeckArcAngle = math.pi + _ninetyDegrees - rightTheta;
+    final leftNeckArcAngle = _ninetyDegrees - leftTheta;
+    final rightNeckArcAngle = math.pi + _ninetyDegrees - rightTheta;
 
-    final double neckStretchBaseline =
-        bottomLobeEnd.dy - math.max(neckLeftCenter.dy, neckRightCenter.dy);
+    final neckStretchBaseline = bottomLobeEnd.dy - math.max(neckLeftCenter.dy, neckRightCenter.dy);
     final double t = math.pow(inverseTextScale, 3.0);
-    final double stretch =
-        (neckStretchBaseline * t).clamp(0.0, 10.0 * neckStretchBaseline);
-    final Offset neckStretch = new Offset(0.0, neckStretchBaseline - stretch);
+    final double stretch = (neckStretchBaseline * t).clamp(0.0, 10.0 * neckStretchBaseline);
+    final neckStretch = Offset(0.0, neckStretchBaseline - stretch);
 
     assert(!_debuggingLabelLocation ||
         () {
-          final Offset leftCenter =
-              _topLobeCenter - new Offset(leftWidthNeeded, 0.0) + neckStretch;
-          final Offset rightCenter =
-              _topLobeCenter + new Offset(rightWidthNeeded, 0.0) + neckStretch;
-          final Rect valueRect = new Rect.fromLTRB(
+          final leftCenter = _topLobeCenter - Offset(leftWidthNeeded, 0.0) + neckStretch;
+          final rightCenter = _topLobeCenter + Offset(rightWidthNeeded, 0.0) + neckStretch;
+          final valueRect = Rect.fromLTRB(
             leftCenter.dx - _topLobeRadius,
             leftCenter.dy - _topLobeRadius,
             rightCenter.dx + _topLobeRadius,
             rightCenter.dy + _topLobeRadius,
           );
-          final Paint outlinePaint = new Paint()
+          final outlinePaint = Paint()
             ..color = const Color(0xffff0000)
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1.0;
@@ -334,14 +321,14 @@ class PaddleSliderColorValueIndicatorShape
     );
     _addArc(
       path,
-      _topLobeCenter - new Offset(leftWidthNeeded, 0.0) + neckStretch,
+      _topLobeCenter - Offset(leftWidthNeeded, 0.0) + neckStretch,
       _topLobeRadius,
       _ninetyDegrees + leftTheta,
       _twoSeventyDegrees,
     );
     _addArc(
       path,
-      _topLobeCenter + new Offset(rightWidthNeeded, 0.0) + neckStretch,
+      _topLobeCenter + Offset(rightWidthNeeded, 0.0) + neckStretch,
       _topLobeRadius,
       _twoSeventyDegrees,
       _twoSeventyDegrees + math.pi - rightTheta,
@@ -359,8 +346,7 @@ class PaddleSliderColorValueIndicatorShape
     canvas.save();
     canvas.translate(shift, -_distanceBetweenTopBottomCenters + neckStretch.dy);
     canvas.scale(inverseTextScale, inverseTextScale);
-    labelPainter.paint(canvas,
-        Offset.zero - new Offset(labelHalfWidth, labelPainter.height / 2.0));
+    labelPainter.paint(canvas, Offset.zero - Offset(labelHalfWidth, labelPainter.height / 2.0));
     canvas.restore();
     canvas.restore();
   }
@@ -369,7 +355,6 @@ class PaddleSliderColorValueIndicatorShape
   void paint(
     RenderBox parentBox,
     PaintingContext context,
-    bool isDiscrete,
     Offset thumbCenter,
     Animation<double> activationAnimation,
     Animation<double> enableAnimation,
@@ -377,11 +362,12 @@ class PaddleSliderColorValueIndicatorShape
     GradientSliderThemeData sliderTheme,
     TextDirection textDirection,
     double value,
-    Color colorValue,
-  ) {
+    Color colorValue, {
+    bool isDiscrete,
+  }) {
     assert(labelPainter != null);
 
-    final ColorTween enableColor = new ColorTween(
+    final enableColor = ColorTween(
       begin: Colors.white,
       end: colorValue ?? Colors.white,
     );
@@ -389,7 +375,7 @@ class PaddleSliderColorValueIndicatorShape
       parentBox,
       context.canvas,
       thumbCenter,
-      new Paint()..color = enableColor.evaluate(enableAnimation),
+      Paint()..color = enableColor.evaluate(enableAnimation),
       activationAnimation.value,
       labelPainter,
     );
@@ -405,8 +391,8 @@ class GradientSlider extends StatefulWidget {
     @required this.endColor,
     @required this.thumbColor,
     this.colors,
-    this.min: 0.0,
-    this.max: 1.0,
+    this.min = 0.0,
+    this.max = 1.0,
     this.label,
   })  : assert(value != null),
         assert(min != null),
@@ -431,26 +417,23 @@ class GradientSlider extends StatefulWidget {
   final List<Color> colors;
 
   @override
-  _ColorGradientSliderState createState() => new _ColorGradientSliderState();
+  _ColorGradientSliderState createState() => _ColorGradientSliderState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder description) {
     super.debugFillProperties(description);
-    description.add(new DoubleProperty('value', value));
-    description.add(new DoubleProperty('min', min));
-    description.add(new DoubleProperty('max', max));
-    description.add(new StringProperty('startColor', startColor.toString()));
-    description.add(new StringProperty('endColor', endColor.toString()));
-    description.add(new StringProperty('thumbColor', thumbColor.toString()));
+    description.add(DoubleProperty('value', value));
+    description.add(DoubleProperty('min', min));
+    description.add(DoubleProperty('max', max));
+    description.add(StringProperty('startColor', startColor.toString()));
+    description.add(StringProperty('endColor', endColor.toString()));
+    description.add(StringProperty('thumbColor', thumbColor.toString()));
   }
 }
 
-class _ColorGradientSliderState extends State<GradientSlider>
-    with TickerProviderStateMixin {
-  static const Duration enableAnimationDuration =
-      const Duration(milliseconds: 75);
-  static const Duration valueIndicatorAnimationDuration =
-      const Duration(milliseconds: 100);
+class _ColorGradientSliderState extends State<GradientSlider> with TickerProviderStateMixin {
+  static const enableAnimationDuration = Duration(milliseconds: 75);
+  static const valueIndicatorAnimationDuration = Duration(milliseconds: 100);
 
   AnimationController overlayController;
   AnimationController valueIndicatorController;
@@ -461,24 +444,24 @@ class _ColorGradientSliderState extends State<GradientSlider>
   @override
   void initState() {
     super.initState();
-    overlayController = new AnimationController(
+    overlayController = AnimationController(
       duration: kRadialReactionDuration,
       vsync: this,
     );
-    valueIndicatorController = new AnimationController(
+    valueIndicatorController = AnimationController(
       duration: valueIndicatorAnimationDuration,
       vsync: this,
     );
-    enableController = new AnimationController(
+    enableController = AnimationController(
       duration: enableAnimationDuration,
       vsync: this,
     );
-    positionController = new AnimationController(
+    positionController = AnimationController(
       duration: Duration.zero,
       vsync: this,
     );
 
-    interactionTimer = new Timer(Duration.zero, () {});
+    interactionTimer = Timer(Duration.zero, () {});
     interactionTimer.cancel();
     enableController.value = widget.onChanged != null ? 1.0 : 0.0;
     positionController.value = _unlerp(widget.value);
@@ -501,7 +484,7 @@ class _ColorGradientSliderState extends State<GradientSlider>
 
   void _handleChanged(double value) {
     assert(widget.onChanged != null);
-    final double lerpValue = _lerp(value);
+    final lerpValue = _lerp(value);
     if (lerpValue != widget.value) {
       widget.onChanged(lerpValue);
     }
@@ -516,9 +499,7 @@ class _ColorGradientSliderState extends State<GradientSlider>
   double _unlerp(double value) {
     assert(value <= widget.max);
     assert(value >= widget.min);
-    return widget.max > widget.min
-        ? (value - widget.min) / (widget.max - widget.min)
-        : 0.0;
+    return widget.max > widget.min ? (value - widget.min) / (widget.max - widget.min) : 0.0;
   }
 
   @override
@@ -526,7 +507,7 @@ class _ColorGradientSliderState extends State<GradientSlider>
     assert(debugCheckHasMaterial(context));
     assert(debugCheckHasMediaQuery(context));
 
-    GradientSliderThemeData sliderTheme = GradientSliderTheme.of(context);
+    var sliderTheme = GradientSliderTheme.of(context);
 
     if (widget.startColor != null || widget.endColor != null) {
       sliderTheme = sliderTheme.copyWith(
@@ -536,16 +517,14 @@ class _ColorGradientSliderState extends State<GradientSlider>
       );
     }
 
-    return new _GradientSliderRenderObjectWidget(
+    return _GradientSliderRenderObjectWidget(
       value: _unlerp(widget.value),
       thumbColor: widget.thumbColor,
       colors: widget.colors,
       label: widget.label,
       sliderTheme: sliderTheme,
       mediaQueryData: MediaQuery.of(context),
-      onChanged: (widget.onChanged != null) && (widget.max > widget.min)
-          ? _handleChanged
-          : null,
+      onChanged: (widget.onChanged != null) && (widget.max > widget.min) ? _handleChanged : null,
       state: this,
     );
   }
@@ -575,7 +554,7 @@ class _GradientSliderRenderObjectWidget extends LeafRenderObjectWidget {
 
   @override
   _RenderSlider createRenderObject(BuildContext context) {
-    return new _RenderSlider(
+    return _RenderSlider(
       value: value,
       thumbColor: thumbColor,
       colors: colors,
@@ -631,55 +610,50 @@ class _RenderSlider extends RenderBox {
         _textDirection = textDirection {
     _updateLabelPainter();
 
-    final GestureArenaTeam team = new GestureArenaTeam();
+    final team = GestureArenaTeam();
 
-    _drag = new HorizontalDragGestureRecognizer()
+    _drag = HorizontalDragGestureRecognizer()
       ..team = team
       ..onStart = _handleDragStart
       ..onUpdate = _handleDragUpdate
       ..onEnd = _handleDragEnd
       ..onCancel = _endInteraction;
 
-    _tap = new TapGestureRecognizer()
+    _tap = TapGestureRecognizer()
       ..team = team
       ..onTapDown = _handleTapDown
       ..onTapUp = _handleTapUp
       ..onTapCancel = _endInteraction;
 
-    _overlayAnimation = new CurvedAnimation(
+    _overlayAnimation = CurvedAnimation(
       parent: _state.overlayController,
       curve: Curves.fastOutSlowIn,
     );
-    _valueIndicatorAnimation = new CurvedAnimation(
+    _valueIndicatorAnimation = CurvedAnimation(
       parent: _state.valueIndicatorController,
       curve: Curves.fastOutSlowIn,
     );
-    _enableAnimation = new CurvedAnimation(
+    _enableAnimation = CurvedAnimation(
       parent: _state.enableController,
       curve: Curves.easeInOut,
     );
   }
 
-  static const Duration _positionAnimationDuration =
-      const Duration(milliseconds: 75);
+  static const Duration _positionAnimationDuration = Duration(milliseconds: 75);
   static const double _overlayRadius = 16.0;
   static const double _overlayDiameter = _overlayRadius * 2.0;
   static const double _railHeight = 12.0;
   static const double _preferredRailWidth = 144.0;
-  static const double _preferredTotalWidth =
-      _preferredRailWidth + _overlayDiameter;
-  static const Duration _minimumInteractionTime =
-      const Duration(milliseconds: 500);
-  static const double _adjustmentUnit =
-      0.1; // Matches iOS implementation of material slider.
-  static final Tween<double> _overlayRadiusTween =
-      new Tween<double>(begin: 0.0, end: _overlayRadius);
+  static const double _preferredTotalWidth = _preferredRailWidth + _overlayDiameter;
+  static const Duration _minimumInteractionTime = Duration(milliseconds: 500);
+  static const double _adjustmentUnit = 0.1; // Matches iOS implementation of material slider.
+  static final Tween<double> _overlayRadiusTween = Tween<double>(begin: 0.0, end: _overlayRadius);
 
-  _ColorGradientSliderState _state;
+  final _ColorGradientSliderState _state;
   Animation<double> _overlayAnimation;
   Animation<double> _valueIndicatorAnimation;
   Animation<double> _enableAnimation;
-  final TextPainter _labelPainter = new TextPainter();
+  final TextPainter _labelPainter = TextPainter();
   HorizontalDragGestureRecognizer _drag;
   TapGestureRecognizer _tap;
   bool _active = false;
@@ -695,17 +669,15 @@ class _RenderSlider extends RenderBox {
   double _value;
   set value(double newValue) {
     assert(newValue != null && newValue >= 0.0 && newValue <= 1.0);
-    final double convertedValue = newValue;
+    final convertedValue = newValue;
     if (convertedValue == _value) {
       return;
     }
     _value = convertedValue;
     if (isDiscrete) {
-      final double distance = (_value - _state.positionController.value).abs();
-      _state.positionController.duration =
-          distance != 0.0 ? _positionAnimationDuration * (1.0 / distance) : 0.0;
-      _state.positionController
-          .animateTo(convertedValue, curve: Curves.easeInOut);
+      final distance = (_value - _state.positionController.value).abs();
+      _state.positionController.duration = distance != 0.0 ? _positionAnimationDuration * (1.0 / distance) : 0.0;
+      _state.positionController.animateTo(convertedValue, curve: Curves.easeInOut);
     } else {
       _state.positionController.value = convertedValue;
     }
@@ -787,7 +759,7 @@ class _RenderSlider extends RenderBox {
     if (value == _onChanged) {
       return;
     }
-    final bool wasInteractive = isInteractive;
+    final wasInteractive = isInteractive;
     _onChanged = value;
     if (wasInteractive != isInteractive) {
       if (isInteractive) {
@@ -833,10 +805,7 @@ class _RenderSlider extends RenderBox {
   void _updateLabelPainter() {
     if (label != null) {
       _labelPainter
-        ..text = new TextSpan(
-            style: _theme.accentTextTheme.bodyText2
-                .copyWith(color: getContrastColor(_thumbColor)),
-            text: label)
+        ..text = TextSpan(style: _theme.accentTextTheme.bodyText2.copyWith(color: getContrastColor(_thumbColor)), text: label)
         ..textDirection = textDirection
         ..textScaleFactor = _mediaQueryData.textScaleFactor
         ..layout();
@@ -875,8 +844,7 @@ class _RenderSlider extends RenderBox {
   }
 
   double _getValueFromGlobalPosition(Offset globalPosition) {
-    final double visualPosition =
-        (globalToLocal(globalPosition).dx - _overlayRadius) / _railLength;
+    final visualPosition = (globalToLocal(globalPosition).dx - _overlayRadius) / _railLength;
     return _getValueFromVisualPosition(visualPosition);
   }
 
@@ -891,11 +859,8 @@ class _RenderSlider extends RenderBox {
         if (_state.interactionTimer.isActive) {
           _state.interactionTimer.cancel();
         }
-        _state.interactionTimer =
-            new Timer(_minimumInteractionTime * timeDilation, () {
-          if (!_active &&
-              _state.valueIndicatorController.status ==
-                  AnimationStatus.completed) {
+        _state.interactionTimer = Timer(_minimumInteractionTime * timeDilation, () {
+          if (!_active && _state.valueIndicatorController.status == AnimationStatus.completed) {
             _state.valueIndicatorController.reverse();
           }
           _state.interactionTimer.cancel();
@@ -915,12 +880,11 @@ class _RenderSlider extends RenderBox {
     }
   }
 
-  void _handleDragStart(DragStartDetails details) =>
-      _startInteraction(details.globalPosition);
+  void _handleDragStart(DragStartDetails details) => _startInteraction(details.globalPosition);
 
   void _handleDragUpdate(DragUpdateDetails details) {
     if (isInteractive) {
-      final double valueDelta = details.primaryDelta / _railLength;
+      final valueDelta = details.primaryDelta / _railLength;
       switch (textDirection) {
         case TextDirection.rtl:
           _currentDragValue -= valueDelta;
@@ -935,8 +899,7 @@ class _RenderSlider extends RenderBox {
 
   void _handleDragEnd(DragEndDetails details) => _endInteraction();
 
-  void _handleTapDown(TapDownDetails details) =>
-      _startInteraction(details.globalPosition);
+  void _handleTapDown(TapDownDetails details) => _startInteraction(details.globalPosition);
 
   void _handleTapUp(TapUpDetails details) => _endInteraction();
 
@@ -956,9 +919,7 @@ class _RenderSlider extends RenderBox {
   double computeMinIntrinsicWidth(double height) {
     return math.max(
       _overlayDiameter,
-      _gradientSliderTheme.thumbShape
-          .getPreferredSize(isInteractive, isDiscrete)
-          .width,
+      _gradientSliderTheme.thumbShape.getPreferredSize(isEnabled: isInteractive, isDiscrete: isDiscrete).width,
     );
   }
 
@@ -978,7 +939,7 @@ class _RenderSlider extends RenderBox {
 
   @override
   void performResize() {
-    size = new Size(
+    size = Size(
       constraints.hasBoundedWidth ? constraints.maxWidth : _preferredTotalWidth,
       constraints.hasBoundedHeight ? constraints.maxHeight : _overlayDiameter,
     );
@@ -986,19 +947,18 @@ class _RenderSlider extends RenderBox {
 
   void _paintOverlay(Canvas canvas, Offset center) {
     if (!_overlayAnimation.isDismissed) {
-      final Paint overlayPaint = new Paint()
-        ..color = _gradientSliderTheme.overlayColor;
-      final double radius = _overlayRadiusTween.evaluate(_overlayAnimation);
+      final overlayPaint = Paint()..color = _gradientSliderTheme.overlayColor;
+      final radius = _overlayRadiusTween.evaluate(_overlayAnimation);
       canvas.drawCircle(center, radius, overlayPaint);
     }
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    final Canvas canvas = context.canvas;
+    final canvas = context.canvas;
 
-    final double railLength = size.width - 2 * _overlayRadius;
-    final double value = _state.positionController.value;
+    final railLength = size.width - 2 * _overlayRadius;
+    final value = _state.positionController.value;
 
     double visualPosition;
     switch (textDirection) {
@@ -1010,65 +970,63 @@ class _RenderSlider extends RenderBox {
         break;
     }
 
-    const double railRadius = _railHeight / 2.0;
+    const railRadius = _railHeight / 2.0;
 
-    final double railVerticalCenter = offset.dy + (size.height) / 2.0;
-    final double railLeft = offset.dx + _overlayRadius;
-    final double railTop = railVerticalCenter - railRadius;
-    final double railBottom = railVerticalCenter + railRadius;
-    final double railRight = railLeft + railLength;
-    final double railActive = railLeft + railLength * visualPosition;
+    final railVerticalCenter = offset.dy + (size.height) / 2.0;
+    final railLeft = offset.dx + _overlayRadius;
+    final railTop = railVerticalCenter - railRadius;
+    final railBottom = railVerticalCenter + railRadius;
+    final railRight = railLeft + railLength;
+    final railActive = railLeft + railLength * visualPosition;
 
-    final Offset thumbCenter = new Offset(railActive, railVerticalCenter);
+    final thumbCenter = Offset(railActive, railVerticalCenter);
 
-    final Gradient gradient = new LinearGradient(
+    final Gradient gradient = LinearGradient(
       colors: colors ??
           [
             _gradientSliderTheme.startRailColor,
             _gradientSliderTheme.endRailColor
           ],
     );
-    Rect gradientRect = Rect.fromPoints(
-        Offset(railLeft, railTop), Offset(railRight, railBottom));
+    var gradientRect = Rect.fromPoints(Offset(railLeft, railTop), Offset(railRight, railBottom));
     final gradientPaint = Paint()..shader = gradient.createShader(gradientRect);
 
-    final Rect globalRect =
-        new Rect.fromLTRB(railLeft, railTop, railRight, railBottom);
+    final globalRect = Rect.fromLTRB(railLeft, railTop, railRight, railBottom);
     canvas.drawRect(globalRect, gradientPaint);
 
     _paintOverlay(canvas, thumbCenter);
 
-    if (isInteractive &&
-        label != null &&
-        _valueIndicatorAnimation.status != AnimationStatus.dismissed) {
+    if (isInteractive && label != null && _valueIndicatorAnimation.status != AnimationStatus.dismissed) {
       if (showValueIndicator) {
         _gradientSliderTheme.valueIndicatorShape.paint(
-            this,
-            context,
-            isDiscrete,
-            thumbCenter,
-            _valueIndicatorAnimation,
-            _enableAnimation,
-            _labelPainter,
-            _gradientSliderTheme,
-            _textDirection,
-            value,
-            _thumbColor);
+          this,
+          context,
+          thumbCenter,
+          _valueIndicatorAnimation,
+          _enableAnimation,
+          _labelPainter,
+          _gradientSliderTheme,
+          _textDirection,
+          value,
+          _thumbColor,
+          isDiscrete: isDiscrete,
+        );
       }
     }
 
     _gradientSliderTheme.thumbShape.paint(
-        this,
-        context,
-        isDiscrete,
-        thumbCenter,
-        _overlayAnimation,
-        _enableAnimation,
-        label != null ? _labelPainter : null,
-        _gradientSliderTheme,
-        _textDirection,
-        value,
-        _thumbColor);
+      this,
+      context,
+      thumbCenter,
+      _overlayAnimation,
+      _enableAnimation,
+      label != null ? _labelPainter : null,
+      _gradientSliderTheme,
+      _textDirection,
+      value,
+      _thumbColor,
+      isDiscrete: isDiscrete,
+    );
   }
 
   @override
@@ -1125,20 +1083,18 @@ class GradientSliderThemeData with Diagnosticable {
     assert(primaryColorDark != null);
     assert(primaryColorLight != null);
 
-    const int activeRailAlpha = 0xff;
-    const int inactiveRailAlpha = 0x3d; // 24% opacity
-    const int disabledActiveRailAlpha = 0x52; // 32% opacity
-    const int disabledInactiveRailAlpha = 0x1f; // 12% opacity
+    const activeRailAlpha = 0xff;
+    const inactiveRailAlpha = 0x3d; // 24% opacity
+    const disabledActiveRailAlpha = 0x52; // 32% opacity
+    const disabledInactiveRailAlpha = 0x1f; // 12% opacity
 
-    const int overlayLightAlpha = 0x29; // 16% opacity
+    const overlayLightAlpha = 0x29; // 16% opacity
 
-    return new GradientSliderThemeData(
+    return GradientSliderThemeData(
       startRailColor: primaryColor.withAlpha(activeRailAlpha),
       endRailColor: primaryColor.withAlpha(inactiveRailAlpha),
-      disabledStartRailColor:
-          primaryColorDark.withAlpha(disabledActiveRailAlpha),
-      disabledEndRailColor:
-          primaryColorDark.withAlpha(disabledInactiveRailAlpha),
+      disabledStartRailColor: primaryColorDark.withAlpha(disabledActiveRailAlpha),
+      disabledEndRailColor: primaryColorDark.withAlpha(disabledInactiveRailAlpha),
       overlayColor: primaryColor.withAlpha(overlayLightAlpha),
       thumbShape: const RoundColorSliderThumbShape(),
       valueIndicatorShape: const PaddleSliderColorValueIndicatorShape(),
@@ -1174,11 +1130,10 @@ class GradientSliderThemeData with Diagnosticable {
     GradientSliderComponentShape valueIndicatorShape,
     ShowValueIndicator showValueIndicator,
   }) {
-    return new GradientSliderThemeData(
+    return GradientSliderThemeData(
       startRailColor: startRailColor ?? this.startRailColor,
       endRailColor: endRailColor ?? this.endRailColor,
-      disabledStartRailColor:
-          disabledStartRailColor ?? this.disabledStartRailColor,
+      disabledStartRailColor: disabledStartRailColor ?? this.disabledStartRailColor,
       disabledEndRailColor: disabledEndRailColor ?? this.disabledEndRailColor,
       overlayColor: overlayColor ?? this.overlayColor,
       thumbShape: thumbShape ?? this.thumbShape,
@@ -1187,39 +1142,33 @@ class GradientSliderThemeData with Diagnosticable {
     );
   }
 
-  static GradientSliderThemeData lerp(
-      GradientSliderThemeData a, GradientSliderThemeData b, double t) {
+  static GradientSliderThemeData lerp(GradientSliderThemeData a, GradientSliderThemeData b, double t) {
     assert(a != null);
     assert(b != null);
     assert(t != null);
-    return new GradientSliderThemeData(
+    return GradientSliderThemeData(
       startRailColor: Color.lerp(a.startRailColor, b.startRailColor, t),
       endRailColor: Color.lerp(a.endRailColor, b.endRailColor, t),
-      disabledStartRailColor:
-          Color.lerp(a.disabledStartRailColor, b.disabledStartRailColor, t),
-      disabledEndRailColor:
-          Color.lerp(a.disabledEndRailColor, b.disabledEndRailColor, t),
+      disabledStartRailColor: Color.lerp(a.disabledStartRailColor, b.disabledStartRailColor, t),
+      disabledEndRailColor: Color.lerp(a.disabledEndRailColor, b.disabledEndRailColor, t),
       overlayColor: Color.lerp(a.overlayColor, b.overlayColor, t),
       thumbShape: t < 0.5 ? a.thumbShape : b.thumbShape,
-      valueIndicatorShape:
-          t < 0.5 ? a.valueIndicatorShape : b.valueIndicatorShape,
+      valueIndicatorShape: t < 0.5 ? a.valueIndicatorShape : b.valueIndicatorShape,
       showValueIndicator: t < 0.5 ? a.showValueIndicator : b.showValueIndicator,
     );
   }
 
   @override
-  int get hashCode {
-    return hashValues(
-      startRailColor,
-      endRailColor,
-      disabledStartRailColor,
-      disabledEndRailColor,
-      overlayColor,
-      thumbShape,
-      valueIndicatorShape,
-      showValueIndicator,
-    );
-  }
+  int get hashCode => hashValues(
+        startRailColor,
+        endRailColor,
+        disabledStartRailColor,
+        disabledEndRailColor,
+        overlayColor,
+        thumbShape,
+        valueIndicatorShape,
+        showValueIndicator,
+      );
 
   @override
   bool operator ==(Object other) {
@@ -1230,52 +1179,26 @@ class GradientSliderThemeData with Diagnosticable {
       return false;
     }
     final GradientSliderThemeData otherData = other;
-    return otherData.startRailColor == startRailColor &&
-        otherData.endRailColor == endRailColor &&
-        otherData.disabledStartRailColor == disabledStartRailColor &&
-        otherData.disabledEndRailColor == disabledEndRailColor &&
-        otherData.overlayColor == overlayColor &&
-        otherData.thumbShape == thumbShape &&
-        otherData.valueIndicatorShape == valueIndicatorShape &&
-        otherData.showValueIndicator == showValueIndicator;
+    return otherData.startRailColor == startRailColor && otherData.endRailColor == endRailColor && otherData.disabledStartRailColor == disabledStartRailColor && otherData.disabledEndRailColor == disabledEndRailColor && otherData.overlayColor == overlayColor && otherData.thumbShape == thumbShape && otherData.valueIndicatorShape == valueIndicatorShape && otherData.showValueIndicator == showValueIndicator;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder description) {
     super.debugFillProperties(description);
-    final ThemeData defaultTheme = new ThemeData.fallback();
-    final GradientSliderThemeData defaultData =
-        new GradientSliderThemeData.fromPrimaryColors(
+    final defaultTheme = ThemeData.fallback();
+    final defaultData = GradientSliderThemeData.fromPrimaryColors(
       primaryColor: defaultTheme.primaryColor,
       primaryColorDark: defaultTheme.primaryColorDark,
       primaryColorLight: defaultTheme.primaryColorLight,
     );
-    description.add(new DiagnosticsProperty<Color>(
-        'activeRailColor', startRailColor,
-        defaultValue: defaultData.startRailColor));
-    description.add(new DiagnosticsProperty<Color>(
-        'inactiveRailColor', endRailColor,
-        defaultValue: defaultData.endRailColor));
-    description.add(new DiagnosticsProperty<Color>(
-        'disabledActiveRailColor', disabledStartRailColor,
-        defaultValue: defaultData.disabledStartRailColor,
-        level: DiagnosticLevel.debug));
-    description.add(new DiagnosticsProperty<Color>(
-        'disabledInactiveRailColor', disabledEndRailColor,
-        defaultValue: defaultData.disabledEndRailColor,
-        level: DiagnosticLevel.debug));
-    description.add(new DiagnosticsProperty<Color>('overlayColor', overlayColor,
-        defaultValue: defaultData.overlayColor, level: DiagnosticLevel.debug));
-    description.add(new DiagnosticsProperty<GradientSliderComponentShape>(
-        'thumbShape', thumbShape,
-        defaultValue: defaultData.thumbShape, level: DiagnosticLevel.debug));
-    description.add(new DiagnosticsProperty<GradientSliderComponentShape>(
-        'valueIndicatorShape', valueIndicatorShape,
-        defaultValue: defaultData.valueIndicatorShape,
-        level: DiagnosticLevel.debug));
-    description.add(new EnumProperty<ShowValueIndicator>(
-        'showValueIndicator', showValueIndicator,
-        defaultValue: defaultData.showValueIndicator));
+    description.add(DiagnosticsProperty<Color>('activeRailColor', startRailColor, defaultValue: defaultData.startRailColor));
+    description.add(DiagnosticsProperty<Color>('inactiveRailColor', endRailColor, defaultValue: defaultData.endRailColor));
+    description.add(DiagnosticsProperty<Color>('disabledActiveRailColor', disabledStartRailColor, defaultValue: defaultData.disabledStartRailColor, level: DiagnosticLevel.debug));
+    description.add(DiagnosticsProperty<Color>('disabledInactiveRailColor', disabledEndRailColor, defaultValue: defaultData.disabledEndRailColor, level: DiagnosticLevel.debug));
+    description.add(DiagnosticsProperty<Color>('overlayColor', overlayColor, defaultValue: defaultData.overlayColor, level: DiagnosticLevel.debug));
+    description.add(DiagnosticsProperty<GradientSliderComponentShape>('thumbShape', thumbShape, defaultValue: defaultData.thumbShape, level: DiagnosticLevel.debug));
+    description.add(DiagnosticsProperty<GradientSliderComponentShape>('valueIndicatorShape', valueIndicatorShape, defaultValue: defaultData.valueIndicatorShape, level: DiagnosticLevel.debug));
+    description.add(EnumProperty<ShowValueIndicator>('showValueIndicator', showValueIndicator, defaultValue: defaultData.showValueIndicator));
   }
 }
 
@@ -1291,27 +1214,21 @@ class GradientSliderTheme extends InheritedWidget {
   final SliderThemeData data;
 
   static GradientSliderThemeData of(BuildContext context) {
-    final SliderTheme inheritedTheme =
-        context.dependOnInheritedWidgetOfExactType(aspect: SliderTheme);
-    return inheritedTheme != null
-        ? inheritedTheme.data
-        : sliderToGradientSliderTheme(Theme.of(context).sliderTheme);
+    final inheritedTheme = context.dependOnInheritedWidgetOfExactType(aspect: SliderTheme) as SliderTheme;
+    return inheritedTheme != null ? inheritedTheme.data : sliderToGradientSliderTheme(Theme.of(context).sliderTheme);
   }
 
   @override
   bool updateShouldNotify(SliderTheme old) => data != old.data;
 
-  static GradientSliderThemeData sliderToGradientSliderTheme(
-          SliderThemeData sliderTheme) =>
-      new GradientSliderThemeData(
-          startRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
-          endRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
-          disabledStartRailColor:
-              sliderTheme.disabledActiveTrackColor ?? Colors.black,
-          disabledEndRailColor:
-              sliderTheme.disabledActiveTrackColor ?? Colors.black,
-          overlayColor: sliderTheme.overlayColor ?? Colors.black,
-          thumbShape: RoundColorSliderThumbShape(),
-          valueIndicatorShape: PaddleSliderColorValueIndicatorShape(),
-          showValueIndicator: ShowValueIndicator.always);
+  static GradientSliderThemeData sliderToGradientSliderTheme(SliderThemeData sliderTheme) => GradientSliderThemeData(
+        startRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
+        endRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
+        disabledStartRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
+        disabledEndRailColor: sliderTheme.disabledActiveTrackColor ?? Colors.black,
+        overlayColor: sliderTheme.overlayColor ?? Colors.black,
+        thumbShape: RoundColorSliderThumbShape(),
+        valueIndicatorShape: PaddleSliderColorValueIndicatorShape(),
+        showValueIndicator: ShowValueIndicator.always,
+      );
 }

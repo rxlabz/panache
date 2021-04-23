@@ -11,7 +11,7 @@ import 'theme_editor.dart';
 class PanacheEditorScreen extends StatefulWidget {
   @override
   PanacheEditorScreenState createState() {
-    return new PanacheEditorScreenState();
+    return PanacheEditorScreenState();
   }
 }
 
@@ -25,8 +25,7 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
     final isLargeLayout = MediaQuery.of(context).size.shortestSide >= 600;
     final isMobileInPortrait = inPortrait && !isLargeLayout;
 
-    return ScopedModelDescendant<ThemeModel>(
-        builder: (BuildContext context, Widget child, ThemeModel model) {
+    return ScopedModelDescendant<ThemeModel>(builder: (context, child, model) {
       final topbar = kIsWeb
           ? WebPanacheEditorTopbar(
               isMobileInPortrait: isMobileInPortrait,
@@ -40,14 +39,11 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
               showCode: showCode,
               onShowCodeChanged: (value) => setState(() => showCode = value),
             );
-      return isMobileInPortrait
-          ? _buildMobilePortraitLayout(isMobileInPortrait, model, topbar)
-          : _buildLargeLayout(isMobileInPortrait, model, topbar);
+      return isMobileInPortrait ? _buildMobilePortraitLayout(isMobileInPortrait, model, topbar) : _buildLargeLayout(isMobileInPortrait, model, topbar);
     });
   }
 
-  Scaffold _buildLargeLayout(
-      bool isMobileInPortrait, ThemeModel model, Widget topbar) {
+  Scaffold _buildLargeLayout(bool isMobileInPortrait, ThemeModel model, Widget topbar) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: topbar,
@@ -61,8 +57,7 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
     );
   }
 
-  Scaffold _buildMobilePortraitLayout(
-      bool isMobileInPortrait, ThemeModel model, Widget topbar) {
+  Scaffold _buildMobilePortraitLayout(bool isMobileInPortrait, ThemeModel model, Widget topbar) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: topbar,

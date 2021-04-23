@@ -29,12 +29,10 @@ class WebThemeService extends ThemeService<dynamic, dynamic> {
       });
   }
 
-  ThemeData _localize(ThemeData theme) =>
-      ThemeData.localize(theme, Typography.englishLike2018);
+  // ThemeData _localize(ThemeData theme) =>
+  //     ThemeData.localize(theme, Typography.englishLike2018);
 
-  void initTheme(
-      {MaterialColor primarySwatch: Colors.blue,
-      Brightness brightness: Brightness.light}) {
+  void initTheme({MaterialColor primarySwatch: Colors.blue, Brightness brightness: Brightness.light}) {
     //final inputTheme = InputDecoration().applyDefaults(InputDecorationTheme());
 
     _theme = ThemeData(
@@ -51,11 +49,10 @@ class WebThemeService extends ThemeService<dynamic, dynamic> {
 
   void updateTheme(ThemeData newTheme) => _theme = newTheme;
 
-  void exportTheme({String filename, String code}) =>
-      themeExporter(code, filename);
+  void exportTheme({String filename, String code}) => themeExporter(code, filename);
 
   void saveTheme(String filename) async {
-    final map = themeToMap(_theme);
+    themeToMap(_theme);
 
     if (_dir == null) {
       print('!!!! ThemeService.saveTheme... IMPLEMENT ME');

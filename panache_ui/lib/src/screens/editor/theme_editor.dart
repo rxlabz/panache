@@ -38,11 +38,10 @@ class ThemeEditorState extends State<ThemeEditor> {
     print('widget.model.scrollPosition ${widget.model.scrollPosition}');
     _initPanels();
 
-    scrollController =
-        ScrollController(initialScrollOffset: widget.model.scrollPosition ?? 0)
-          ..addListener(() {
-            widget.model.saveScrollPosition(scrollController.position.pixels);
-          });
+    scrollController = ScrollController(initialScrollOffset: widget.model.scrollPosition ?? 0)
+      ..addListener(() {
+        widget.model.saveScrollPosition(scrollController.position.pixels);
+      });
 
     super.initState();
   }
@@ -64,8 +63,7 @@ class ThemeEditorState extends State<ThemeEditor> {
   @override
   Widget build(BuildContext context) {
     final primaryColor = widget.model.theme.primaryColor;
-    final orientation = MediaQuery.of(context).orientation;
-    final inPortrait = orientation == Orientation.portrait;
+
     final useLargeLayout = MediaQuery.of(context).size.shortestSide >= 600;
 
     return Container(
@@ -140,10 +138,7 @@ class ThemeEditorState extends State<ThemeEditor> {
               _buildPanel(
                 widget.model,
                 'Primary Text Theme',
-                child: TypographyThemePanel(
-                    model: widget.model,
-                    themeRef: 'primaryTextTheme',
-                    txtTheme: widget.model.theme.primaryTextTheme),
+                child: TypographyThemePanel(model: widget.model, themeRef: 'primaryTextTheme', txtTheme: widget.model.theme.primaryTextTheme),
                 expanded: primaryTextPanelExpanded,
                 icon: Icons.font_download,
                 color: primaryColor,
@@ -152,10 +147,7 @@ class ThemeEditorState extends State<ThemeEditor> {
               _buildPanel(
                 widget.model,
                 'Accent Text Theme',
-                child: TypographyThemePanel(
-                    model: widget.model,
-                    themeRef: 'accentTextTheme',
-                    txtTheme: widget.model.theme.accentTextTheme),
+                child: TypographyThemePanel(model: widget.model, themeRef: 'accentTextTheme', txtTheme: widget.model.theme.accentTextTheme),
                 expanded: accentTextPanelExpanded,
                 icon: Icons.font_download,
                 color: primaryColor,
@@ -250,12 +242,15 @@ class ThemeEditorState extends State<ThemeEditor> {
     setState(() {});
   }
 
-  ExpansionPanel _buildPanel(ThemeModel model, String label,
-      {bool expanded: false,
-      IconData icon,
-      Color color,
-      Widget child,
-      bool dense}) {
+  ExpansionPanel _buildPanel(
+    ThemeModel model,
+    String label, {
+    bool expanded = false,
+    IconData icon,
+    Color color,
+    Widget child,
+    bool dense,
+  }) {
     return ExpansionPanel(
       isExpanded: expanded,
       headerBuilder: (context, isExpanded) => ExpanderHeader(
