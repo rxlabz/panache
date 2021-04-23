@@ -120,7 +120,7 @@ class ThemeColorPanel extends StatelessWidget {
             ),
             ColorSelector(
               'Text cursor color',
-              theme.textSelectionTheme.cursorColor,
+              theme.textSelectionTheme.cursorColor ?? Colors.blue,
               (c) => themeModel.updateColor(property: "cursorColor", color: c),
               padding: 2,
             ),
@@ -198,13 +198,13 @@ class ThemeColorPanel extends StatelessWidget {
           getFieldsRow([
             ColorSelector(
               'Text selection color',
-              theme.textSelectionTheme.selectionHandleColor,
+              theme.textSelectionTheme.selectionHandleColor ?? Colors.blue,
               (c) => themeModel.updateColor(property: "textSelectionColor", color: c),
               padding: 2,
             ),
             ColorSelector(
               'Text selection handler color',
-              theme.textSelectionTheme.selectionHandleColor,
+              theme.textSelectionTheme.selectionHandleColor ?? Colors.blue,
               (c) => themeModel.updateColor(property: "textSelectionHandleColor", color: c),
               padding: 2,
             ),

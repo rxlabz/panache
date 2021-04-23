@@ -32,28 +32,15 @@ class LaunchLayout extends StatelessWidget {
   }
 
   Column _buildDefaultLayout(BuildContext context, ThemeModel model, BoxConstraints constraints) {
-    final linkManager = Provider.of<LinkService>(context);
-
     final useLargeLayout = constraints.biggest.height >= 700;
 
     final orientation = MediaQuery.of(context).orientation;
     final inPortrait = orientation == Orientation.portrait;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: InkWell(
-                child: Image.asset('github.png', package: 'panache_ui'),
-                onTap: () => linkManager.open(_projectRepo),
-              ),
-            )
-          ],
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 60),
           child: PanacheLogo(

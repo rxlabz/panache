@@ -28,3 +28,30 @@ IconThemeData iconThemeFromMap(Map<String, dynamic> data) {
     size: data['size'] ?? 12.0,
   );
 }
+
+///TODO remover daqui isso
+
+TextSelectionThemeData textSelectionThemeDataFromMap(Map<String, dynamic> data) {
+  if (data == null) return null;
+  return TextSelectionThemeData(
+    cursorColor: data['cursorColor'] ?? Colors.green[400],
+    selectionColor: data['selectionColor'] ?? Colors.green[300],
+    selectionHandleColor: data['selectionHandleColor'] ?? Colors.green[900],
+  );
+}
+
+String textSelectionThemeDataToCode(TextSelectionThemeData theme) {
+  return '''TextSelectionThemeData(
+      cursorColor:  ${colorToCode(theme.cursorColor)},
+      selectionColor: ${colorToCode(theme.selectionColor)},
+      selectionHandleColor: ${colorToCode(theme.selectionHandleColor)},
+    )''';
+}
+
+Map<String, dynamic> textSelectionThemeDataToMap(TextSelectionThemeData theme) {
+  return {
+    'cursorColor': theme.cursorColor,
+    'selectionColor': theme.selectionColor,
+    'selectionHandleColor': theme.selectionHandleColor,
+  };
+}
