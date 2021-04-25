@@ -6,23 +6,17 @@ import '../utils/constants.dart';
 import 'converter_utils.dart';
 
 String buttonThemeToCode(ButtonThemeData buttonTheme) {
-  final buttonColor =
-      colorToCode(buttonTheme.getFillColor(enabledRaisedButton));
+  final buttonColor = colorToCode(buttonTheme.getFillColor(enabledRaisedButton));
 
-  final disabledColor =
-      colorToCode(buttonTheme.getDisabledFillColor(disabledRaisedButton));
+  final disabledColor = colorToCode(buttonTheme.getDisabledFillColor(disabledRaisedButton));
 
-  final highlightColor =
-      colorToCode(buttonTheme.getHighlightColor(enabledRaisedButton));
+  final highlightColor = colorToCode(buttonTheme.getHighlightColor(enabledRaisedButton));
 
-  final splashColor =
-      colorToCode(buttonTheme.getSplashColor(enabledRaisedButton));
+  final splashColor = colorToCode(buttonTheme.getSplashColor(enabledRaisedButton));
 
-  final focusColor =
-      colorToCode(buttonTheme.getFocusColor(enabledRaisedButton));
+  final focusColor = colorToCode(buttonTheme.getFocusColor(enabledRaisedButton));
 
-  final hoverColor =
-      colorToCode(buttonTheme.getHoverColor(enabledRaisedButton));
+  final hoverColor = colorToCode(buttonTheme.getHoverColor(enabledRaisedButton));
 
   return '''ButtonThemeData(
       textTheme: ${buttonTheme.textTheme},
@@ -51,9 +45,8 @@ Map<String, dynamic> buttonThemeToMap(ButtonThemeData buttonTheme) {
     'padding': paddingToMap(buttonTheme.padding),
     'shape': buttonShapeToMap(buttonTheme.shape),
     'alignedDropdown': buttonTheme.alignedDropdown ? 0 : 1,
-    'buttonColor': buttonTheme.getFillColor(enabledRaisedButton).value,
-    'disabledColor':
-        buttonTheme.getDisabledFillColor(disabledRaisedButton).value,
+    'buttonColor': buttonTheme.getFillColor(enabledRaisedButton)?.value ?? Colors.blue, //Aqui?
+    'disabledColor': buttonTheme.getDisabledFillColor(disabledRaisedButton).value,
     'highlightColor': buttonTheme.getHighlightColor(enabledRaisedButton).value,
     'splashColor': buttonTheme.getSplashColor(enabledRaisedButton).value,
     'focusColor': buttonTheme.getFocusColor(enabledRaisedButton).value,
@@ -65,19 +58,7 @@ Map<String, dynamic> buttonThemeToMap(ButtonThemeData buttonTheme) {
 ButtonThemeData buttonThemeFromMap(Map<String, dynamic> data) {
   if (data == null) return null;
 
-  return ButtonThemeData(
-      textTheme: ButtonTextTheme.values[max(0, data['textTheme'])],
-      minWidth: (data['minWidth'] as int).toDouble(),
-      height: (data['height'] as int).toDouble(),
-      padding: paddingFromMap(data['padding']),
-      shape: buttonShapeFromMap(data['shape']),
-      buttonColor: Color(data['buttonColor']),
-      disabledColor: Color(data['disabledColor']),
-      highlightColor: Color(data['highlightColor']),
-      splashColor: Color(data['splashColor']),
-      focusColor: Color(data['focusColor']),
-      hoverColor: Color(data['hoverColor']),
-      colorScheme: colorSchemeFromMap(data['colorScheme']));
+  return ButtonThemeData(textTheme: ButtonTextTheme.values[max(0, data['textTheme'])], minWidth: (data['minWidth'] as int).toDouble(), height: (data['height'] as int).toDouble(), padding: paddingFromMap(data['padding']), shape: buttonShapeFromMap(data['shape']), buttonColor: Color(data['buttonColor']), disabledColor: Color(data['disabledColor']), highlightColor: Color(data['highlightColor']), splashColor: Color(data['splashColor']), focusColor: Color(data['focusColor']), hoverColor: Color(data['hoverColor']), colorScheme: colorSchemeFromMap(data['colorScheme']));
 }
 
 String buttonShapeToCode(ShapeBorder border) {
@@ -99,11 +80,9 @@ String buttonShapeToCode(ShapeBorder border) {
 ''';
   }
 
-  if (border is StadiumBorder)
-    return '''StadiumBorder( side: ${borderSideToCode(border.side)} )''';
+  if (border is StadiumBorder) return '''StadiumBorder( side: ${borderSideToCode(border.side)} )''';
 
-  if (border is CircleBorder)
-    return '''CircleBorder( side: ${borderSideToCode(border.side)} )''';
+  if (border is CircleBorder) return '''CircleBorder( side: ${borderSideToCode(border.side)} )''';
 
   return 'null';
 }
@@ -115,30 +94,26 @@ Map<String, dynamic> buttonShapeToMap(ShapeBorder border) {
     return {
       'type': type,
       'radius': borderRadiusToMap(border.borderRadius),
-      'side':
-          border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
+      'side': border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
     };
   }
   if (border is BeveledRectangleBorder) {
     return {
       'type': type,
       'radius': borderRadiusToMap(border.borderRadius),
-      'side':
-          border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
+      'side': border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
     };
   }
   if (border is StadiumBorder) {
     return {
       'type': type,
-      'side':
-          border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
+      'side': border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
     };
   }
   if (border is CircleBorder) {
     return {
       'type': type,
-      'side':
-          border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
+      'side': border.side == BorderSide.none ? 'none' : borderSideToMap(border.side)
     };
   }
   return {
@@ -147,21 +122,13 @@ Map<String, dynamic> buttonShapeToMap(ShapeBorder border) {
 }
 
 ShapeBorder buttonShapeFromMap(Map<String, dynamic> data) {
-  if (data['type'] == 'RoundedRectangleBorder')
-    return RoundedRectangleBorder(
-        borderRadius: borderRadiusFromMap(data['radius']),
-        side: borderSideFromMap(data['side']));
+  if (data['type'] == 'RoundedRectangleBorder') return RoundedRectangleBorder(borderRadius: borderRadiusFromMap(data['radius']), side: borderSideFromMap(data['side']));
 
-  if (data['type'] == 'BeveledRectangleBorder')
-    return BeveledRectangleBorder(
-        borderRadius: borderRadiusFromMap(data['radius']),
-        side: borderSideFromMap(data['side']));
+  if (data['type'] == 'BeveledRectangleBorder') return BeveledRectangleBorder(borderRadius: borderRadiusFromMap(data['radius']), side: borderSideFromMap(data['side']));
 
-  if (data['type'] == 'StadiumBorder')
-    return StadiumBorder(side: borderSideFromMap(data['side']));
+  if (data['type'] == 'StadiumBorder') return StadiumBorder(side: borderSideFromMap(data['side']));
 
-  if (data['type'] == 'CircleBorder')
-    return CircleBorder(side: borderSideFromMap(data['side']));
+  if (data['type'] == 'CircleBorder') return CircleBorder(side: borderSideFromMap(data['side']));
 
   return RoundedRectangleBorder();
 }

@@ -62,7 +62,7 @@ class ThemeEditorState extends State<ThemeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = widget.model.theme.primaryColor;
+    final primaryColor = widget.model.theme?.primaryColor ?? Colors.red;
 
     final useLargeLayout = MediaQuery.of(context).size.shortestSide >= 600;
 
