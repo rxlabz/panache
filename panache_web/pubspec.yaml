@@ -6,6 +6,7 @@ environment:
   sdk: ">=2.10.0 <3.0.0"  
 
 dependencies:
+  shared_preferences: 2.0.5 
   flutter:
     sdk: flutter
 

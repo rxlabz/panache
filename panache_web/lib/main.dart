@@ -31,7 +31,12 @@ class PanacheApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = Theme.of(context).copyWith(
+        textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.indigo[500],
+      selectionColor: Colors.indigo[400],
+      selectionHandleColor: Colors.indigo[600],
+    ));
     return ScopedModel<ThemeModel>(
       model: themeModel,
       child: MaterialApp(
@@ -48,6 +53,6 @@ class PanacheApp extends StatelessWidget {
 }
 
 exportTheme(String code, String filename) async {
-  // print('exportTheme... $code');
+  print('exportTheme... $code');
   jsSaveTheme(code, filename, (success) => print('export $success'));
 }

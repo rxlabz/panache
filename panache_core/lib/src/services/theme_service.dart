@@ -30,22 +30,8 @@ abstract class ThemeService<D, F> {
 
   ThemeData _localize(ThemeData theme) => ThemeData.localize(theme, Typography.englishLike2018);
 
-  void initTheme({MaterialColor primarySwatch: Colors.blue, Brightness brightness: Brightness.light}) {
-    //final inputTheme = InputDecoration().applyDefaults(InputDecorationTheme());
-
-    _theme = ThemeData(
-      fontFamily: 'Roboto',
-      primarySwatch: primarySwatch,
-      brightness: brightness,
-      platform: TargetPlatform.iOS
-      /*Platform.isAndroid
-             ? TargetPlatform.android
-             : TargetPlatform.iOS*/
-      ,
-    );
-  }
-
-  void updateTheme(ThemeData newTheme) => _theme = newTheme;
+  void initTheme({MaterialColor primarySwatch: Colors.blue, Brightness brightness: Brightness.light});
+  void updateTheme(ThemeData newTheme);
 
   void exportTheme({String filename, String code}) => themeExporter(code, filename);
 

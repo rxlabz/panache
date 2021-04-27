@@ -34,19 +34,48 @@ class GlobalThemePropertiesControl extends StatelessWidget {
     );
   }
 
-  void _onBrightnessChanged(ThemeModel model, Brightness brightness) =>
-      model.updateTheme(ThemeData.localize(
-        ThemeData(
-          primarySwatch:
-              model.primarySwatch ?? swatchFor(color: model.theme.primaryColor),
-          brightness: brightness,
+  void _onBrightnessChanged(ThemeModel model, Brightness brightness) {
+    var primarySwatch = model.primarySwatch ??
+        swatchFor(
+          color: model.theme.primaryColor,
+        );
+    model.updateTheme(ThemeData.localize(
+      //TODO: ThemeData Change
+      ThemeData(
+        primarySwatch: model.primarySwatch ??
+            swatchFor(
+              color: model.theme.primaryColor,
+            ),
+        brightness: brightness,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: primarySwatch[100],
+          selectionColor: primarySwatch[300],
+          selectionHandleColor: primarySwatch[600],
         ),
-        model.theme.textTheme,
-      ));
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: primarySwatch[600],
+        ),
+      ),
+
+      model.theme.textTheme,
+    ));
+  }
 
   void _onSwatchSelection(ThemeModel model, MaterialColor swatch) {
     model.updateTheme(ThemeData.localize(
-        ThemeData(primarySwatch: swatch, brightness: model.theme.brightness),
+        //TODO: ThemeData Change
+        ThemeData(
+          primarySwatch: swatch,
+          brightness: model.theme.brightness,
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: swatch[100],
+            selectionColor: swatch[300],
+            selectionHandleColor: swatch[600],
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            fillColor: swatch[600],
+          ),
+        ),
         model.theme.textTheme));
   }
 }

@@ -34,20 +34,29 @@ class WebThemeService extends ThemeService<dynamic, dynamic> {
 
   void initTheme({MaterialColor primarySwatch: Colors.blue, Brightness brightness: Brightness.light}) {
     //final inputTheme = InputDecoration().applyDefaults(InputDecorationTheme());
-
+    //TODO: ThemeData Change
     _theme = ThemeData(
       fontFamily: 'Roboto',
       primarySwatch: primarySwatch,
       brightness: brightness,
-      platform: TargetPlatform.iOS
+      platform: TargetPlatform.iOS,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: primarySwatch[100],
+        selectionColor: primarySwatch[300],
+        selectionHandleColor: primarySwatch[600],
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: primarySwatch[600],
+      ),
       /*Platform.isAndroid
              ? TargetPlatform.android
              : TargetPlatform.iOS*/
-      ,
     );
   }
 
-  void updateTheme(ThemeData newTheme) => _theme = newTheme;
+  void updateTheme(ThemeData newTheme) {
+    _theme = newTheme;
+  }
 
   void exportTheme({String filename, String code}) => themeExporter(code, filename);
 

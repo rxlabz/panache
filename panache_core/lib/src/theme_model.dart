@@ -86,6 +86,10 @@ class ThemeModel extends Model {
     _themes.add(_currentTheme);
     localData.updateThemeList(_themes);
 
+    print('CursorColor: ${_service.theme.textSelectionTheme.cursorColor}');
+    print('SelectionColor: ${_service.theme.textSelectionTheme.selectionColor}');
+    print('SelectionHandleColor: ${_service.theme.textSelectionTheme.selectionHandleColor}');
+
     notifyListeners();
   }
 
@@ -94,6 +98,10 @@ class ThemeModel extends Model {
   void updateTheme(ThemeData updatedTheme) {
     _service.updateTheme(updatedTheme);
     saveTheme();
+
+    print('CursorColor: ${updatedTheme.textSelectionTheme.cursorColor}');
+    print('SelectionColor: ${updatedTheme.textSelectionTheme.selectionColor}');
+    print('SelectionHandleColor: ${updatedTheme.textSelectionTheme.selectionHandleColor}');
     notifyListeners();
   }
 
@@ -128,6 +136,11 @@ class ThemeModel extends Model {
     _currentTheme = theme;
     try {
       final result = await _service.loadTheme('${theme.id}.json');
+
+      print('CursorColor: ${result.textSelectionTheme.cursorColor}');
+      print('SelectionColor: ${result.textSelectionTheme.selectionColor}');
+      print('SelectionHandleColor: ${result.textSelectionTheme.selectionHandleColor}');
+
       notifyListeners();
       return result;
     } catch (error) {

@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:panache_core/panache_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../preview/app_preview.dart';
-import 'panels/editor_topbar.dart';
 import 'panels/editor_topbar_web.dart';
 import 'theme_editor.dart';
 
@@ -26,20 +24,16 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
     final isMobileInPortrait = inPortrait && !isLargeLayout;
 
     return ScopedModelDescendant<ThemeModel>(builder: (context, child, model) {
-      final topbar = kIsWeb
-          ? WebPanacheEditorTopbar(
-              isMobileInPortrait: isMobileInPortrait,
-              model: model,
-              showCode: showCode,
-              onShowCodeChanged: (value) => setState(() => showCode = value),
-            )
-          : MobilePanacheEditorTopbar(
-              isMobileInPortrait: isMobileInPortrait,
-              model: model,
-              showCode: showCode,
-              onShowCodeChanged: (value) => setState(() => showCode = value),
-            );
-      return isMobileInPortrait ? _buildMobilePortraitLayout(isMobileInPortrait, model, topbar) : _buildLargeLayout(isMobileInPortrait, model, topbar);
+      return _buildLargeLayout(
+        isMobileInPortrait,
+        model,
+        WebPanacheEditorTopbar(
+          isMobileInPortrait: isMobileInPortrait,
+          model: model,
+          showCode: showCode,
+          onShowCodeChanged: (value) => setState(() => showCode = value),
+        ),
+      );
     });
   }
 
@@ -51,20 +45,6 @@ class PanacheEditorScreenState extends State<PanacheEditorScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: ThemeEditor(model: model)),
-          Expanded(child: AppPreviewContainer(kIPhone6, showCode: showCode)),
-        ],
-      ),
-    );
-  }
-
-  Scaffold _buildMobilePortraitLayout(bool isMobileInPortrait, ThemeModel model, Widget topbar) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: topbar,
-      drawer: Drawer(child: ThemeEditor(model: model)),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
           Expanded(child: AppPreviewContainer(kIPhone6, showCode: showCode)),
         ],
       ),

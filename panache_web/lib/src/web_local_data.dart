@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:panache_core/panache_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'web_persistence_bridge.dart';
 
 const _panelsKey = 'panelsState';
 const _positionKey = 'scrollPosition';
+const _themeKey = 'themeKey';
 
 /// local persistence
 class WebLocalData implements LocalStorage {
@@ -29,23 +31,22 @@ class WebLocalData implements LocalStorage {
   double get scrollPosition => double.parse(jsGet(_positionKey) ?? '0');
 
   /// clear local themes list
-  PanacheTheme _themeDataFromJson(String data) => PanacheTheme.fromJson(data);
+  // PanacheTheme _themeDataFromJson(String data) => PanacheTheme.fromJson(data);
 
   // FIXME
   /// initialisation du stockage
   init() async {} /* => print('WebLocalData.init()')*/
 
   /// save the new local themes list
-  void updateThemeList(List<PanacheTheme> themes) {
-    /* FIXME
-      _prefs.setStringList(
-        _themeKey,
-        themes.map((theme) => theme.toJson()).toList(growable: false),
-      );*/
+  void updateThemeList(List<PanacheTheme> themes) async {
+    (await SharedPreferences.getInstance()).setStringList(
+      _themeKey,
+      themes.map((theme) => theme.toJson()).toList(growable: false),
+    );
   }
 
   /// remove the local theme list
-  void clear() => print('WebLocalData.clear()') /*_prefs.remove(_themeKey)*/;
+  void clear() async => (await SharedPreferences.getInstance()).remove(_themeKey);
 
   /// delete a local theme
   void deleteTheme(PanacheTheme theme) {

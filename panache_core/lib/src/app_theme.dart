@@ -2,31 +2,12 @@ import 'package:flutter/material.dart';
 
 const panachePrimarySwatch = Colors.blueGrey;
 
-/*final panacheTheme = ThemeData.localize(
-  ThemeData(
-      fontFamily: 'Roboto',
-      primarySwatch: panachePrimarySwatch,
-      textTheme: Typography.blackCupertino.copyWith(
-        bodyText2: Typography.blackCupertino.bodyText2.copyWith(fontSize: 12),
-        bodyText1: Typography.blackCupertino.bodyText1.copyWith(fontSize: 12),
-        subheadline6: Typography.blackCupertino.subtitle
-            .copyWith(color: panachePrimarySwatch.shade400, fontSize: 12),
-        headline6: Typography.blackCupertino.title
-            .copyWith(color: panachePrimarySwatch.shade300),
-        headline5: Typography.blackCupertino.headline
-            .copyWith(color: panachePrimarySwatch),
-      ),
-      primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
-      sliderTheme: ThemeData.light().sliderTheme),
-  Typography.blackCupertino,
-);*/
-
 ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
   final textTheme = theme.textTheme;
   final accentColor = primarySwatch[500];
   final primaryColorDark = primarySwatch[700];
 
-  return theme.copyWith(
+  var a = theme.copyWith(
     textTheme: textTheme.copyWith(
       bodyText1: textTheme.bodyText1.copyWith(fontSize: 12),
       bodyText2: textTheme.bodyText2.copyWith(fontSize: 12),
@@ -42,7 +23,11 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
     accentColor: accentColor,
     primaryIconTheme: IconThemeData.fallback().copyWith(color: Colors.yellow),
     secondaryHeaderColor: primarySwatch[50],
-    textSelectionTheme: TextSelectionThemeData(selectionColor: primarySwatch[200], selectionHandleColor: primarySwatch[300]),
+    textSelectionTheme: theme.textSelectionTheme.copyWith(
+      selectionColor: primarySwatch[100],
+      selectionHandleColor: primarySwatch[300],
+      cursorColor: primarySwatch[600],
+    ),
     backgroundColor: primarySwatch[200],
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: primarySwatch,
@@ -51,4 +36,10 @@ ThemeData buildAppTheme(ThemeData theme, MaterialColor primarySwatch) {
       cardColor: Colors.white,
     ),
   );
+
+  print('CursorColor: ${a.textSelectionTheme.cursorColor}');
+  print('SelectionColor: ${a.textSelectionTheme.selectionColor}');
+  print('SelectionHandleColor: ${a.textSelectionTheme.selectionHandleColor}');
+
+  return a;
 }

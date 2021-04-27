@@ -48,7 +48,7 @@ class InputDecorationThemePanel extends StatelessWidget {
             ),
             ColorSelector(
               'Fill color',
-              inputTheme.fillColor ?? Colors.white.withAlpha(0),
+              inputTheme.fillColor,
               (color) => _updateInputDecorationTheme(_copyInputDecorationThemeWith(inputTheme, fillColor: color, filled: true)),
               padding: 0,
             ),

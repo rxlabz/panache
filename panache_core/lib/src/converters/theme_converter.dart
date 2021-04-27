@@ -107,11 +107,6 @@ Map<String, dynamic> themeToMap(ThemeData theme) {
     'toggleableActiveColor': theme.toggleableActiveColor.value,
     'secondaryHeaderColor': theme.secondaryHeaderColor.value,
     'textSelectionTheme': textSelectionThemeDataToMap(theme.textSelectionTheme),
-    //
-    'cursorColor': theme.textSelectionTheme.cursorColor,
-    'selectionColor': theme.textSelectionTheme.selectionColor,
-    'selectionHandleColor': theme.textSelectionTheme.selectionHandleColor,
-    //
     'backgroundColor': theme.backgroundColor.value,
     'dialogBackgroundColor': theme.dialogBackgroundColor.value,
     'indicatorColor': theme.indicatorColor.value,
